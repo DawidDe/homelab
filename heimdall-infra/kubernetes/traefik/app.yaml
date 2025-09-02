@@ -14,7 +14,7 @@ spec:
       valueFiles:
       - $values/heimdall-infra/kubernetes/traefik/values.yaml
   - repoURL: 'https://github.com/DawidDe/homelab.git'
-    targetRevision: dev
+    targetRevision: HEAD
     ref: values
   project: default
   syncPolicy:
