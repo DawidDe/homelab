@@ -2,21 +2,20 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: traefik
-  namespace: argocd
 spec:
   destination:
     namespace: traefik
-    server: https://kubernetes.default.svc
+    server: 'https://kubernetes.default.svc'
   sources:
-    - chart: traefik
-      repoURL: https://traefik.github.io/charts
-      targetRevision: 37.0.0
-      helm:
+  - repoURL: 'https://traefik.github.io/charts'
+    chart: traefik
+    targetRevision: 37.0.0
+    helm:
       valueFiles:
-        - $values/heimdall-infra/kubernetes/traefik/values.yaml
-    - repoURL: 'https://github.com/DawidDe/homelab'
-      targetRevision: HEAD
-      ref: values
+      - $values/heimdall-infra/kubernetes/traefik/values.yaml
+  - repoURL: 'https://github.com/DawidDe/homelab.git'
+    targetRevision: dev
+    ref: values
   project: default
   syncPolicy:
     automated:
@@ -24,4 +23,4 @@ spec:
       selfHeal: false
       enable: true
     syncOptions:
-      - CreateNamespace=true
+    - CreateNamespace=true
