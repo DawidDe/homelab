@@ -4,7 +4,7 @@ resource "proxmox_vm_qemu" "talos-controlplane" {
     name = var.talos_controlplane.name
     onboot = var.talos_controlplane.onboot
     agent = var.talos_controlplane.agent
-    state = var.talos_controlplane.state
+    vm_state = var.talos_controlplane.vm_state
 
     bios = var.talos_controlplane.bios
     efidisk {

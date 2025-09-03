@@ -4,7 +4,7 @@ resource "proxmox_vm_qemu" "talos-worker" {
     name = var.talos_worker.name
     onboot = var.talos_worker.onboot
     agent = var.talos_worker.agent
-    state = var.talos_worker.state
+    vm_state = var.talos_worker.vm_state
 
     bios = var.talos_worker.bios
     efidisk {

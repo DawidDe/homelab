@@ -14,7 +14,7 @@ variable "talos_controlplane" {
         name              = string
         onboot            = bool
         agent             = number
-        state             = string
+        vm_state          = string
         bios              = string
         pre_enrolled_keys = bool
         efidisk_efitype   = string
@@ -42,7 +42,7 @@ variable "talos_worker" {
         name              = string
         onboot            = bool
         agent             = number
-        state             = string
+        vm_state          = string
         bios              = string
         pre_enrolled_keys = bool
         efidisk_efitype   = string
