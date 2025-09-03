@@ -28,6 +28,7 @@ variable "talos_controlplane" {
         balloon           = number
         network_id        = number
         network_bridge    = string
+        network_model     = string
         network_macaddr   = string
         ipconfig0         = string
     })
@@ -54,6 +55,7 @@ variable "talos_worker" {
         balloon           = number
         network_id        = number
         network_bridge    = string
+        network_model     = string
         network_macaddr   = string
         ipconfig0         = string
     })

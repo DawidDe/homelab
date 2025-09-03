@@ -42,6 +42,7 @@ resource "proxmox_vm_qemu" "talos-controlplane" {
     network {
         id = var.talos_controlplane.network_id
         bridge = var.talos_controlplane.network_bridge
+        model = var.talos_controlplane.network_model
         macaddr = var.talos_controlplane.network_macaddr
     }
     ipconfig0 = var.talos_controlplane.ipconfig0

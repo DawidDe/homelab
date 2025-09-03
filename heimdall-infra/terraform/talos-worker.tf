@@ -42,6 +42,7 @@ resource "proxmox_vm_qemu" "talos-worker" {
     network {
         id = var.talos_worker.network_id
         bridge = var.talos_worker.network_bridge
+        model = var.talos_worker.model
         macaddr = var.talos_worker.network_macaddr
     }
     ipconfig0 = var.talos_worker.ipconfig0
