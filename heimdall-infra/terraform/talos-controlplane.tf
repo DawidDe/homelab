@@ -6,10 +6,10 @@ resource "proxmox_vm_qemu" "talos-controlplane" {
     agent = var.talos_controlplane.agent
 
     bios = var.talos_controlplane.bios
-    pre_enrolled_keys = var.talos_controlplane.pre_enrolled_keys
     efidisk {
         efitype = var.talos_controlplane.efidisk_efitype
         storage = var.talos_controlplane.efidisk_storage
+        pre_enrolled_keys = var.talos_controlplane.pre_enrolled_keys
     }
 
     disks {

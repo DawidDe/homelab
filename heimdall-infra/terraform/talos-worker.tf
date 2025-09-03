@@ -6,10 +6,10 @@ resource "proxmox_vm_qemu" "talos-worker" {
     agent = var.talos_worker.agent
 
     bios = var.talos_worker.bios
-    pre_enrolled_keys = var.talos_worker.pre_enrolled_keys
     efidisk {
         efitype = var.talos_worker.efidisk_efitype
         storage = var.talos_worker.efidisk_storage
+        pre_enrolled_keys = var.talos_worker.pre_enrolled_keys
     }
 
     disks {
