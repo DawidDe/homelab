@@ -12,7 +12,7 @@ variable "talos_controlplane" {
         target_node       = string
         vmid              = number
         name              = string
-        onboot            = number
+        onboot            = bool
         agent             = number
         bios              = string
         pre_enrolled_keys = bool
@@ -39,7 +39,7 @@ variable "talos_worker" {
         target_node       = string
         vmid              = number
         name              = string
-        onboot            = number
+        onboot            = bool
         agent             = number
         bios              = string
         pre_enrolled_keys = bool
