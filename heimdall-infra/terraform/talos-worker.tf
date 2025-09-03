@@ -1,0 +1,48 @@
+resource "proxmox_vm_qemu" "talos-worker" {
+    target_node = var.talos_worker.target_node
+    vmid = var.talos_worker.vmid
+    name = var.talos_worker.name
+    onboot = var.talos_worker.onboot
+    agent = var.talos_worker.agent
+
+    bios = var.talos_worker.bios
+    pre_enrolled_keys = var.talos_worker.pre_enrolled_keys
+    efidisk {
+        efitype = var.talos_worker.efidisk_efitype
+        storage = var.talos_worker.efidisk_storage
+    }
+
+    disks {
+        ide {
+            ide2 {
+                cdrom {
+                    iso = var.talos_worker.iso
+                }
+            }
+        }
+        virtio {
+            virtio0 {
+                disk {
+                    storage = var.talos_worker.disk_storage
+                    size = var.talos_worker.disk_size
+                }
+            }
+        }
+    }
+
+    cpu {
+        sockets = var.talos_worker.cpu_sockets
+        cores = var.talos_worker.cpu_cores
+        type = var.talos_worker.cpu_type
+    }
+
+    memory = var.talos_worker.memory
+    balloon = var.talos_worker.balloon
+
+    network {
+        id = var.talos_worker.network_id
+        bridge = var.talos_worker.network_bridge
+        macaddr = var.talos_worker.network_macaddr
+    }
+    ipconfig0 = var.talos_worker.ipconfig0
+}
