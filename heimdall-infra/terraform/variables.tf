@@ -1,12 +1,3 @@
-variable "proxmox" {
-    type = object({
-        api_url          = string
-        api_token_id     = string
-        api_token_secret = string
-        tls_insecure     = bool
-    })
-}
-
 variable "talos_controlplane" {
     type = object({
         target_node       = string

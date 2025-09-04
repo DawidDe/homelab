@@ -1,10 +1,3 @@
-proxmox = {
-    api_url          = data.vault_kv_secret_v2.heimdall_infra.data["proxmox_api_url"]
-    api_token_id     = data.vault_kv_secret_v2.heimdall_infra.data["proxmox_api_token_id"]
-    api_token_secret = data.vault_kv_secret_v2.heimdall_infra.data["proxmox_api_token_"]
-    tls_insecure     = true
-}
-
 talos_controlplane = {
     target_node       = "heimdall"
     vmid              = 100

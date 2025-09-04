@@ -1,11 +1,13 @@
 provider "proxmox" {
-    pm_api_url = var.proxmox.api_url
-    pm_api_token_id = var.proxmox.api_token_id
-    pm_api_token_secret = var.proxmox.api_token_secret
-    pm_tls_insecure = var.proxmox.tls_insecure
+    pm_api_url = data.vault_kv_secret_v2.secrets.data["proxmox_api_url"]
+    pm_api_token_id = data.vault_kv_secret_v2.secrets.data["proxmox_api_token_id"]
+    pm_api_token_secret = data.vault_kv_secret_v2.secrets.data["proxmox_api_token_secret"]
+    pm_tls_insecure = true
 }
 
-provider "vault" {}
+provider "vault" {
+    skip_tls_verify = true
+}
 
 data "vault_kv_secret_v2" "secrets" {
     mount = "kv"
