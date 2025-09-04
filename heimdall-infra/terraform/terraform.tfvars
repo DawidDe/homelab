@@ -22,6 +22,7 @@ talos_controlplane = {
     network_model     = "virtio"
     network_macaddr   = "BC:24:11:7D:B5:B6"
     ipconfig0         = "ip=dhcp"
+    skip_ipv6         = true
 }
 
 talos_worker = {
@@ -48,6 +49,7 @@ talos_worker = {
     network_model     = "virtio"
     network_macaddr   = "BC:24:11:F4:67:6D"
     ipconfig0         = "ip=dhcp"
+    skip_ipv6         = true
 }
 
 truenas = {
@@ -74,4 +76,5 @@ truenas = {
     network_model     = "virtio"
     network_macaddr   = "BC:24:11:01:6C:A2"
     ipconfig0         = "ip=dhcp"
+    skip_ipv6         = true
 }

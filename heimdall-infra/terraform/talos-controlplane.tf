@@ -47,4 +47,5 @@ resource "proxmox_vm_qemu" "talos-controlplane" {
         macaddr = var.talos_controlplane.network_macaddr
     }
     ipconfig0 = var.talos_controlplane.ipconfig0
+    skip_ipv6 = var.talos_controlplane.skip_ipv6
 }

@@ -23,6 +23,7 @@ variable "talos_controlplane" {
         network_model     = string
         network_macaddr   = string
         ipconfig0         = string
+        skip_ipv6         = bool
     })
 }
 
@@ -51,6 +52,7 @@ variable "talos_worker" {
         network_model     = string
         network_macaddr   = string
         ipconfig0         = string
+        skip_ipv6         = bool
     })
 }
 
@@ -79,5 +81,6 @@ variable "truenas" {
         network_model     = string
         network_macaddr   = string
         ipconfig0         = string
+        skip_ipv6         = bool
     })
 }

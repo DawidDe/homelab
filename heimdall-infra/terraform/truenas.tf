@@ -47,4 +47,5 @@ resource "proxmox_vm_qemu" "truenas" {
         macaddr = var.truenas.network_macaddr
     }
     ipconfig0 = var.truenas.ipconfig0
+    skip_ipv6 = var.truenas.skip_ipv6
 }

@@ -47,4 +47,5 @@ resource "proxmox_vm_qemu" "talos-worker" {
         macaddr = var.talos_worker.network_macaddr
     }
     ipconfig0 = var.talos_worker.ipconfig0
+    skip_ipv6 = var.talos_worker.skip_ipv6
 }
