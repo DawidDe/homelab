@@ -52,6 +52,12 @@
         regexp: "^#?PasswordAuthentication"
         line: "PasswordAuthentication no"
         state: present
+    - name: Enable public key authentication
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^#?PubkeyAuthentication"
+        line: "PubkeyAuthentication yes"
+        state: present
     - name: Allow only non-root user
       lineinfile:
         path: /etc/ssh/sshd_config
