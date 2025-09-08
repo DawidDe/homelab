@@ -39,3 +39,47 @@
         shell: /bin/bash
         create_home: yes
         groups: sudo
+
+    - name: Disable root login
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^#?PermitRootLogin"
+        line: "PermitRootLogin no"
+        state: present
+    - name: Disable password authentication
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^#?PasswordAuthentication"
+        line: "PasswordAuthentication no"
+        state: present
+    - name: Allow only non-root user
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^#?AllowUsers"
+        line: "AllowUsers dawid@192.168.178.45"
+        state: present
+    - name: Disable X11 forwarding
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^#?X11Forwarding"
+        line: "X11Forwarding no"
+        state: present
+    - name: Limit SSH auth attempts
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^#?MaxAuthTries"
+        line: "MaxAuthTries 3"
+        state: present
+    - name: Restart SSH
+      service:
+        name: ssh
+        state: restarted
+        enabled: yes
+
+    - name: Set GRUB Timeout to 0
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^#?GRUB_TIMEOUT="
+        line: "GRUB:TIMEOUT=0"
+    - name: Update GRUB CONFIG
+      command: update-grub
