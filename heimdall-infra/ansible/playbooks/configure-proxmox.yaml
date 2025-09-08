@@ -35,6 +35,7 @@
     - name: Add non root user
       ansible.builtin.user:
         name: dawid
+        password: "$6$IHpgpX3owqdK8oj/$sJIKxk16VTGhQ5cpIMb/f04T1FeAje8OUwgtInM.YkLGs5ijtVKD6Iz/UZmLHDo/DxfUC3NZtGmkb3UauA67I."
         shell: /bin/bash
         create_home: yes
         groups: sudo
