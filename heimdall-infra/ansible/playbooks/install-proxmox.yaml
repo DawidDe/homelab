@@ -1,0 +1,41 @@
+---
+- name: Install Proxmox on Heimdall
+  hosts: heimdall
+  become: yes
+  tasks:
+    - name: Shutdown Server
+      dellemc.openmanage.ome_powerstate:
+        hostname: "192.168.178.2"
+        username: ""
+        password: ""
+        validate_certs: false
+        power_state: "off"
+    - name: Attach Proxmox ISO
+      dellemc.openmanage.idrac_virtual_media:
+        hostname: ""
+        username: ""
+        password: ""
+        validate_certs: false
+        force: true
+        virtual_media:
+          - index: 1
+            insert: true
+            image: "https://enterprise.proxmox.com/iso/proxmox-ve_9.0-1.iso"
+    - name: Set Virtual Media to boot
+      dellemc.openmanage.idrac_boot:
+        hostname: ""
+        username: ""
+        password: ""
+        validate_certs: ""
+        boot_oder:
+          - "Virtual CD/DVD"
+        boot_source_override_enabled: "once"
+        boot_source_override_target: "cd"
+        boot_source_override_mode: "uefi"
+    - name: Boot Server
+      dellemc.openmanage.ome_powerstate:
+        hostname: "192.168.178.2"
+        username: ""
+        password: ""
+        validate_certs: false
+        power_state: "on"
