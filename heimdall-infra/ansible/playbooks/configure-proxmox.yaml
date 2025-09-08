@@ -84,7 +84,7 @@
 
     - name: Set GRUB Timeout to 0
       lineinfile:
-        path: /etc/ssh/sshd_config
+        path: /etc/default/grub
         regexp: "^#?GRUB_TIMEOUT="
         line: "GRUB:TIMEOUT=0"
     - name: Update GRUB CONFIG
