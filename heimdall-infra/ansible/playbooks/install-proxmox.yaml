@@ -22,6 +22,7 @@
         virtual_media:
           - index: 1
             insert: true
+            media_type: "CD"
             image: "http://192.168.178.45:8000/home/dawid/homelab/heimdall-infra/iso/proxmox.iso"
     - name: Set Virtual Media to boot
       dellemc.openmanage.idrac_boot:
