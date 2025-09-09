@@ -15,8 +15,8 @@
     - name: Attach Proxmox ISO
       dellemc.openmanage.idrac_virtual_media:
         idrac_ip: "192.168.178.2"
-        username: ""
-        password: ""
+        idrac_user: ""
+        idrac_password: ""
         validate_certs: false
         force: true
         virtual_media:
@@ -26,8 +26,8 @@
     - name: Set Virtual Media to boot
       dellemc.openmanage.idrac_boot:
         idrac_ip: "192.168.178.2"
-        username: ""
-        password: ""
+        idrac_user: ""
+        idrac_password: ""
         validate_certs: false
         boot_oder:
           - "Virtual CD/DVD"
