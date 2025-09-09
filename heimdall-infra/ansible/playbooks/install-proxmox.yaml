@@ -11,7 +11,7 @@
         reset_type: "GracefulShutdown"
     - name: Attach Proxmox ISO
       dellemc.openmanage.idrac_virtual_media:
-        baseuri: "192.168.178.2"
+        idrac_ip: "192.168.178.2"
         username: ""
         password: ""
         validate_certs: false
@@ -22,7 +22,7 @@
             image: "https://enterprise.proxmox.com/iso/proxmox-ve_9.0-1.iso"
     - name: Set Virtual Media to boot
       dellemc.openmanage.idrac_boot:
-        baseuri: "192.168.178.2"
+        idrac_ip: "192.168.178.2"
         username: ""
         password: ""
         validate_certs: false
