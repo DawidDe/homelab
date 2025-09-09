@@ -32,6 +32,9 @@
         boot_source_override_mode: "uefi"
         boot_source_override_target: "cd"
         boot_source_override_enabled: "once"
+    - name: Wait for Server to mount iso
+      ansible.builtin.pause:
+        seconds: 30
     - name: Boot Server
       dellemc.openmanage.redfish_powerstate:
         baseuri: "192.168.178.2"
