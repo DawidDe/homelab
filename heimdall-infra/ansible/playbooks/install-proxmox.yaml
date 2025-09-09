@@ -1,7 +1,6 @@
 ---
 - name: Install Proxmox on Heimdall
   hosts: localhost
-  become: yes
   tasks:
     - name: Shutdown Server
       dellemc.openmanage.redfish_powerstate:
