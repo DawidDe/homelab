@@ -4,12 +4,12 @@
   become: yes
   tasks:
     - name: Shutdown Server
-      dellemc.openmanage.ome_powerstate:
+      dellemc.openmanage.redfish_powerstate:
         hostname: "192.168.178.2"
         username: ""
         password: ""
         validate_certs: false
-        power_state: "off"
+        reset_type: "GracefulShutdown"
     - name: Attach Proxmox ISO
       dellemc.openmanage.idrac_virtual_media:
         hostname: ""
@@ -33,9 +33,9 @@
         boot_source_override_target: "cd"
         boot_source_override_mode: "uefi"
     - name: Boot Server
-      dellemc.openmanage.ome_powerstate:
+      dellemc.openmanage.redfish_powerstate:
         hostname: "192.168.178.2"
         username: ""
         password: ""
         validate_certs: false
-        power_state: "on"
+        reset_type: "On"
