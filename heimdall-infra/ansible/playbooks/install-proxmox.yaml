@@ -11,7 +11,7 @@
         reset_type: "GracefulShutdown"
     - name: Wait for Server to Shutdown
       ansible.builtin.pause:
-        seconds: 30
+        seconds: 60
     - name: Attach Proxmox ISO
       dellemc.openmanage.idrac_virtual_media:
         idrac_ip: "192.168.178.2"
@@ -23,6 +23,9 @@
           - index: 1
             insert: true
             image: "192.168.178.45:/home/dawid/homelab/heimdall-infra/iso/proxmox.iso"
+    - name: Wait for Server to mount iso
+      ansible.builtin.pause:
+        seconds: 30
     - name: Set Virtual Media to boot
       dellemc.openmanage.idrac_boot:
         idrac_ip: "192.168.178.2"
@@ -32,13 +35,3 @@
         boot_source_override_mode: "uefi"
         boot_source_override_target: "cd"
         boot_source_override_enabled: "once"
-    - name: Wait for Server to mount iso
-      ansible.builtin.pause:
-        seconds: 30
-    - name: Boot Server
-      dellemc.openmanage.redfish_powerstate:
-        baseuri: "192.168.178.2"
-        username: ""
-        password: ""
-        validate_certs: false
-        reset_type: "On"
