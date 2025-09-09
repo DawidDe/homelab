@@ -29,11 +29,9 @@
         idrac_user: ""
         idrac_password: ""
         validate_certs: false
-        boot_oder:
-          - "Virtual CD/DVD"
-        boot_source_override_enabled: "once"
-        boot_source_override_target: "cd"
         boot_source_override_mode: "uefi"
+        boot_source_override_target: "cd"
+        boot_source_override_enabled: "once"
     - name: Boot Server
       dellemc.openmanage.redfish_powerstate:
         baseuri: "192.168.178.2"
