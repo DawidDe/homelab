@@ -1,0 +1,16 @@
+---
+  name: Setup Server
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - ../vars.yaml
+  tasks:
+    - name: Edit iDRAC User
+      dellemc.openmanage.idrac_user:
+        idrac_ip: "{{ idrac_ip }}"
+        idrac_user: "root"
+        idrac_password: "calvin"
+        state: "present"
+        user_name: "root"
+        new_user_name: "{{ idrac_user }}"
+        user_password: "{{ idrac_password }}"
