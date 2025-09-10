@@ -15,3 +15,22 @@
         user_name: "root"
         new_user_name: "{{ idrac_user }}"
         user_password: "{{ idrac_password }}"
+    - name: Edit BIOS Settings
+      dellemc.openmanage.idrac_bios:
+        idrac_ip: "{{ idrac_ip }}"
+        idrac_user: "{{ idrac_user }}"
+        idrac_password: "{{ idrac_password }}"
+        validate_certs: false
+        attributes:
+          BootMode: "Uefi"
+          SecureBoot: "Enabled"
+          SecureBootPolicy: "Standard"
+          InternalUsb: "Off"
+          EmbVideo: "Disabled"
+          SetupPassword: "{{ bios_setup_password }}"
+          SystemPassword: "{{ bios_system_password }}"
+          TpmCommand: "Activate"
+          TpmSecurity: "OnPbm"
+          SecurityFreezeLock: "Enabled"
+          WriteCache: "Disabled"
+          WriteCacheCrc: "Disabled"
