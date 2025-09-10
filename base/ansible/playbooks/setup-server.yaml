@@ -10,6 +10,7 @@
         idrac_ip: "{{ idrac_ip }}"
         idrac_user: "root"
         idrac_password: "calvin"
+        validate_certs: false
         state: "present"
         user_name: "root"
         new_user_name: "{{ idrac_user }}"
