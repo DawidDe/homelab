@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: false
   tasks:
-    - name: Shutdown Server
+    - name: Boot Server to ISO
       dellemc.openmanage.idrac_os_deployment:
         idrac_ip: "192.168.178.2"
         idrac_user: ""
