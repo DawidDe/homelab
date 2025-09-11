@@ -1,0 +1,14 @@
+[global]
+keyboard = "de"
+country = "de"
+fqdn = "heimdall.local"
+mailto = ""
+timezone = "Europe/Berlin"
+root-password = ""
+
+[network]
+source = "from-dhcp"
+
+[disk-setup]
+filesystem = "ext4"
+disk-list = ["sda"]

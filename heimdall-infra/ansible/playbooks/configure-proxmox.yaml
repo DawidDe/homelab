@@ -86,6 +86,6 @@
       lineinfile:
         path: /etc/default/grub
         regexp: "^#?GRUB_TIMEOUT="
-        line: "GRUB:TIMEOUT=0"
+        line: "GRUB_TIMEOUT=0"
     - name: Update GRUB CONFIG
       command: update-grub
