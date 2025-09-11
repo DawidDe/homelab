@@ -2,9 +2,9 @@
 keyboard = "de"
 country = "de"
 fqdn = "heimdall.local"
-mailto = ""
+mailto = "root@test.com"
 timezone = "Europe/Berlin"
-root-password = ""
+root-password = "12345678"
 
 [network]
 source = "from-dhcp"
