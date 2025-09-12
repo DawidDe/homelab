@@ -9,6 +9,6 @@
         idrac_user: ""
         idrac_password: ""
         validate_certs: false
-        share_name: "192.168.178.45:/home/dawid/homelab/heimdall-infra/iso"
+        share_name: "192.168.178.45:/home/dawid/homelab/base/iso"
         iso_image: "proxmox.iso"
         expose_duration: 180
