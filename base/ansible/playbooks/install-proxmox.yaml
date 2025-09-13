@@ -2,6 +2,8 @@
 - name: Install Proxmox on Heimdall
   hosts: localhost
   gather_facts: false
+  vars_files:
+    - ../vars.yaml
   tasks:
     - name: Boot Server to ISO
       dellemc.openmanage.idrac_os_deployment:
