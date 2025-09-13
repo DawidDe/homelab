@@ -1,7 +1,10 @@
 ---
-- name: Configure Proxmox on Heimdall
-  hosts: heimdall
+- name: Bootstrap Proxmox
   become: yes
+  vars:
+    ansible_host: "{{ proxmox_ip }}"
+    ansible_user: root
+    ansible_ssh_pass: 12345678
   tasks:
     - name: remove enterprise repo
       ansible.builtin.file:
@@ -39,6 +42,18 @@
         shell: /bin/bash
         create_home: yes
         groups: sudo
+    - name: Update root password
+      ansible.builtin.user:
+        name: root
+        password: "$6$IHpgpX3owqdK8oj/$sJIKxk16VTGhQ5cpIMb/f04T1FeAje8OUwgtInM.YkLGs5ijtVKD6Iz/UZmLHDo/DxfUC3NZtGmkb3UauA67I."
+    - name: Update hostname
+      ansible.builtin.hostname:
+        name: "{{ proxmox_name }}.local"
+    - name: Update /etc/hosts
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        regexp: "^proxmox.local"
+        line: "{{ proxmox_ip }} {{ proxmox_name }}.local {{ proxmox_name }}"
 
     - name: Disable root login
       lineinfile:
@@ -89,3 +104,6 @@
         line: "GRUB_TIMEOUT=0"
     - name: Update GRUB CONFIG
       command: update-grub
+
+    - name: Reboot Server
+      ansible.builtin.reboot:
