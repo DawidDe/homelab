@@ -14,9 +14,9 @@ services:
     cap_add:
       - IPC_LOCK
     volumes:
-      - ./config.hcl:/vault/config/vault.hcl:ro
-      - ./data:/vault/data
-    command: "server"
+      - /home/dawid/vault/config.hcl:/vault/config/vault.hcl:ro
+      - /home/dawid/vault/data:/vault/data
+    command: "server -config=/vault/config/vault.hcl"
 
 networks:
   traefik:
