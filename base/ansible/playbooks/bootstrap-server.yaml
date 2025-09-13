@@ -34,3 +34,12 @@
           SecurityFreezeLock: "Enabled"
           WriteCache: "Disabled"
           WriteCacheCrc: "Disabled"
+    - name: Boot Server to ISO
+      dellemc.openmanage.idrac_os_deployment:
+        idrac_ip: "{{ idrac_ip }}"
+        idrac_user: "{{ idrac_user }}"
+        idrac_password: "{{ idrac_password }}"
+        validate_certs: false
+        share_name: "192.168.178.45:/home/dawid/homelab/base/iso"
+        iso_image: "proxmox.iso"
+        expose_duration: 180
