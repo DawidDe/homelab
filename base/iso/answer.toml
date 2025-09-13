@@ -7,7 +7,10 @@ timezone = "Europe/Berlin"
 root-password = "12345678"
 
 [network]
-source = "from-dhcp"
+source = "from-answer"
+cidr = "192.168.178.3"
+dns = "192.168.178.131"
+gateway = "192.168.178.1"
 
 [disk-setup]
 filesystem = "ext4"
