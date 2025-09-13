@@ -17,3 +17,7 @@ services:
       - ./config.hcl:/vault/config/vault.hcl:ro
       - ./data:/vault/data
     command: "server"
+
+networks:
+  traefik:
+    external: true
