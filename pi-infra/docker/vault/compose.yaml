@@ -1,0 +1,19 @@
+services:
+  vault:
+    image: "hashicorp/vault:latest"
+    container_name: "vault"
+    restart: unless-stopped
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vault.rule=Host(`vault.dawidde.de`)"
+      - "traefik.http.routers.vault.entrypoints=websecure"
+      - "traefik.http.routers.vault.tls.certresolver=cloudflare"
+      - "traefik.http.routers.vault.loadbalancer.server.port=8200"
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - ./config.hcl:/vault/config/vault.hcl:ro
+      - ./data:/vault/data
+    command: "server"

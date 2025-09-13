@@ -5,6 +5,5 @@ terraform.tfstate
 terraform.tfstate.backup
 vars.yaml
 pi-infra/docker/omni/compose.yaml
-pi-infra/docker/traefik/compose.yaml
 pi-infra/docker/twingate/compose.yaml
-pi-infra/docker/vault/compose.yaml
+.env
