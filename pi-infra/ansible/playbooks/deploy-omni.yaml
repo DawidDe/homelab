@@ -1,0 +1,24 @@
+---
+- name: Deploy Omni
+  become: yes
+  vars:
+    ansible_host: "{{ proxmox_ip }}"
+    ansible_user: root
+    ansible_ssh_pass: 12345678
+  tasks:
+    - name: Install certbot
+      community.general.snap:
+        name: certbot
+        classic: true
+    - name: Allow for root access
+      ansible.builtin.command: sudo snap set certbot trust-plugin-with-root=ok
+    - name: Install DNS provider
+      community.general.snap:
+        name: certbot-dns-cloudflare
+    - name: Create creds file
+      ansible.builtin.lineinfile:
+        path: /home/dawid/omni/creds.ini
+        line: "dns_cloudflare_api_token = {{ cloudflare_api_token }}"
+        create: yes
+    - name: Create certs
+      ansible.builtin.command: certbot certonly --dns-cloudflare --dns-cloudflare-credentials /home/dawid/omni/creds.ini -d omni.dawidde.de
