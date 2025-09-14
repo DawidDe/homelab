@@ -1,13 +1,24 @@
 #!/bin/bash
 
+read -p "Enter vault token: " vault_token
+
+vault_address=vault.dawidde.de
+name=heimdall
+
 # 1. Bootstrap servers
-ansible-playbook ./base/ansible/playbooks/bootstrap-server.yaml -e "@./heimdall-infra/ansible/vars.yaml"
+ansible-playbook ./base/ansible/playbooks/bootstrap-server.yaml \
+    -e vault_address=${vault_token} \
+    -e vault_token=${vault_token} \
+    -e name=${name}
 
 # 2. Bootstrap proxmox
-ansible-playbook ./base/ansible/playbooks/bootstrap-proxmox.yaml -e "@./heimdall-infra/ansible/vars.yaml"
+ansible-playbook ./base/ansible/playbooks/bootstrap-proxmox.yaml \
+    -e vault_address=${vault_token} \
+    -e vault_token=${vault_token} \
+    -e name=${name}
 
 # 3. Terraform
-terraform apply \
-    --auto-approve \
+terraform apply --auto-approve \
+    -e vault_address=${vault_token} \
     -var="VAULT_TOKEN=${vault_token}" \
-    -var="name=heimdall"
+    -var="name=${name}"
