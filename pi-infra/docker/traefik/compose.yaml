@@ -9,7 +9,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./config/traefik.yaml:/etc/traefik/traefik.yaml:ro
-      - ./data/certs/:/var/traefik/certs/
+      - ./config/external-domains.yaml:/etc/traefik/external-domains.yaml:ro
+      - ./data/certs/:/var/traefik/certs/:rw
     ports:
       - "80:80"
       - "443:443"

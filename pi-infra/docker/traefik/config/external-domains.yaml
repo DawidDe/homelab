@@ -1,0 +1,15 @@
+http:
+  routers:
+    proxmox:
+      rule: "Host(`heimdall.dawidde.de`)"
+      entryPoints:
+        - websecure
+      service: proxmox-service
+      tls:
+        certResolver: cloudflare
+services:
+  proxmox-service:
+    loadBalancer:
+      servers:
+        - url: "https://192.168.178.3:8006"
+    passHostHeader: true
