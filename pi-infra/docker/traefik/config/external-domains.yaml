@@ -1,5 +1,13 @@
 http:
   routers:
+    iDRAC:
+      rule: "Host(`idrac.dawidde.de`)"
+      entryPoints:
+        - websecure
+      service: idrac-service
+      tls:
+        certResolver: cloudflare
+
     proxmox:
       rule: "Host(`heimdall.dawidde.de`)"
       entryPoints:
@@ -7,9 +15,14 @@ http:
       service: proxmox-service
       tls:
         certResolver: cloudflare
-services:
-  proxmox-service:
-    loadBalancer:
-      servers:
-        - url: "https://192.168.178.3:8006"
-    passHostHeader: true
+
+  services:
+    idrac-service:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.178.2"
+
+    proxmox-service:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.178.3:8006"
