@@ -6,10 +6,10 @@ provider "proxmox" {
 }
 
 provider "vault" {
-    skip_tls_verify = true
+    address = "https://vault.dawidde.de"
 }
 
 data "vault_kv_secret_v2" "secrets" {
     mount = "kv"
-    name = "heimdall_infra"
+    name = "heimdall-infra"
 }
