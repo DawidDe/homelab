@@ -1,31 +1,21 @@
+---
 services:
   traefik:
-    image: "traefik:latest"
-    container_name: "traefik"
+    image: traefik:latest
+    container_name: traefik
     restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
-    networks:
-      - traefik
-    command:
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--providers.docker.network=traefik"
-      - "--entryPoints.web.address=:80"
-      - "--entryPoints.websecure.address=:443"
-      - "--certificatesResolvers.cloudflare.acme.dnsChallenge=true"
-      - "--certificatesResolvers.cloudflare.acme.dnsChallenge.provider=cloudflare"
-      - "--certificatesResolvers.cloudflare.acme.email=${EMAIL}"
-      - "--certificatesResolvers.cloudflare.acme.storage=/letsencrypt/acme.json"
+    environment:
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/traefik.yaml:/etc/traefik/traefik.yaml:ro
+      - ./data/certs/:/var/traefik/certs/
     ports:
       - "80:80"
       - "443:443"
       - "8080:8080"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "./letsencrypt:/letsencrypt"
-    environment:
-      - CF_API_TOKEN=${CF_API_TOKEN}
+    networks:
+      - traefik
 
 networks:
   traefik:
