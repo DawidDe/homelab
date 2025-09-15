@@ -1,5 +1,6 @@
 ---
 - name: Bootstrap Proxmox
+  hosts: all
   become: yes
   vars:
     ansible_host: "{{ proxmox_ip }}"
@@ -42,7 +43,7 @@
     - name: Add non root user
       ansible.builtin.user:
         name: dawid
-        password: "$6$IHpgpX3owqdK8oj/$sJIKxk16VTGhQ5cpIMb/f04T1FeAje8OUwgtInM.YkLGs5ijtVKD6Iz/UZmLHDo/DxfUC3NZtGmkb3UauA67I."
+        password: "{{ proxmox_password | password_hash('sha512') }}"
         shell: /bin/bash
         create_home: yes
         groups: sudo
