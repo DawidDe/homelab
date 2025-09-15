@@ -5,9 +5,9 @@
   tasks:
     - name: Get vars
       set_fact:
-        idrac_ip: "{{ lookup('community.hashi_vault.vault_kv2', secret_path=name ~ '-infra', secret_key='idrac_ip', mount_path='kv', url=vault_address, token=vault_token) }}"
-        idrac_user: "{{ lookup('community.hashi_vault.vault_kv2', secret_path=name ~ '-infra', secret_key='idrac_user', mount_path='kv', url=vault_address, token=vault_token) }}"
-        idrac_password: "{{ lookup('community.hashi_vault.vault_kv2', secret_path=name ~ '-infra', secret_key='idrac_password', mount_path='kv', url=vault_address, token=vault_token) }}"
+        idrac_ip: "{{ lookup('community.hashi_vault.vault_kv2_get', secret_path=name ~ '-infra', secret_key='idrac_ip', mount_path='kv', url=vault_address, token=vault_token) }}"
+        idrac_user: "{{ lookup('community.hashi_vault.vault_kv2_get', secret_path=name ~ '-infra', secret_key='idrac_user', mount_path='kv', url=vault_address, token=vault_token) }}"
+        idrac_password: "{{ lookup('community.hashi_vault.vault_kv2_get', secret_path=name ~ '-infra', secret_key='idrac_password', mount_path='kv', url=vault_address, token=vault_token) }}"
     - name: Edit iDRAC User
       dellemc.openmanage.idrac_user:
         idrac_ip: "{{ idrac_ip }}"
