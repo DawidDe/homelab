@@ -5,9 +5,9 @@
   tasks:
     - name: Get vars
       set_fact:
-        idrac_ip: "{{ lookup('hashi_vault', 'secret=kv/' ~ name ~ '-infra:idrac_ip token=' ~ vault_token ~ 'url =' ~ vault_address) }}"
-        idrac_user: "{{ lookup('hashi_vault', 'secret=kv/' ~ name ~ '-infra:idrac_user token=' ~ vault_token ~ 'url =' ~ vault_address) }}"
-        idrac_password: "{{ lookup('hashi_vault', 'secret=kv/' ~ name ~ '-infra:idrac_password token=' ~ vault_token ~ 'url =' ~ vault_address) }}"
+        idrac_ip: "{{ lookup('hashi_vault', 'secret=kv/' ~ name ~ '-infra:idrac_ip token=' ~ vault_token ~ 'url=' ~ vault_address) }}"
+        idrac_user: "{{ lookup('hashi_vault', 'secret=kv/' ~ name ~ '-infra:idrac_user token=' ~ vault_token ~ 'url=' ~ vault_address) }}"
+        idrac_password: "{{ lookup('hashi_vault', 'secret=kv/' ~ name ~ '-infra:idrac_password token=' ~ vault_token ~ 'url=' ~ vault_address) }}"
     - name: Edit iDRAC User
       dellemc.openmanage.idrac_user:
         idrac_ip: "{{ idrac_ip }}"
