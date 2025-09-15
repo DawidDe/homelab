@@ -5,8 +5,8 @@
   tasks:
     - name: Retrieve Vars
       set_fact:
-        proxmox_ip: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=kv/' ~ name ~ '-infra:proxmox_ip token=' ~ vault_token ~ ' url=' ~ vault_address ~ ' version=2') }}"
-        proxmox_password: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=kv/' ~ name ~ '-infra:proxmox_password token=' ~ vault_token ~ ' url=' ~ vault_address ~ ' version=2') }}"
+        proxmox_ip: "{{ lookup('community.hashi_vault.vault_kv2', secret_path=name ~ '-infra', secret_key='proxmox_ip', mount_path='kv', url=vault_address, token=vault_token) }}"
+        proxmox_password: "{{ lookup('community.hashi_vault.vault_kv2', secret_path=name ~ '-infra', secret_key='proxmox_password', mount_path='kv', url=vault_address, token=vault_token) }}"
     - name: Add Host
       ansible.builtin.add_host:
         name: server
