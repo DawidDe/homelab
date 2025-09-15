@@ -10,7 +10,7 @@
     - name: Add Host
       ansible.builtin.add_host:
         name: server
-        ansible_host: "{{ proxmox_ip }}"
+        hostname: "{{ proxmox_ip }}"
         ansible_user: root
         ansible_ssh_pass: 12345678
 
