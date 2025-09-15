@@ -1,16 +1,24 @@
 ---
-- name: Bootstrap Proxmox
-  hosts: all
-  become: yes
-  vars:
-    ansible_host: "{{ proxmox_ip }}"
-    ansible_user: root
-    ansible_ssh_pass: 12345678
+- name: Add Host
+  hosts: localhost
+  gather_facts: false
   tasks:
-    - name: Get vars
+    - name: Retrieve Vars
       set_fact:
         proxmox_ip: "{{ lookup('hashi_vault', 'secret=kv/' ~ name ~ '-infra:proxmox_ip token=' ~ vault_token ~ 'url =' ~ vault_addr) }}"
         proxmox_password: "{{ lookup('hashi_vault', 'secret=kv/' ~ name ~ '-infra:proxmox_password token=' ~ vault_token ~ 'url =' ~ vault_addr) }}"
+    - name: Add Host
+      ansible.builtin.add_host:
+        name: server
+        ansible_host: "{{ proxmox_ip }}"
+        ansible_user: root
+        ansible_ssh_pass: 12345678
+
+- name: Bootstrap Proxmox
+  hosts: server
+  become: yes
+  vars:
+  tasks:
     - name: remove enterprise repo
       ansible.builtin.file:
         path: /etc/apt/sources.list.d/pve-enterprise.sources
