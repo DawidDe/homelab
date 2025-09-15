@@ -2,7 +2,7 @@
 
 read -p "Enter vault token: " vault_token
 
-vault_address=vault.dawidde.de
+vault_address=https://vault.dawidde.de
 name=heimdall
 
 # 1. Bootstrap servers
