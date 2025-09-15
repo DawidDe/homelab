@@ -7,15 +7,9 @@
       set_fact:
         proxmox_ip: "{{ lookup('community.hashi_vault.vault_kv2_get', secret_path=name ~ '-infra', secret_key='proxmox_ip', mount_path='kv', url=vault_address, token=vault_token) }}"
         proxmox_password: "{{ lookup('community.hashi_vault.vault_kv2_get', secret_path=name ~ '-infra', secret_key='proxmox_password', mount_path='kv', url=vault_address, token=vault_token) }}"
-    - name: Add Host
-      ansible.builtin.add_host:
-        name: server
-        hostname: "{{ proxmox_ip }}"
-        ansible_user: root
-        ansible_ssh_pass: 12345678
 
 - name: Bootstrap Proxmox
-  hosts: server
+  hosts: {{ proxmox_ip }}
   become: yes
   vars:
   tasks:
