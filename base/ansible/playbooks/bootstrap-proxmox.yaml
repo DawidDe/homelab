@@ -61,12 +61,12 @@
         password: "{{ proxmox_password | password_hash('sha512') }}"
     - name: Update hostname
       ansible.builtin.hostname:
-        name: "{{ proxmox_name }}.local"
+        name: "{{ name }}.local"
     - name: Update /etc/hosts
       ansible.builtin.lineinfile:
         path: /etc/hosts
         regexp: "^proxmox.local"
-        line: "{{ proxmox_ip }} {{ proxmox_name }}.local {{ proxmox_name }}"
+        line: "{{ proxmox_ip }} {{ name }}.local {{ name }}"
 
     - name: Disable root login
       lineinfile:
