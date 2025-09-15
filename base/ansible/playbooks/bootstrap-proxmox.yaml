@@ -5,8 +5,8 @@
   tasks:
     - name: Retrieve Vars
       set_fact:
-        proxmox_ip: "{{ lookup('community.hashi_vault.vault_kv2_get', secret_path=name ~ '-infra', secret_key='proxmox_ip', mount_path='kv', url=vault_address, token=vault_token) }}"
-        proxmox_password: "{{ lookup('community.hashi_vault.vault_kv2_get', secret_path=name ~ '-infra', secret_key='proxmox_password', mount_path='kv', url=vault_address, token=vault_token) }}"
+        proxmox_ip: "{{ lookup('community.hashi_vault.vault_kv2_get', engine_mount_point='v1/kv', secret_path=name ~ '-infra', secret_key='proxmox_ip', url=vault_address, token=vault_token) }}"
+        proxmox_password: "{{ lookup('community.hashi_vault.vault_kv2_get', engine_mount_point='v1/kv', secret_path=name ~ '-infra', secret_key='proxmox_password', url=vault_address, token=vault_token) }}"
     - name: Add Proxmox host dynamically
       add_host:
         name: "{{ proxmox_ip }}"
