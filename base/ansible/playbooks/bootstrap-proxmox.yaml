@@ -9,7 +9,7 @@
         proxmox_password: "{{ lookup('community.hashi_vault.vault_kv2_get', secret_path=name ~ '-infra', secret_key='proxmox_password', mount_path='kv', url=vault_address, token=vault_token) }}"
 
 - name: Bootstrap Proxmox
-  hosts: {{ proxmox_ip }}
+  hosts: "{{ proxmox_ip }}"
   become: yes
   vars:
   tasks:
