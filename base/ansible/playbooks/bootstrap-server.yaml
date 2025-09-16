@@ -3,11 +3,14 @@
   hosts: localhost
   gather_facts: false
   tasks:
-    - name: Get vars
+    - name: Retrieve Vars
       set_fact:
-        idrac_ip: "{{ lookup('community.hashi_vault.vault_kv2_get', engine_mount_point='v1/kv', secret_path=name ~ '-infra', secret_key='idrac_ip', url=vault_address, token=vault_token) }}"
-        idrac_user: "{{ lookup('community.hashi_vault.vault_kv2_get', engine_mount_point='v1/kv', secret_path=name ~ '-infra', secret_key='idrac_user', url=vault_address, token=vault_token) }}"
-        idrac_password: "{{ lookup('community.hashi_vault.vault_kv2_get', engine_mount_point='v1/kv', secret_path=name ~ '-infra', secret_key='idrac_password', url=vault_address, token=vault_token) }}"
+        secrets: "{{ lookup('hashi_vault', 'secret=kv/data/' ~ name ~ '-infra engine_mount_point=kv token=' ~ vault_token ~ ' url=' ~ vault_address) }}"
+    - name: Set Facts
+      set_fact:
+        idrac_ip: "{{ secrets.idrac_ip }}"
+        idrac_user: "{{ secrets.idrac_user }}"
+        idrac_password: "{{ secrets.idrac_password }}"
     - name: Edit iDRAC User
       dellemc.openmanage.idrac_user:
         idrac_ip: "{{ idrac_ip }}"

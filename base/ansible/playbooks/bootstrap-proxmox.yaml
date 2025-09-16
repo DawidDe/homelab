@@ -5,9 +5,12 @@
   tasks:
     - name: Retrieve Vars
       set_fact:
-        proxmox_ip: "{{ lookup('hashi_vault', 'secret=kv/' ~ name ~ '-infra:proxmox_ip token=' ~ vault_token ~ 'url =' ~ vault_address) }}"
-        proxmox_password: "{{ lookup('hashi_vault', 'secret=kv/' ~ name ~ '-infra:proxmox_password token=' ~ vault_token ~ 'url =' ~ vault_address) }}"
-    - name: Add Proxmox host dynamically
+        secrets: "{{ lookup('hashi_vault', 'secret=kv/data/' ~ name ~ '-infra engine_mount_point=kv token=' ~ vault_token ~ ' url=' ~ vault_address) }}"
+    - name: Set Facts
+      set_fact:
+        proxmox_ip: "{{ secrets.proxmox_ip }}"
+        proxmox_password: "{{ secrets.proxmox_password }}"
+    - name: Add Host
       add_host:
         name: "{{ proxmox_ip }}"
         groups: proxmox
