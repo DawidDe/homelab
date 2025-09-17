@@ -17,6 +17,7 @@
         groups: proxmox
         ansible_user: root
         ansible_ssh_private_key_file: /home/dawid/.ssh/master
+        proxmox_ip: "{{ proxmox_ip }}"
         proxmox_password: "{{ proxmox_password }}"
 
 - name: Bootstrap Proxmox
