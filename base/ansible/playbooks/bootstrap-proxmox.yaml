@@ -12,11 +12,11 @@
         proxmox_password: "{{ secrets.proxmox_password }}"
     - name: Add Host
       add_host:
+        hostname: "{{ name }}"
         name: "{{ proxmox_ip }}"
         groups: proxmox
         ansible_user: root
         ansible_ssh_private_key_file: /home/dawid/.ssh/master
-        hostname: "{{ hostname }}"
         proxmox_password: "{{ proxmox_password }}"
 
 - name: Bootstrap Proxmox
