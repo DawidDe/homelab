@@ -12,7 +12,6 @@ variable "vault_token" {
 
 variable "talos_controlplane" {
     type = object({
-        target_node       = string
         vmid              = number
         name              = string
         onboot            = bool
@@ -41,7 +40,6 @@ variable "talos_controlplane" {
 
 variable "talos_worker" {
     type = object({
-        target_node       = string
         vmid              = number
         name              = string
         onboot            = bool

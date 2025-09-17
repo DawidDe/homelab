@@ -1,5 +1,5 @@
 resource "proxmox_vm_qemu" "talos-controlplane" {
-    target_node = var.talos_controlplane.target_node
+    target_node = var.name
     vmid = var.talos_controlplane.vmid
     name = var.talos_controlplane.name
     onboot = var.talos_controlplane.onboot

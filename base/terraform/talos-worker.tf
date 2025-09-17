@@ -1,5 +1,5 @@
 resource "proxmox_vm_qemu" "talos-worker" {
-    target_node = var.talos_worker.target_node
+    target_node = var.name
     vmid = var.talos_worker.vmid
     name = var.talos_worker.name
     onboot = var.talos_worker.onboot

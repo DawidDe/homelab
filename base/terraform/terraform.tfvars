@@ -1,5 +1,4 @@
 talos_controlplane = {
-    target_node       = var.name
     vmid              = 100
     name              = "talos-controlplane"
     onboot            = true
@@ -26,7 +25,6 @@ talos_controlplane = {
 }
 
 talos_worker = {
-    target_node       = var.name
     vmid              = 101
     name              = "talos-worker"
     onboot            = true
