@@ -11,6 +11,7 @@
         idrac_ip: "{{ secrets.idrac_ip }}"
         idrac_user: "{{ secrets.idrac_user }}"
         idrac_password: "{{ secrets.idrac_password }}"
+        bios_password: "{{ secrets.bios_password }}"
     - name: Edit iDRAC User
       dellemc.openmanage.idrac_user:
         idrac_ip: "{{ idrac_ip }}"
@@ -33,8 +34,7 @@
           SecureBootPolicy: "Standard"
           InternalUsb: "Off"
           EmbVideo: "Disabled"
-          SetupPassword: "{{ bios_setup_password }}"
-          SystemPassword: "{{ bios_system_password }}"
+          SetupPassword: "{{ bios_password }}"
           TpmCommand: "Activate"
           TpmSecurity: "OnPbm"
           SecurityFreezeLock: "Enabled"
