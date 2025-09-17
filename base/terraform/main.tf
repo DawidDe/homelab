@@ -6,8 +6,8 @@ provider "proxmox" {
 }
 
 provider "vault" {
-    address = "${var.address}"
-    token = "${var.token}"
+    address = "${var.vault_address}"
+    token = "${var.vault_token}"
 }
 
 data "vault_kv_secret_v2" "secrets" {
