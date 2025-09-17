@@ -1,5 +1,5 @@
 ---
-- name: Bootstrap Server
+- name: Bootstrap Os
   hosts: localhost
   gather_facts: false
   tasks:
