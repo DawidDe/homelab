@@ -1,3 +1,15 @@
+variable "name" {
+    type = string
+}
+
+variable "vault_address" {
+    type = string
+}
+
+variable "vault_token" {
+    type = string
+}
+
 variable "talos_controlplane" {
     type = object({
         target_node       = string

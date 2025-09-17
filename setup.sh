@@ -19,6 +19,6 @@ ansible-playbook ./base/ansible/playbooks/bootstrap-proxmox.yaml \
 
 # 3. Terraform
 terraform apply --auto-approve \
-    -e vault_address=${vault_address} \
-    -var="VAULT_TOKEN=${vault_token}" \
+    -var="vault_address=${vault_address}" \
+    -var="vault_token=${vault_token}" \
     -var="name=${name}"

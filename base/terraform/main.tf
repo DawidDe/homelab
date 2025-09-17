@@ -6,7 +6,8 @@ provider "proxmox" {
 }
 
 provider "vault" {
-    address = "https://vault.dawidde.de"
+    address = "${var.address}"
+    token = "${var.token}"
 }
 
 data "vault_kv_secret_v2" "secrets" {
