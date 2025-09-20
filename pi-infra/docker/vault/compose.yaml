@@ -11,21 +11,6 @@ services:
       - VAULT_ADDR=https://vault.dawidde.de
     cap_add:
       - IPC_LOCK
-    networks:
-      - traefik
+    network_mode: "host"
     command: server
     restart: always
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.vault-http.rule=Host(`vault.dawidde.de`)
-      - traefik.http.routers.vault-http.entrypoints=web
-      - traefik.http.routers.vault-http.middlewares=vault-https-redirect
-      - traefik.http.middlewares.vault-https-redirect.redirectScheme.scheme=https
-      - traefik.http.routers.vault-https.rule=Host(`vault.dawidde.de`)
-      - traefik.http.routers.vault-https.entrypoints=websecure
-      - traefik.http.routers.vault-https.tls=true
-      - traefik.http.routers.vault-https.tls.certResolver=cloudflare
-
-networks:
-  traefik:
-    external: true
