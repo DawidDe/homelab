@@ -14,9 +14,9 @@ spec:
     helm:
       valueFiles:
       - $values/base/kubernetes/external-secrets-operator/values.yaml
-    parameters:
-      - name: installCRDs
-        value: "true"
+      parameters:
+        - name: installCRDs
+          value: "true"
   - repoURL: 'https://github.com/DawidDe/homelab.git'
     targetRevision: HEAD
     ref: values
