@@ -13,7 +13,7 @@ spec:
     targetRevision: 0.10.0
     helm:
       valueFiles:
-      - $values/heimdall-infra/kubernetes/vault-secrets-operator/values.yaml
+      - $values/heimdall-infra/base/kubernetes/vault-secrets-operator/values.yaml
   - repoURL: 'https://github.com/DawidDe/homelab.git'
     targetRevision: HEAD
     ref: values
