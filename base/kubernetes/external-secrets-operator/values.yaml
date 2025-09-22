@@ -1,884 +1,664 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: BUSL-1.1
-
-# Top level configuration for the vault secrets operator deployment.
-# This consists of a controller and a kube rbac proxy container.
-controller:
-  # Set the number of replicas for the operator.
-  # @type: integer
-  replicas: 1
-
-  # Configure update strategy for multi-replica deployments.
-  # Kubernetes supports types Recreate, and RollingUpdate
-  # ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
-  # Example:
-  # strategy: {}
-  #   rollingUpdate:
-  #     maxSurge: 1
-  #     maxUnavailable: 0
-  #   type: RollingUpdate
-  # @type: object
-  strategy: {}
-
-  # Host Aliases settings for vault-secrets-operator pod.
-  # The value is an array of PodSpec HostAlias maps.
-  # ref: https://kubernetes.io/docs/tasks/network/customize-hosts-file-for-pods/
-  # Example:
-  # hostAliases:
-  #   - ip: 192.168.1.100
-  #     hostnames:
-  #     - vault.example.com
-  # @type: array<map>
-  hostAliases: []
-
-  # nodeSelector labels for vault-secrets-operator pod assignment.
-  # @type: map
-  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
-  # Example:
-  # nodeSelector:
-  #   beta.kubernetes.io/arch: amd64
+global:
   nodeSelector: {}
-  # Toleration Settings for vault-secrets-operator pod.
-  # The value is an array of PodSpec Toleration maps.
-  # ref: https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
-  # @type: array<map>
-  # Example:
-  # tolerations:
-  #  - key: "key1"
-  #    operator: "Equal"
-  #    value: "value1"
-  #    effect: "NoSchedule"
   tolerations: []
-
-  # Affinity settings for vault-secrets-operator pod.
-  # The value is a map of PodSpec Affinity maps.
-  # ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
-  # Example:
-  # affinity:
-  #   nodeAffinity:
-  #     requiredDuringSchedulingIgnoredDuringExecution:
-  #       nodeSelectorTerms:
-  #       - matchExpressions:
-  #         - key: topology.kubernetes.io/zone
-  #           operator: In
-  #           values:
-  #           - antarctica-east1
-  #           - antarctica-west1
+  topologySpreadConstraints: []
   affinity: {}
+  compatibility:
+    openshift:
+      # -- Manages the securityContext properties to make them compatible with OpenShift.
+      # Possible values:
+      # auto - Apply configurations if it is detected that OpenShift is the target platform.
+      # force - Always apply configurations.
+      # disabled - No modification applied.
+      adaptSecurityContext: auto
 
-  rbac:
-    # clusterRoleAggregation defines the roles included in the aggregated ClusterRole.
-    clusterRoleAggregation:
-      # viewerRoles is a list of roles that will be aggregated into the viewer ClusterRole.
-      # The role name must be that of any VSO resource type. E.g. "VaultAuth", "HCPAuth".
-      # All values are case-insensitive.
-      # Specifying '*' as the first element will include all roles in the aggregation.
-      #
-      # The ClusterRole name takes the form of `<chart-fullname>`-aggregate-role-viewer.
-      #
-      # Example usages:
-      # all roles:
-      # - '*'
-      # individually specified roles:
-      # - "VaultAuth"
-      # - "HCPAuth"
-      # @type: array<string>
-      viewerRoles: []
+replicaCount: 1
 
-      # editorRoles is a list of roles that will be aggregated into the editor ClusterRole.
-      # The role name must be that of any VSO resource type. E.g. "VaultAuth", "HCPAuth".
-      # All values are case-insensitive.
-      # Specifying '*' as the first element will include all roles in the aggregation.
-      #
-      # The ClusterRole name takes the form of `<chart-fullname>`-aggregate-role-editor.
-      #
-      # Example usages:
-      # all roles:
-      # - '*'
-      # individually specified roles:
-      # - "VaultAuth"
-      # - "HCPAuth"
-      # @type: array<string>
-      editorRoles: []
+bitwarden-sdk-server:
+  enabled: false
+  namespaceOverride: ""
 
-      # userFacingRoles is a map of roles that will be aggregated into the viewer and editor ClusterRoles.
-      # See https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles for more information.
-      # @type: object
-      userFacingRoles:
-        # view controls whether the aggregated viewer ClusterRole will be made available to the user-facing
-        # 'view' ClusterRole. Requires the viewerRoles to be set.
-        # @type: boolean
-        view: false
-        # view controls whether the aggregated editor ClusterRole will be made available to the user-facing
-        # 'edit' ClusterRole. Requires the editorRoles to be set.
-        # @type: boolean
-        edit: false
+# -- Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
+revisionHistoryLimit: 10
 
-  # Settings related to the kubeRbacProxy container. This container is an HTTP proxy for the
-  # controller manager which performs RBAC authorization against the Kubernetes API using SubjectAccessReviews.
-  kubeRbacProxy:
-    # Image sets the repo and tag of the kube-rbac-proxy image to use for the controller.
-    image:
-      pullPolicy: IfNotPresent
-      repository: quay.io/brancz/kube-rbac-proxy
-      tag: v0.18.1
+image:
+  repository: oci.external-secrets.io/external-secrets/external-secrets
+  pullPolicy: IfNotPresent
+  # -- The image tag to use. The default is the chart appVersion.
+  tag: ""
+  # -- The flavour of tag you want to use
+  # There are different image flavours available, like distroless and ubi.
+  # Please see GitHub release notes for image tags for these flavors.
+  # By default, the distroless image is used.
+  flavour: ""
 
-    # Configures the default resources for the kube rbac proxy container.
-    # For more information on configuring resources, see the K8s documentation:
-    # https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-    # @recurse: true
-    # @type: map
-    resources:
-      limits:
-        cpu: 500m
-        memory: 128Mi
-      requests:
-        cpu: 5m
-        memory: 64Mi
+# -- If set, install and upgrade CRDs through helm chart.
+installCRDs: true
 
-  # Image pull secret to use for private container registry authentication which will be applied to the controllers
-  # service account. Alternatively, the value may be specified as an array of strings.
-  # Example:
-  # ```yaml
-  # imagePullSecrets:
-  #   - name: pull-secret-name-1
-  #   - name: pull-secret-name-2
-  # ```
-  # Refer to https://kubernetes.io/docs/concepts/containers/images/#using-a-private-registry.
-  # @type: array<map>
-  imagePullSecrets: []
-
-  # Extra labels to attach to the deployment. This should be formatted as a YAML object (map)
-  extraLabels: {}
-
-  # This value defines additional annotations for the deployment. This should be formatted as a YAML object (map)
+crds:
+  # -- If true, create CRDs for Cluster External Secret.
+  createClusterExternalSecret: true
+  # -- If true, create CRDs for Cluster Secret Store.
+  createClusterSecretStore: true
+  # -- If true, create CRDs for Cluster Generator.
+  createClusterGenerator: true
+  # -- If true, create CRDs for Cluster Push Secret.
+  createClusterPushSecret: true
+  # -- If true, create CRDs for Push Secret.
+  createPushSecret: true
   annotations: {}
+  conversion:
+    # -- Conversion is disabled by default as we stopped supporting v1alpha1.
+    enabled: false
 
-  # Settings related to the vault-secrets-operator container.
-  manager:
-    # Image sets the repo and tag of the vault-secrets-operator image to use for the controller.
-    image:
-      pullPolicy: IfNotPresent
-      repository: hashicorp/vault-secrets-operator
-      tag: 0.10.0
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+namespaceOverride: ""
 
-    # logging
-    logging:
-      # Sets the log level for the operator.
-      # Builtin levels are: info, error, debug, debug-extended, trace
-      # Default: info
-      # @type: string
-      level: info
+# -- Additional labels added to all helm chart resources.
+commonLabels: {}
 
-      # Sets the time encoding for the operator.
-      # Options are: epoch, millis, nano, iso8601, rfc3339, rfc3339nano
-      # Default: rfc3339
-      # @type: string
-      timeEncoding: rfc3339
+# -- If true, external-secrets will perform leader election between instances to ensure no more
+# than one instance of external-secrets operates at a time.
+leaderElect: false
 
-      # Sets the stacktrace level for the operator.
-      # Options are: info, error, panic
-      # Default: panic
-      # @type: string
-      stacktraceLevel: panic
+# -- If set external secrets will filter matching
+# Secret Stores with the appropriate controller values.
+controllerClass: ""
 
-    # Global secret transformation options. In addition to the boolean options
-    # below, these options may be set via the
-    # `VSO_GLOBAL_TRANSFORMATION_OPTIONS` environment variable as a
-    # comma-separated list. Valid values are: `exclude-raw`
-    globalTransformationOptions:
-      # excludeRaw directs the operator to prevent _raw secret data being stored
-      # in the destination K8s Secret.
-      excludeRaw: false
+# -- If true external secrets will use recommended kubernetes
+# annotations as prometheus metric labels.
+extendedMetricLabels: false
 
-    # Global Vault auth options. In addition to the boolean options
-    # below, these options may be set via the
-    # `VSO_GLOBAL_VAULT_OPTION_OPTIONS` environment variable as a
-    # comma-separated list. Valid values are: `allow-default-globals`
-    globalVaultAuthOptions:
-      # allowDefaultGlobals directs the operator search for a "default"
-      # VaultAuthGlobal if none is specified on the referring VaultAuth CR.
-      # Default: true
-      # @type: boolean
-      allowDefaultGlobals: true
+# -- If set external secrets are only reconciled in the
+# provided namespace
+scopedNamespace: ""
 
-    # Backoff settings for the controller manager. These settings control the backoff behavior
-    # when the controller encounters an error while fetching secrets from the SecretSource.
-    # For example given the following settings:
-    #   initialInterval: 5s
-    #   maxInterval: 60s
-    #   randomizationFactor: 0.5
-    #   multiplier: 1.5
-    #
-    # The backoff retry sequence might be something like:
-    #  5.5s, 7.5s, 11.25s, 16.87s, 25.3125s, 37.96s, 56.95, 60.95s...
-    # @type: object
-    backoffOnSecretSourceError:
-      # Initial interval between retries.
-      # @type: duration
-      initialInterval: "5s"
-      # Maximum interval between retries.
-      # @type: duration
-      maxInterval: "60s"
-      # Maximum elapsed time without a successful sync from the secret's source.
-      # It's important to note that setting this option to anything other than
-      # its default will result in the secret sync no longer being retried after
-      # reaching the max elapsed time.
-      # @type: duration
-      maxElapsedTime: "0s"
-      # Randomization factor randomizes the backoff interval between retries.
-      # This helps to spread out the retries to avoid a thundering herd.
-      # If the value is 0, then the backoff interval will not be randomized.
-      # It is recommended to set this to a value that is greater than 0.
-      # @type: float
-      randomizationFactor: 0.5
-      # Sets the multiplier that is used to increase the backoff interval between retries.
-      # This value should always be set to a value greater than 0.
-      # The value must be greater than zero.
-      # @type: float
-      multiplier: 1.5
+# -- Must be used with scopedNamespace. If true, create scoped RBAC roles under the scoped namespace
+# and implicitly disable cluster stores and cluster external secrets
+scopedRBAC: false
 
-    # Configures the client cache which is used by the controller to cache (and potentially persist) vault tokens that
-    # are the result of using the VaultAuthMethod. This enables re-use of Vault Tokens
-    # throughout their TTLs as well as the ability to renew.
-    # Persistence is only useful in the context of Dynamic Secrets, so "none" is an okay default.
-    clientCache:
-      # Defines the `-client-cache-persistence-model` which caches+persists vault tokens.
-      # May also be set via the `VSO_CLIENT_CACHE_PERSISTENCE_MODEL` environment variable.
-      # Valid values are:
-      # "none" - in-memory client cache is used, no tokens are persisted.
-      # "direct-unencrypted" - in-memory client cache is persisted, unencrypted. This is NOT recommended for any production workload.
-      # "direct-encrypted" - in-memory client cache is persisted encrypted using the Vault Transit engine.
-      # Note: It is strongly encouraged to not use the setting of "direct-unencrypted" in
-      # production due to the potential of vault tokens being leaked as they would then be stored
-      # in clear text.
-      #
-      # default: "none"
-      # @type: string
-      persistenceModel: ""
+# -- If true the OpenShift finalizer permissions will be added to RBAC
+openshiftFinalizers: true
 
-      # Defines the size of the in-memory LRU cache *in entries*, that is used by the client cache controller.
-      # May also be set via the `VSO_CLIENT_CACHE_SIZE` environment variable.
-      # Larger numbers will increase memory usage by the controller, lower numbers will cause more frequent evictions
-      # of the client cache which can result in additional Vault client counts.
-      #
-      # default: 10000
-      # @type: integer
-      cacheSize:
+# -- If true the system:auth-delegator ClusterRole will be added to RBAC
+systemAuthDelegator: false
 
-      # Defines the number of locks to use for the Vault client cache controller.
-      # May also be set via the `VSO_CLIENT_CACHE_NUM_LOCKS` environment variable.
-      #
-      # Setting this value less than 1 will cause the manager to set the number of locks equal
-      # to the number of logical CPUs of the run host.
-      #
-      # See the VSO help output for more information.
-      #
-      # default: 100
-      # @type: integer
-      numLocks:
+# -- if true, the operator will process cluster external secret. Else, it will ignore them.
+# When enabled, this adds update/patch permissions on namespaces to handle finalizers for proper
+# cleanup during namespace deletion, preventing race conditions with ExternalSecrets.
+processClusterExternalSecret: true
 
-      # StorageEncryption provides the necessary configuration to encrypt the client storage
-      # cache within Kubernetes objects using (required) Vault Transit Engine.
-      # This should only be configured when client cache persistence with encryption is enabled and
-      # will deploy an additional VaultAuthMethod to be used by the Vault Transit Engine.
-      # E.g. when `controller.manager.clientCache.persistenceModel=direct-encrypted`
-      # Supported Vault authentication methods for the Transit Auth method are: jwt, appRole,
-      # aws, and kubernetes.
-      # Typically, there should only ever be one VaultAuth configured with
-      # StorageEncryption in the Cluster.
-      storageEncryption:
-        # toggles the deployment of the Transit VaultAuthMethod CR.
-        # @type: boolean
-        enabled: false
+# -- if true, the operator will process cluster push secret. Else, it will ignore them.
+processClusterPushSecret: true
 
-        # Vault Connection Ref to be used by the Transit VaultAuthMethod.
-        # Default setting will use the default VaultConnectionRef, which must also be configured.
-        # @type: string
-        vaultConnectionRef: default
+# -- if true, the operator will process cluster store. Else, it will ignore them.
+processClusterStore: true
 
-        # KeyName to use for encrypt/decrypt operations via Vault Transit.
-        # @type: string
-        keyName: ""
+# -- if true, the operator will process cluster generator. Else, it will ignore them.
+processClusterGenerator: true
 
-        # Mount path for the Transit VaultAuthMethod.
-        # @type: string
-        transitMount: ""
+# -- if true, the operator will process push secret. Else, it will ignore them.
+processPushSecret: true
 
-        # Vault namespace for the Transit VaultAuthMethod CR.
-        # @type: string
-        namespace: ""
+# -- Specifies whether an external secret operator deployment be created.
+createOperator: true
 
-        # Vault Auth method to be used with the Transit VaultAuthMethod CR.
-        # @type: string
-        method: kubernetes
+# -- if true, HTTP2 will be enabled for the services created by all controllers, curently metrics and webhook.
+enableHTTP2: false
 
-        # Mount path for the Transit VaultAuthMethod.
-        # @type: string
-        mount: kubernetes
+# -- Specifies the number of concurrent ExternalSecret Reconciles external-secret executes at
+# a time.
+concurrent: 1
+# -- Specifies Log Params to the External Secrets Operator
+log:
+  level: info
+  timeEncoding: epoch
+service:
+  # -- Set the ip family policy to configure dual-stack see [Configure dual-stack](https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services)
+  ipFamilyPolicy: ""
+  # -- Sets the families that should be supported and the order in which they should be applied to ClusterIP as well. Can be IPv4 and/or IPv6.
+  ipFamilies: []
 
-        # Vault Kubernetes auth method specific configuration
-        kubernetes:
-          # Vault Auth Role to use
-          # This is a required field and must be setup in Vault prior to deploying the helm chart
-          # if `defaultAuthMethod.enabled=true`
-          # @type: string
-          role: ""
+serviceAccount:
+  # -- Specifies whether a service account should be created.
+  create: true
+  # -- Automounts the service account token in all containers of the pod
+  automount: true
+  # -- Annotations to add to the service account.
+  annotations: {}
+  # -- Extra Labels to add to the service account.
+  extraLabels: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template.
+  name: ""
 
-          # Kubernetes ServiceAccount associated with the Transit Vault Auth Role
-          # Defaults to using the Operator's service-account.
-          # @type: string
-          serviceAccount:
+rbac:
+  # -- Specifies whether role and rolebinding resources should be created.
+  create: true
 
-          # Token Audience should match the audience of the vault kubernetes auth role.
-          # @type: array<string>
-          tokenAudiences: []
+  servicebindings:
+    # -- Specifies whether a clusterrole to give servicebindings read access should be created.
+    create: true
 
-        # Vault JWT auth method specific configuration
-        jwt:
-          # Vault Auth Role to use
-          # This is a required field and must be setup in Vault prior to deploying the helm chart
-          # if using JWT for the Transit VaultAuthMethod.
-          # @type: string
-          role: ""
+  # -- Specifies whether permissions are aggregated to the view ClusterRole
+  aggregateToView: true
 
-          # One of the following is required prior to deploying the helm chart
-          # - K8s secret that contains the JWT
-          # - K8s service account if a service account JWT is used as a Vault JWT auth token and
-          # needs generating by VSO.
+  # -- Specifies whether permissions are aggregated to the edit ClusterRole
+  aggregateToEdit: true
 
-          # Name of Kubernetes Secret that has the Vault JWT auth token.
-          # The Kubernetes Secret must contain a key named `jwt` which references the JWT token, and
-          # must exist in the namespace of any consuming VaultSecret CR. This is a required field if
-          # a JWT token is provided.
-          # @type: string
-          secretRef: ""
+## -- Extra environment variables to add to container.
+extraEnv: []
 
-          # Kubernetes ServiceAccount to generate a service account JWT
-          # @type: string
-          serviceAccount: "default"
+## -- Map of extra arguments to pass to container.
+extraArgs: {}
 
-          # Token Audience should match the bound_audiences or the `aud` list in bound_claims if
-          # applicable of the Vault JWT auth role.
-          # @type: array<string>
-          tokenAudiences: []
+## -- Extra volumes to pass to pod.
+extraVolumes: []
 
-        # AppRole auth method specific configuration
-        appRole:
-          # AppRole Role's RoleID to use for authenticating to Vault.
-          # This is a required field when using appRole and must be setup in Vault prior to deploying
-          # the helm chart.
-          # @type: string
-          roleId: ""
-          # Name of Kubernetes Secret that has the AppRole Role's SecretID used to authenticate with
-          # Vault. The Kubernetes Secret must contain a key named `id` which references the AppRole
-          # Role's SecretID, and must exist in the namespace of any consuming VaultSecret CR.
-          # This is a required field when using appRole and must be setup in Vault prior to
-          # deploying the helm chart.
-          # @type: string
-          secretRef: ""
+## -- Extra Kubernetes objects to deploy with the helm chart
+extraObjects: []
 
-        # AWS auth method specific configuration
-        aws:
-          # Vault Auth Role to use
-          # This is a required field and must be setup in Vault prior to deploying the helm chart
-          # if using the AWS for the Transit auth method.
-          # @type: string
-          role: ""
+## -- Extra volumes to mount to the container.
+extraVolumeMounts: []
 
-          # AWS region to use for signing the authentication request
-          # Optional, but most commonly will be the EKS cluster region.
-          # @type: string
-          region: ""
+## -- Extra init containers to add to the pod.
+extraInitContainers: []
 
-          # Vault header value to include in the STS signing request
-          # @type: string
-          headerValue: ""
+## -- Extra containers to add to the pod.
+extraContainers: []
 
-          # The role session name to use when creating a WebIdentity provider
-          # @type: string
-          sessionName: ""
+# -- Annotations to add to Deployment
+deploymentAnnotations: {}
 
-          # The STS endpoint to use; if not set will use the default
-          # @type: string
-          stsEndpoint: ""
+ # -- Set deployment strategy
+strategy: {}
 
-          # The IAM endpoint to use; if not set will use the default
-          # @type: string
-          iamEndpoint: ""
+# -- Annotations to add to Pod
+podAnnotations: {}
 
-          # The name of a Kubernetes Secret which holds credentials for AWS. Supported keys
-          # include `access_key_id`, `secret_access_key`, `session_token`
-          # @type: string
-          secretRef: ""
+podLabels: {}
 
-          # Name of a Kubernetes service account that is configured with IAM Roles
-          # for Service Accounts (IRSA). Should be annotated with "eks.amazonaws.com/role-arn".
-          # @type: string
-          irsaServiceAccount: ""
+podSecurityContext:
+  enabled: true
+  # fsGroup: 2000
 
-        gcp:
-          # Vault Auth Role to use
-          # This is a required field and must be setup in Vault prior to deploying the helm chart
-          # if using GCP for the Transit auth method.
-          # @type: string
-          role: ""
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  enabled: true
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+  seccompProfile:
+    type: RuntimeDefault
 
-          # Name of a Kubernetes service account that is configured for workload
-          # identity in GKE.
-          # @type: string
-          workloadIdentityServiceAccount: ""
+resources: {}
+  # requests:
+  #   cpu: 10m
+  #   memory: 32Mi
 
-          # GCP Region of the GKE cluster's identity provider. Defaults to the
-          # region returned from the operator pod's local metadata server if
-          # unspecified.
-          # @type: string
-          region: ""
-
-          # GKE cluster name. Defaults to the cluster-name returned from the
-          # operator pod's local metadata server if unspecified.
-          # @type: string
-          clusterName: ""
-
-          # GCP project id. Defaults to the project-id returned from the
-          # operator pod's local metadata server if unspecified.
-          # @type: string
-          projectID: ""
-
-        # Params to use when authenticating to Vault using this auth method.
-        # params:
-        #   param-something1: "foo"
-        # @type: map
-        params: {}
-
-        # Headers to be included in all Vault requests.
-        # headers:
-        #   X-vault-something1: "foo"
-        # @type:  map
-        headers: {}
-
-    # Defines the maximum number of concurrent reconciles for each controller.
-    # May also be set via the `VSO_MAX_CONCURRENT_RECONCILES` environment variable.
-    #
-    # default: 100
-    # @type: integer
-    maxConcurrentReconciles:
-
-    kubeClient:
-      # QPS indicates the maximum QPS to the kubernetes API.
-      # When the value is 0, the kubernetes client's default is used.
-      # May also set via the `VSO_KUBE_CLIENT_QPS` environment variable.
-      # Default: 0
-      # @type: float
-      qps:
-
-      # Maximum burst for throttling requests to the kubernetes API.
-      # When the value is 0, the kubernetes client's default is used.
-      # May also set via the `VSO_KUBE_CLIENT_BURST` environment variable.
-      # Default: 0
-      # @type: uint
-      burst:
-
-    # Defines additional environment variables to be added to the
-    # vault-secrets-operator manager container.
-    # Example:
-    #
-    # ```yaml
-    # extraEnv:
-    #   - name: HTTP_PROXY
-    #     value: http://proxy.example.com
-    #   - name: VSO_OUTPUT_FORMAT
-    #     value: json
-    #   - name: VSO_CLIENT_CACHE_SIZE
-    #     value: "20000"
-    #   - name: VSO_CLIENT_CACHE_PERSISTENCE_MODEL
-    #     value: "direct-encrypted"
-    #   - name: VSO_MAX_CONCURRENT_RECONCILES
-    #     value: "30"
-    # ```
-    # @type: array<map>
-    extraEnv: []
-
-    # Defines additional commandline arguments to be passed to the
-    # vault-secrets-operator manager container.
-    #
-    # @type: array
-    extraArgs: []
-
-    # Configures the default resources for the vault-secrets-operator container.
-    # For more information on configuring resources, see the K8s documentation:
-    # https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-    # @recurse: true
-    # @type: map
-    resources:
-      limits:
-        cpu: 500m
-        memory: 128Mi
-      requests:
-        cpu: 10m
-        memory: 64Mi
-
-  # Configures the Pod Security Context
-  # https://kubernetes.io/docs/tasks/configure-pod-container/security-context
-  podSecurityContext:
-    runAsNonRoot: true
-
-  # Configures the Container Security Context
-  # https://kubernetes.io/docs/tasks/configure-pod-container/security-context
-  securityContext:
-    allowPrivilegeEscalation: false
-
-  # Sets the configuration settings used by the controller. Any custom changes will be reflected in the
-  # data field of the configmap.
-  # For more information on configuring resources, see the K8s documentation:
-  # https://kubernetes.io/docs/concepts/configuration/configmap/
-  # @recurse: true
-  # @type: map
-  controllerConfigMapYaml:
-    health:
-      healthProbeBindAddress: :8081
-    leaderElection:
-      leaderElect: true
-      resourceName: b0d477c0.hashicorp.com
-    metrics:
-      bindAddress: 127.0.0.1:8080
-    webhook:
-      port: 9443
-
-  # Configures the environment variable KUBERNETES_CLUSTER_DOMAIN used by KubeDNS.
-  # @type: string
-  kubernetesClusterDomain: cluster.local
-
-  # Duration in seconds the pod needs to terminate gracefully.
-  # See: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/
-  terminationGracePeriodSeconds: 120
-
-  # Timeout in seconds for the pre-delete hook
-  preDeleteHookTimeoutSeconds: 120
-
-# Configure the metrics service ports used by the metrics service.
-# Set the configuration fo the metricsService port.
-# @recurse: true
-# @type: map
-metricsService:
-  # Set the port settings for the metrics service.
-  # For more information on configuring resources, see the K8s documentation:
-  # https://kubernetes.io/docs/concepts/services-networking/service/
-  # @type: map
-  ports:
-  - name: https
-    port: 8443
-    protocol: TCP
-    targetPort: https
-  type: ClusterIP
-
-# Configures the default VaultConnection CR which will be used by resources
-# if they do not specify a VaultConnection reference. The name is 'default' and will
-# always be installed in the same namespace as the operator.
-# NOTE:
-# * It is strongly recommended to deploy the vault secrets operator in a secure Vault environment
-#   which includes a configuration utilizing TLS and installing Vault into its own restricted namespace.
-defaultVaultConnection:
-  # toggles the deployment of the VaultAuthMethod CR
-  # @type: boolean
+serviceMonitor:
+  # -- Specifies whether to create a ServiceMonitor resource for collecting Prometheus metrics
   enabled: false
 
-  # Address of the Vault Server
-  # @type: string
-  # Example: http://vault.default.svc.cluster.local:8200
-  address: ""
+  # -- How should we react to missing CRD "`monitoring.coreos.com/v1/ServiceMonitor`"
+  #
+  # Possible values:
+  # - `skipIfMissing`: Only render ServiceMonitor resources if CRD is present, skip if missing.
+  # - `failIfMissing`: Fail Helm install if CRD is not present.
+  # - `alwaysRender` : Always render ServiceMonitor resources, do not check for CRD.
 
-  # CACertSecret is the name of a Kubernetes secret containing the trusted PEM encoded CA certificate chain as `ca.crt`.
-  # Note: This secret must exist prior to deploying the CR.
-  # @type: string
-  caCertSecret: ""
+  # @schema
+  # enum:
+  # - skipIfMissing
+  # - failIfMissing
+  # - alwaysRender
+  # @schema
+  renderMode: skipIfMissing   # @schema enum: [skipIfMissing, failIfMissing, alwaysRender]
 
-  # TLSServerName to use as the SNI host for TLS connections.
-  # @type: string
-  tlsServerName: ""
-
-  # SkipTLSVerify for TLS connections.
-  # @type: boolean
-  skipTLSVerify: false
-
-  # Headers to be included in all Vault requests.
-  # headers:
-  #   X-vault-something: "foo"
-  # @type: map
-  headers: {}
-
-# Configures and deploys the default VaultAuthMethod CR which will be used by resources
-# if they do not specify a VaultAuthMethod reference. The name is 'default' and will
-# always be installed in the same namespace as the operator.
-# NOTE:
-# * It is strongly recommended to deploy the vault secrets operator in a secure Vault environment
-#   which includes a configuration utilizing TLS and installing Vault into its own restricted namespace.
-defaultAuthMethod:
-  # toggles the deployment of the VaultAuthMethod CR
-  # @type: boolean
-  enabled: false
-
-  # Vault namespace for the VaultAuthMethod CR
-  # @type: string
+  # -- namespace where you want to install ServiceMonitors
   namespace: ""
 
-  # Kubernetes namespace glob patterns which are allow-listed for use with the default AuthMethod.
-  # @type: array<string>
-  allowedNamespaces: []
+  # -- Additional labels
+  additionalLabels: {}
 
-  # Vault Auth method to be used with the VaultAuthMethod CR
-  # @type: string
-  method: kubernetes
+  # --  Interval to scrape metrics
+  interval: 30s
 
-  # Mount path for the Vault Auth Method.
-  # @type: string
-  mount: kubernetes
+  # -- Timeout if metrics can't be retrieved in given time interval
+  scrapeTimeout: 25s
 
-  # Vault Kubernetes auth method specific configuration
-  kubernetes:
-    # Vault Auth Role to use
-    # This is a required field and must be setup in Vault prior to deploying the helm chart
-    # if `defaultAuthMethod.enabled=true`
-    # @type: string
-    role: ""
+  # -- Let prometheus add an exported_ prefix to conflicting labels
+  honorLabels: false
 
-    # Kubernetes ServiceAccount associated with the default Vault Auth Role
-    # @type: string
-    serviceAccount: default
+  # -- Metric relabel configs to apply to samples before ingestion. [Metric Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs)
+  metricRelabelings: []
+  # - action: replace
+  #   regex: (.*)
+  #   replacement: $1
+  #   sourceLabels:
+  #   - exported_namespace
+  #   targetLabel: namespace
 
-    # Token Audience should match the audience of the vault kubernetes auth role.
-    # @type: array<string>
-    tokenAudiences: []
+  # -- Relabel configs to apply to samples before ingestion. [Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config)
+  relabelings: []
+  # - sourceLabels: [__meta_kubernetes_pod_node_name]
+  #   separator: ;
+  #   regex: ^(.*)$
+  #   targetLabel: nodename
+  #   replacement: $1
+  #   action: replace
 
-  # Vault JWT auth method specific configuration
-  jwt:
-    # Vault Auth Role to use
-    # This is a required field and must be setup in Vault prior to deploying the helm chart
-    # if using the JWT for the default auth method.
-    # @type: string
-    role: ""
+metrics:
 
-    # One of the following is required prior to deploying the helm chart
-    # - K8s secret that contains the JWT
-    # - K8s service account if a service account JWT is used as a Vault JWT auth token and needs generating by VSO
+  listen:
+    port: 8080
+    secure:
+      enabled: false
+      # -- if those are not set or invalid, self-signed certs will be generated
+      # -- TLS cert directory path
+      certDir: /etc/tls
+      # -- TLS cert file path
+      certFile: /etc/tls/tls.crt
+      # -- TLS key file path
+      keyFile: /etc/tls/tls.key
 
-    # Name of Kubernetes Secret that has the Vault JWT auth token.
-    # The Kubernetes Secret must contain a key named `jwt` which references the JWT token, and must exist in the namespace
-    # of any consuming VaultSecret CR. This is a required field if a JWT token is provided.
-    # @type: string
-    secretRef: ""
-
-    # Kubernetes ServiceAccount to generate a service account JWT
-    # @type: string
-    serviceAccount: "default"
-
-    # Token Audience should match the bound_audiences or the `aud` list in bound_claims if applicable
-    # of the Vault JWT auth role.
-    # @type: array<string>
-    tokenAudiences: []
-
-  # AppRole auth method specific configuration
-  appRole:
-    # AppRole Role's RoleID to use for authenticating to Vault.
-    # This is a required field when using appRole and must be setup in Vault prior to deploying the
-    # helm chart.
-    # @type: string
-    roleId: ""
-    # Name of Kubernetes Secret that has the AppRole Role's SecretID used to authenticate with Vault.
-    # The Kubernetes Secret must contain a key named `id` which references the AppRole Role's
-    # SecretID, and must exist in the namespace of any consuming VaultSecret CR.
-    # This is a required field when using appRole and must be setup in Vault prior to deploying the
-    # helm chart.
-    # @type: string
-    secretRef: ""
-
-  # AWS auth method specific configuration
-  aws:
-    # Vault Auth Role to use
-    # This is a required field and must be setup in Vault prior to deploying the helm chart
-    # if using the AWS for the default auth method.
-    # @type: string
-    role: ""
-
-    # AWS region to use for signing the authentication request
-    # Optional, but most commonly will be the region where the EKS cluster is running
-    # @type: string
-    region: ""
-
-    # Vault header value to include in the STS signing request
-    # @type: string
-    headerValue: ""
-
-    # The role session name to use when creating a WebIdentity provider
-    # @type: string
-    sessionName: ""
-
-    # The STS endpoint to use; if not set will use the default
-    # @type: string
-    stsEndpoint: ""
-
-    # The IAM endpoint to use; if not set will use the default
-    # @type: string
-    iamEndpoint: ""
-
-    # The name of a Kubernetes Secret which holds credentials for AWS. Supported keys include
-    # `access_key_id`, `secret_access_key`, `session_token`
-    # @type: string
-    secretRef: ""
-
-    # Name of a Kubernetes service account that is configured with IAM Roles
-    # for Service Accounts (IRSA). Should be annotated with "eks.amazonaws.com/role-arn".
-    # @type: string
-    irsaServiceAccount: ""
-
-  gcp:
-    # Vault Auth Role to use
-    # This is a required field and must be setup in Vault prior to deploying the helm chart
-    # if using GCP for the Transit auth method.
-    # @type: string
-    role: ""
-
-    # Name of a Kubernetes service account that is configured for workload
-    # identity in GKE.
-    # @type: string
-    workloadIdentityServiceAccount: ""
-
-    # GCP Region of the GKE cluster's identity provider. Defaults to the
-    # region returned from the operator pod's local metadata server if
-    # unspecified.
-    # @type: string
-    region: ""
-
-    # GKE cluster name. Defaults to the cluster-name returned from the
-    # operator pod's local metadata server if unspecified.
-    # @type: string
-    clusterName: ""
-
-    # GCP project id. Defaults to the project-id returned from the
-    # operator pod's local metadata server if unspecified.
-    # @type: string
-    projectID: ""
-
-  # Params to use when authenticating to Vault
-  # params:
-  #   param-something1: "foo"
-  # @type: map
-  params: {}
-
-  # Headers to be included in all Vault requests.
-  # headers:
-  #   X-vault-something1: "foo"
-  # @type: map
-  headers: {}
-
-  # VaultAuthGlobalRef
-  vaultAuthGlobalRef:
-    #  toggles the inclusion of the VaultAuthGlobal configuration in the
-    # default VaultAuth CR.
-    # @type: boolean
+  service:
+    # -- Enable if you use another monitoring tool than Prometheus to scrape the metrics
     enabled: false
-    # Name of the VaultAuthGlobal CR to reference.
-    # @type: string
+
+    # -- Metrics service port to scrape
+    port: 8080
+
+    # -- Additional service annotations
+    annotations: {}
+
+grafanaDashboard:
+  # -- If true creates a Grafana dashboard.
+  enabled: false
+
+  # -- Label that ConfigMaps should have to be loaded as dashboards.
+  sidecarLabel: "grafana_dashboard"
+
+  # -- Label value that ConfigMaps should have to be loaded as dashboards.
+  sidecarLabelValue: "1"
+
+  # -- Annotations that ConfigMaps can have to get configured in Grafana,
+  # See: sidecar.dashboards.folderAnnotation for specifying the dashboard folder.
+  # https://github.com/grafana/helm-charts/tree/main/charts/grafana
+  annotations: {}
+
+  # -- Extra labels to add to the Grafana dashboard ConfigMap.
+  extraLabels: {}
+
+livenessProbe:
+  # -- Enabled determines if the liveness probe should be used or not. By default it's disabled.
+  enabled: false
+  # -- Address for liveness probe.
+  address: ""
+  # -- Specify the maximum amount of time to wait for a probe to respond before considering it fails.
+  timeoutSeconds: 5
+  # -- Number of consecutive probe failures that should occur before considering the probe as failed.
+  failureThreshold: 5
+  # -- Period in seconds for K8s to start performing probes.
+  periodSeconds: 10
+  # -- Number of successful probes to mark probe successful.
+  successThreshold: 1
+  # -- Delay in seconds for the container to start before performing the initial probe.
+  initialDelaySeconds: 10
+  # -- Handler for liveness probe.
+  httpGet:
+    # -- Set this value to 8082 to active liveness probes.
+    port: "8082"
+    path: /healthz
+
+nodeSelector: {}
+
+tolerations: []
+
+topologySpreadConstraints: []
+
+affinity: {}
+
+# -- Pod priority class name.
+priorityClassName: ""
+
+# -- Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1    # @schema type:[integer, string]
+  nameOverride: ""
+  # maxUnavailable: "50%"
+
+# -- Run the controller on the host network
+hostNetwork: false
+
+webhook:
+  # -- Annotations to place on validating webhook configuration.
+  annotations: {}
+  # -- Specifies whether a webhook deployment be created. If set to false, crds.conversion.enabled should also be set to false otherwise the kubeapi will be hammered because the conversion is looking for a webhook endpoint.
+  create: true
+  # -- Specifies the time to check if the cert is valid
+  certCheckInterval: "5m"
+  # -- Specifies the lookaheadInterval for certificate validity
+  lookaheadInterval: ""
+  replicaCount: 1
+  # -- Specifies Log Params to the Webhook
+  log:
+    level: info
+    timeEncoding: epoch
+  # -- Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
+  revisionHistoryLimit: 10
+
+  certDir: /tmp/certs
+  # -- Specifies whether validating webhooks should be created with failurePolicy: Fail or Ignore
+  failurePolicy: Fail
+  # -- Specifies if webhook pod should use hostNetwork or not.
+  hostNetwork: false
+  image:
+    repository: oci.external-secrets.io/external-secrets/external-secrets
+    pullPolicy: IfNotPresent
+    # -- The image tag to use. The default is the chart appVersion.
+    tag: ""
+    # -- The flavour of tag you want to use
+    flavour: ""
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+  # -- The port the webhook will listen to
+  port: 10250
+  rbac:
+  # -- Specifies whether role and rolebinding resources should be created.
+    create: true
+  serviceAccount:
+    # -- Specifies whether a service account should be created.
+    create: true
+    # -- Automounts the service account token in all containers of the pod
+    automount: true
+    # -- Annotations to add to the service account.
+    annotations: {}
+    # -- Extra Labels to add to the service account.
+    extraLabels: {}
+    # -- The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template.
     name: ""
+  nodeSelector: {}
 
-    # Namespace of the VaultAuthGlobal CR to reference.
-    # @type: string
-    namespace: ""
-
-    # allow default globals
-    # @type: boolean
-    allowDefault:
-
-    mergeStrategy:
-      # merge strategy for headers
-      # @type: string
-      # Valid values are: "replace", "merge", "none"
-      # Default: "replace"
-      # @type: string
-      headers: none
-
-      # merge strategy for params
-      # @type: string
-      # Valid values are: "replace", "merge", "none"
-      # Default: "replace"
-      # @type: string
-      params: none
-
-# Configures a Prometheus ServiceMonitor
-telemetry:
-  serviceMonitor:
-    # The Prometheus operator *must* be installed before enabling this feature,
-    # if not the chart will fail to install due to missing CustomResourceDefinitions
-    # provided by the operator.
-    #
-    # Instructions on how to install the Helm chart can be found here:
-    #  https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
-    # More information can be found here:
-    #  https://github.com/prometheus-operator/prometheus-operator
-    #  https://github.com/prometheus-operator/kube-prometheus
-
-    # Enable deployment of the Vault Secrets Operator ServiceMonitor CustomResource.
-    # @type: boolean
+  certManager:
+    # -- Enabling cert-manager support will disable the built in secret and
+    # switch to using cert-manager (installed separately) to automatically issue
+    # and renew the webhook certificate. This chart does not install
+    # cert-manager for you, See https://cert-manager.io/docs/
     enabled: false
+    # -- Automatically add the cert-manager.io/inject-ca-from annotation to the
+    # webhooks and CRDs. As long as you have the cert-manager CA Injector
+    # enabled, this will automatically setup your webhook's CA to the one used
+    # by cert-manager. See https://cert-manager.io/docs/concepts/ca-injector
+    addInjectorAnnotations: true
+    cert:
+      # -- Create a certificate resource within this chart. See
+      # https://cert-manager.io/docs/usage/certificate/
+      create: true
+      # -- For the Certificate created by this chart, setup the issuer. See
+      # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.IssuerSpec
+      issuerRef:
+        group: cert-manager.io
+        kind: "Issuer"
+        name: "my-issuer"
+      # -- Set the requested duration (i.e. lifetime) of the Certificate. See
+      # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
+      # One year by default.
+      duration: "8760h"
+      # -- Set the revisionHistoryLimit on the Certificate. See
+      # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
+      # Defaults to 0 (ignored).
+      revisionHistoryLimit: 0
+      # -- How long before the currently issued certificate’s expiry
+      # cert-manager should renew the certificate. See
+      # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
+      # Note that renewBefore should be greater than .webhook.lookaheadInterval
+      # since the webhook will check this far in advance that the certificate is
+      # valid.
+      renewBefore: ""
+      # -- Add extra annotations to the Certificate resource.
+      annotations: {}
 
-    # Selector labels to add to the ServiceMonitor.
-    # When empty, defaults to:
-    #  release: prometheus
-    # @type: string
-    selectors: {}
+  tolerations: []
 
-    # Scheme of the service Prometheus scrapes metrics from. This must match the scheme of the metrics service of VSO
-    # @type: string
-    scheme: https
+  topologySpreadConstraints: []
 
-    # Port at which Prometheus scrapes metrics. This must match the port of the metrics service of VSO
-    # @type: string
-    port: https
+  affinity: {}
 
-    # Path at which Prometheus scrapes metrics
-    # @type: string
-    path: /metrics
+  # -- Set deployment strategy
+  strategy: {}
 
-    # File Prometheus reads bearer token from for scraping metrics
-    # @type: string
-    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    # -- Pod priority class name.
+  priorityClassName: ""
 
-    # Interval at which Prometheus scrapes metrics
-    # @type: string
-    interval: 30s
+  # -- Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
+  podDisruptionBudget:
+    enabled: false
+    minAvailable: 1    # @schema type:[integer, string]
+    nameOverride: ""
+    # maxUnavailable: "50%"
 
-    # Timeout for Prometheus scrapes
-    # @type: string
-    scrapeTimeout: 10s
+  metrics:
 
-# Configure the behaviour of Helm hooks.
-hooks:
-  # Resources common to all hooks.
-  resources:
-    limits:
-      cpu: 500m
-      memory: 128Mi
-    requests:
-      cpu: 10m
-      memory: 64Mi
-  # Configure the Helm pre-upgrade hook that handles custom resource definition (CRD) upgrades.
-  upgradeCRDs:
-    # Set to true to automatically upgrade the CRDs.
-    # Disabling this will require manual intervention to upgrade the CRDs, so it is recommended to
-    # always leave it enabled.
-    # @type: boolean
+    listen:
+      port: 8080
+
+    service:
+      # -- Enable if you use another monitoring tool than Prometheus to scrape the metrics
+      enabled: false
+
+      # -- Metrics service port to scrape
+      port: 8080
+
+      # -- Additional service annotations
+      annotations: {}
+
+
+  readinessProbe:
+    # -- Address for readiness probe
+    address: ""
+    # -- ReadinessProbe port for kubelet
+    port: 8081
+
+
+    ## -- Extra environment variables to add to container.
+  extraEnv: []
+
+    ## -- Map of extra arguments to pass to container.
+  extraArgs: {}
+
+    ## -- Extra init containers to add to the pod.
+  extraInitContainers: []
+
+    ## -- Extra volumes to pass to pod.
+  extraVolumes: []
+
+    ## -- Extra volumes to mount to the container.
+  extraVolumeMounts: []
+
+    # -- Annotations to add to Secret
+  secretAnnotations: {}
+
+    # -- Annotations to add to Deployment
+  deploymentAnnotations: {}
+
+    # -- Annotations to add to Pod
+  podAnnotations: {}
+
+  podLabels: {}
+
+  podSecurityContext:
     enabled: true
+      # fsGroup: 2000
 
-    # Limit the number of retries for the CRD upgrade.
-    # @type: integer
-    backoffLimit: 5
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    enabled: true
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
 
-    # Set the timeout for the CRD upgrade. The operation should typically take less than 5s
-    # to complete.
-    # @type: string
-    executionTimeout: 30s
+  resources: {}
+      # requests:
+      #   cpu: 10m
+      #   memory: 32Mi
 
-## Used by unit tests, and will not be rendered except when using `helm template`, this can be safely ignored.
-tests:
-  # @type: boolean
-  enabled: true
+  # -- Manage the service through which the webhook is reached.
+  service:
+    # -- Whether the service object should be enabled or not (it is expected to exist).
+    enabled: true
+    # -- Custom annotations for the webhook service.
+    annotations: {}
+    # -- Custom labels for the webhook service.
+    labels: {}
+    # -- The service type of the webhook service.
+    type: ClusterIP
+    # -- If the webhook service type is LoadBalancer, you can assign a specific load balancer IP here.
+    # Check the documentation of your load balancer provider to see if/how this should be used.
+    loadBalancerIP: ""
+
+certController:
+  # -- Specifies whether a certificate controller deployment be created.
+  create: true
+  requeueInterval: "5m"
+  replicaCount: 1
+  # -- Specifies Log Params to the Certificate Controller
+  log:
+    level: info
+    timeEncoding: epoch
+  # -- Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
+  revisionHistoryLimit: 10
+
+  image:
+    repository: oci.external-secrets.io/external-secrets/external-secrets
+    pullPolicy: IfNotPresent
+    tag: ""
+    flavour: ""
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+  rbac:
+  # -- Specifies whether role and rolebinding resources should be created.
+    create: true
+  serviceAccount:
+    # -- Specifies whether a service account should be created.
+    create: true
+    # -- Automounts the service account token in all containers of the pod
+    automount: true
+    # -- Annotations to add to the service account.
+    annotations: {}
+    # -- Extra Labels to add to the service account.
+    extraLabels: {}
+    # -- The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template.
+    name: ""
+  nodeSelector: {}
+
+  tolerations: []
+
+  topologySpreadConstraints: []
+
+  affinity: {}
+
+  # -- Set deployment strategy
+  strategy: {}
+
+  # -- Run the certController on the host network
+  hostNetwork: false
+
+    # -- Pod priority class name.
+  priorityClassName: ""
+
+  # -- Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
+  podDisruptionBudget:
+    enabled: false
+    minAvailable: 1    # @schema type:[integer, string]
+    nameOverride: ""
+    # maxUnavailable: "50%"
+
+  metrics:
+
+    listen:
+      port: 8080
+
+    service:
+      # -- Enable if you use another monitoring tool than Prometheus to scrape the metrics
+      enabled: false
+
+      # -- Metrics service port to scrape
+      port: 8080
+
+      # -- Additional service annotations
+      annotations: {}
+
+  readinessProbe:
+    # -- Address for readiness probe
+    address: ""
+    # -- ReadinessProbe port for kubelet
+    port: 8081
+
+    ## -- Extra environment variables to add to container.
+  extraEnv: []
+
+    ## -- Map of extra arguments to pass to container.
+  extraArgs: {}
+
+    ## -- Extra init containers to add to the pod.
+  extraInitContainers: []
+
+    ## -- Extra volumes to pass to pod.
+  extraVolumes: []
+
+    ## -- Extra volumes to mount to the container.
+  extraVolumeMounts: []
+
+    # -- Annotations to add to Deployment
+  deploymentAnnotations: {}
+
+    # -- Annotations to add to Pod
+  podAnnotations: {}
+
+  podLabels: {}
+
+  podSecurityContext:
+    enabled: true
+      # fsGroup: 2000
+
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    enabled: true
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+
+  resources: {}
+      # requests:
+      #   cpu: 10m
+      #   memory: 32Mi
+
+# -- Specifies `dnsPolicy` to deployment
+dnsPolicy: ClusterFirst
+
+# -- Specifies `dnsOptions` to deployment
+dnsConfig: {}
+
+# -- Any extra pod spec on the deployment
+podSpecExtra: {}
