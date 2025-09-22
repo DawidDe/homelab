@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: vault
+  name: vault-secrets-operator
   namespace: argocd
 spec:
   destination:
-    namespace: vault
+    namespace: vault-secrets-operator
     server: 'https://kubernetes.default.svc'
   sources:
   - repoURL: 'https://helm.releases.hashicorp.com'
-    chart: vault
-    targetRevision: 0.30.1
+    chart: vault-secrets-operator
+    targetRevision: 0.10.0
     helm:
       valueFiles:
-      - $values/heimdall-infra/kubernetes/vault/values.yaml
+      - $values/heimdall-infra/kubernetes/vault-secrets-operator/values.yaml
   - repoURL: 'https://github.com/DawidDe/homelab.git'
     targetRevision: HEAD
     ref: values
