@@ -13,7 +13,7 @@ spec:
     targetRevision: 37.0.0
     helm:
       valueFiles:
-      - $values/heimdall-infra/base/kubernetes/traefik/values.yaml
+      - $values/base/kubernetes/traefik/values.yaml
   - repoURL: 'https://github.com/DawidDe/homelab.git'
     targetRevision: HEAD
     ref: values

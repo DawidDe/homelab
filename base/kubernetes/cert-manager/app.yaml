@@ -13,7 +13,7 @@ spec:
     targetRevision: 1.18.2
     helm:
       valueFiles:
-      - $values/heimdall-infra/base/kubernetes/cert-manager/values.yaml
+      - $values/base/kubernetes/cert-manager/values.yaml
   - repoURL: 'https://github.com/DawidDe/homelab.git'
     targetRevision: HEAD
     ref: values
