@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: vault-secrets-operator
+  name: external-secrets-operator
   namespace: argocd
 spec:
   destination:
-    namespace: vault-secrets-operator
+    namespace: external-secrets-operator
     server: 'https://kubernetes.default.svc'
   sources:
-  - repoURL: 'https://helm.releases.hashicorp.com'
-    chart: vault-secrets-operator
-    targetRevision: 0.10.0
+  - repoURL: 'https://charts.external-secrets.io/'
+    chart: external-secrets
+    targetRevision: 0.20.1
     helm:
       valueFiles:
-      - $values/base/kubernetes/vault-secrets-operator/values.yaml
+      - $values/base/kubernetes/external-secrets-operator/values.yaml
   - repoURL: 'https://github.com/DawidDe/homelab.git'
     targetRevision: HEAD
     ref: values
