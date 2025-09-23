@@ -4,6 +4,8 @@ metadata:
   name: cloudflare
 spec:
   acme:
+    email: {{ .Values.cloudflare.email }}
+    server: "https://acme-v02.api.letsencrypt.org/directory"
     solvers:
     - dns01:
       cloudflare:
