@@ -6,11 +6,9 @@ spec:
   acme:
     email: "dawid.imb@gmail.com"
     server: "https://acme-v02.api.letsencrypt.org/directory"
-    privateKeySecretRef:
-      name: cloudflare-account-key
     solvers:
     - dns01:
-      cloudflare:
-        apiTokenSecretRef:
-        name: cloudflare-secrets
-        key: cloudflare_api_token_secret
+        cloudflare:
+          apiTokenSecretRef:
+          name: cloudflare-secrets
+          key: cloudflare_api_token_secret
