@@ -1,4 +1,4 @@
 ports:
   web:
-    redirectTo: null
-    websecure: {}
+    redirectTo:
+      port: websecure
