@@ -192,9 +192,9 @@ persistence:
     accessMode: ReadWriteOnce
     size: 25Gi
     # -- Custom annotations to be added to the PVC
-    annotations: {jellyfin-media}
+    annotations: {}
     # -- If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
-    storageClass: ''
+    storageClass: 'jellyfin-media'
     ## -- Use an existing PVC for this mount
     # existingClaim: ''
 
