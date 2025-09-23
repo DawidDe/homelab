@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: jellyfin-certificate
+  namespace: jellyfin
+spec:
+  secretName: jellyfin-certificate-secret
+  issuerRef:
+    name: cloudflare
+    kind: ClusterIssuer
+  dnsNames:
+    - jellyfin.dawidde.de
