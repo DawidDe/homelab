@@ -3,6 +3,6 @@ kind: UserVolumeConfig
 name: zfs
 provisioning:
   diskSelector:
-    match: "vdb"
+    match: "!system_disk"
   minSize: 100G
   maxSize: 100G
