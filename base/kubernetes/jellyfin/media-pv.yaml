@@ -4,7 +4,7 @@ metadata:
   name: jellyfin-media
 spec:
   capacity:
-    storage: 10Gi
+    storage: 25Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
