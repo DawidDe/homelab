@@ -9,7 +9,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   sources:
   - repoURL: 'https://charts.bitwarden.com/'
-    chart: bitwarden
+    chart: self-host
     targetRevision: 1.18.2
     helm:
       valueFiles:
