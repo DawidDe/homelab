@@ -1,0 +1,8 @@
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: zfs
+provisioning:
+  diskSelector:
+    match: "vdb"
+  minSize: 100G
+  maxSize: 100G
