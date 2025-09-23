@@ -14,3 +14,4 @@ spec:
           apiTokenSecretRef:
             name: cloudflare-secrets
             key: cloudflare_api_token_secret
+            namespace: external-secrets-operator
