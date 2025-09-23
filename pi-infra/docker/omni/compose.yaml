@@ -1,0 +1,34 @@
+---
+services:
+  omni:
+    image: ghcr.io/siderolabs/omni:latest
+    container_name: omni
+    devices:
+      - /dev/net/tun
+    volumes:
+      - ${ETCD_VOLUME_PATH}:/_out/etcd
+      - ${ETCD_ENCRYPTION_KEY}:/omni.asc
+      - ${TLS_CERT}:/tls.crt
+      - ${TLS_KEY}:/tls.key
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+    command: >
+      --account-id=${OMNI_ACCOUNT_UUID}
+      --name=${NAME}
+      --cert=/tls.crt
+      --key=/tls.key
+      --machine-api-cert=/tls.crt
+      --machine-api-key=/tls.key
+      --private-key-source='file:///omni.asc'
+      --event-sink-port=${EVENT_SINK_PORT}
+      --bind-addr=${BIND_ADDR}:8080
+      --machine-api-bind-addr=${BIND_ADDR}:8090
+      --k8s-proxy-bind-addr=${BIND_ADDR}:8100
+      --advertised-api-url=https://${OMNI_DOMAIN}/
+      --advertised-kubernetes-proxy-url=https://kube.${OMNI_DOMAIN}/
+      --siderolink-api-bind-addr=${BIND_ADDR}:8090
+      --siderolink-api-advertised-url=https://api.${OMNI_DOMAIN}:443
+      --siderolink-wireguard-advertised-addr=${SIDEROLINK_WIREGUARD_ADVERTISED_ADDR}
+      --initial-users=${INITIAL_USER_EMAILS}
+      ${AUTH}

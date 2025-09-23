@@ -4,6 +4,4 @@
 terraform.tfstate
 terraform.tfstate.backup
 vars.yaml
-pi-infra/docker/omni/compose.yaml
-pi-infra/docker/twingate/compose.yaml
 .env
