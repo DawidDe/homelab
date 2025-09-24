@@ -15,7 +15,5 @@ spec:
     required:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - talos-di1-ee6
+        - key: node-role.kubernetes.io/control-plane
+          operator: DoesNotExist
