@@ -10,7 +10,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: "jellyfin-media"
   local:
-    path: /var/mnt/u-zfs
+    path: /dev/vdb1
   nodeAffinity:
     required:
       nodeSelectorTerms:
