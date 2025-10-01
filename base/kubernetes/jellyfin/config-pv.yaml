@@ -9,8 +9,9 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: "jellyfin-config"
-  local:
+  hostPath:
     path: /var/mnt/zfs/jellyfin/config
+    type: DirectoryOrCreate
   nodeAffinity:
     required:
       nodeSelectorTerms:

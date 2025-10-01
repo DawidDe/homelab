@@ -9,8 +9,9 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: "jellyfin-media"
-  local:
+  hostPath:
     path: /var/mnt/zfs/media
+    type: DirectoryOrCreate
   nodeAffinity:
     required:
       nodeSelectorTerms:
