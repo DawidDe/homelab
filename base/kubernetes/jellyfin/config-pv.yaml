@@ -10,7 +10,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: "jellyfin-config"
   local:
-    path: /var/mnt/zfs
+    path: /var/mnt/zfs/jellyfin/config
   nodeAffinity:
     required:
       nodeSelectorTerms:
