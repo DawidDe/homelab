@@ -1,8 +1,5 @@
-apiVersion: v1alpha1
-kind: RawVolumeConfig
-name: zfs
-provisioning:
-  diskSelector:
-    match: "!system_disk"
-  minSize: 100G
-  maxSize: 100G
+machine:
+  disks:
+    - device: /dev/vdb
+      partitions:
+        - mountpoint: /var/mnt/zfs
