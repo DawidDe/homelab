@@ -191,7 +191,7 @@ component:
     # This will set the Kubernetes pod security context
     podSecurityContext: {}
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount:  {}
+    podServiceAccount: ""
   events:
     # Additional deployment labels
     labels: {}
