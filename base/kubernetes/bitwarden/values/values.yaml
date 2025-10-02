@@ -418,7 +418,7 @@ volume:
     labels: {}
   logs:
     # Logs are disabled by default
-    enabled: false
+    enabled: true
     # Use an existing PVC by specifying the name.
     # existingClaim: claimName
     # Override the accessMode specified in general.volumeAccessMode
