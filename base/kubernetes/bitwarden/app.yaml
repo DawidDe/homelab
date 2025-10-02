@@ -13,7 +13,7 @@ spec:
     targetRevision: 2025.9.2
     helm:
       valueFiles:
-      - $values/base/kubernetes/bitwarden/values.yaml
+      - $values/base/kubernetes/bitwarden/values/values.yaml
   - repoURL: 'https://github.com/DawidDe/homelab.git'
     targetRevision: HEAD
     path: base/kubernetes/bitwarden
