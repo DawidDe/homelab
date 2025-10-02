@@ -68,8 +68,6 @@ general:
   # Comma-separated list of email addresses for Admin users
   admins: "false"
   email:
-    # Email address used for invitations, typically no-reply@smtp-host
-    replyToEmail: "no-reply@bitwarden.localhost"
     # Your SMTP server hostname (recommended) or IP address
     smtpHost: "smtp.gmail.com"
     # The SMTP port used by the SMTP server
@@ -82,6 +80,11 @@ general:
     smtpSslOverride: "false"
     # Specify true to force STARTTLS (Opportunistic TLS).
     smtpStartTls: "false"
+    existingSecret: "smtp-secrets"
+    existingSecretUsernameKey: "smtp_username"
+    existingSecretPasswordKey: "smtp_password"
+    replyToEmail: "smtp_username"
+
   sso:
     enforceSsoPolicyForAllUsers: false
   # Custom labels to add throughout the installation
