@@ -388,7 +388,7 @@ supportComponents:
   kubectl:
     image:
       name: bitnamisecure/kubectl
-      tag: 1.33
+      tag: latest
 
 # Data volume sizes for shared PVCs
 volume:
