@@ -16,6 +16,7 @@ spec:
       - $values/base/kubernetes/jellyfin/values.yaml
   - repoURL: 'https://github.com/DawidDe/homelab.git'
     targetRevision: HEAD
+    path: base/kubernetes/jellyfin
     ref: values
   project: default
   syncPolicy:
