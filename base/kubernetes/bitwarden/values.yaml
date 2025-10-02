@@ -1,5 +1,3 @@
-replicaCount: 1
-
 # Optional - Override the chart name if desired
 fullnameOverride: ""
 nameOverride: ""
@@ -135,11 +133,11 @@ component:
     # Specifies the strategy used to replace old Pods by new ones. The value can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
     deploymentStrategy: RollingUpdate
     # This will set the Kubernetes container security context
-    securityContext: {}
+    securityContext: null
     # This will set the Kubernetes pod security context
-    podSecurityContext: {}
+    podSecurityContext: null
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: ""
+    podServiceAccount: null
   api:
     # Additional deployment labels
     labels: {}
@@ -161,11 +159,11 @@ component:
     # Specifies the strategy used to replace old Pods by new ones. The value can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
     deploymentStrategy: RollingUpdate
     # This will set the Kubernetes container security context
-    securityContext: {}
+    securityContext: null
     # This will set the Kubernetes pod security context
-    podSecurityContext: {}
+    podSecurityContext: null
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: ""
+    podServiceAccount: null
   attachments:
     # Additional deployment labels
     labels: {}
@@ -187,11 +185,11 @@ component:
     # Specifies the strategy used to replace old Pods by new ones. The value can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
     deploymentStrategy: RollingUpdate
     # This will set the Kubernetes container security context
-    securityContext: {}
+    securityContext: null
     # This will set the Kubernetes pod security context
-    podSecurityContext: {}
+    podSecurityContext: null
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: ""
+    podServiceAccount: null
   events:
     # Additional deployment labels
     labels: {}
@@ -213,11 +211,11 @@ component:
     # Specifies the strategy used to replace old Pods by new ones. The value can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
     deploymentStrategy: RollingUpdate
     # This will set the Kubernetes container security context
-    securityContext: {}
+    securityContext: null
     # This will set the Kubernetes pod security context
-    podSecurityContext: {}
+    podSecurityContext: null
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: ""
+    podServiceAccount: null
   icons:
     # Additional deployment labels
     labels: {}
@@ -239,11 +237,11 @@ component:
     # Specifies the strategy used to replace old Pods by new ones. The value can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
     deploymentStrategy: RollingUpdate
     # This will set the Kubernetes container security context
-    securityContext: {}
+    securityContext: null
     # This will set the Kubernetes pod security context
-    podSecurityContext: {}
+    podSecurityContext: null
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: ""
+    podServiceAccount: null
   identity:
     # Additional deployment labels
     labels: {}
@@ -265,11 +263,11 @@ component:
     # Specifies the strategy used to replace old Pods by new ones. The value can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
     deploymentStrategy: RollingUpdate
     # This will set the Kubernetes container security context
-    securityContext: {}
+    securityContext: null
     # This will set the Kubernetes pod security context
-    podSecurityContext: {}
+    podSecurityContext: null
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: ""
+    podServiceAccount: null
   notifications:
     # Additional deployment labels
     labels: {}
@@ -291,11 +289,11 @@ component:
     # Specifies the strategy used to replace old Pods by new ones. The value can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
     deploymentStrategy: RollingUpdate
     # This will set the Kubernetes container security context
-    securityContext: {}
+    securityContext: null
     # This will set the Kubernetes pod security context
-    podSecurityContext: {}
+    podSecurityContext: null
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: ""
+    podServiceAccount: null
   scim:
     # SCIM is disabled by default.  To use this service, enable it below and set an appropriate Ingress path
     enabled: false
@@ -319,11 +317,11 @@ component:
     # Specifies the strategy used to replace old Pods by new ones. The value can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
     deploymentStrategy: RollingUpdate
     # This will set the Kubernetes container security context
-    securityContext: {}
+    securityContext: null
     # This will set the Kubernetes pod security context
-    podSecurityContext: {}
+    podSecurityContext: null
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: ""
+    podServiceAccount: null
   sso:
     # Additional deployment labels
     labels: {}
@@ -345,11 +343,11 @@ component:
     # Specifies the strategy used to replace old Pods by new ones. The value can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
     deploymentStrategy: RollingUpdate
     # This will set the Kubernetes container security context
-    securityContext: {}
+    securityContext: null
     # This will set the Kubernetes pod security context
-    podSecurityContext: {}
+    podSecurityContext: null
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: ""
+    podServiceAccount: null
   web:
     # Additional deployment labels
     labels: {}
@@ -371,11 +369,11 @@ component:
     # Specifies the strategy used to replace old Pods by new ones. The value can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
     deploymentStrategy: RollingUpdate
     # This will set the Kubernetes container security context
-    securityContext: {}
+    securityContext: null
     # This will set the Kubernetes pod security context
-    podSecurityContext: {}
+    podSecurityContext: null
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: ""
+    podServiceAccount: null
 # Images used for jobs and init containers
 supportComponents:
   dbMigrator:
