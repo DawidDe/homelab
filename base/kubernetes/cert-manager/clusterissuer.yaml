@@ -2,6 +2,9 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: cloudflare
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   acme:
     email: "dawid.imb@gmail.com"

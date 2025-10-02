@@ -3,6 +3,9 @@ kind: IngressRoute
 metadata:
   name: jellyfin-ingressroute
   namespace: jellyfin
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   entryPoints:
     - websecure
