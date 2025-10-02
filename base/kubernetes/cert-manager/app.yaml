@@ -16,6 +16,7 @@ spec:
       - $values/base/kubernetes/cert-manager/values.yaml
   - repoURL: 'https://github.com/DawidDe/homelab.git'
     targetRevision: HEAD
+    path: base/kubernetes/cert-manager
     ref: values
   project: default
   syncPolicy:
