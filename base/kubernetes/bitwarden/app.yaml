@@ -16,6 +16,7 @@ spec:
       - $values/base/kubernetes/bitwarden/values.yaml
   - repoURL: 'https://github.com/DawidDe/homelab.git'
     targetRevision: HEAD
+    path: base/kubernetes/bitwarden
     ref: values
   project: default
   syncPolicy:
