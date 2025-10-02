@@ -13,7 +13,7 @@ spec:
     targetRevision: 2.4.0
     helm:
       valueFiles:
-      - $values/base/kubernetes/jellyfin/values.yaml
+      - $values/base/kubernetes/mailu/values.yaml
   - repoURL: 'https://github.com/DawidDe/homelab.git'
     targetRevision: HEAD
     path: base/kubernetes/mailu
