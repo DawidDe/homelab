@@ -515,7 +515,7 @@ database:
   # This will set the Kubernetes pod security context (including fsGroup)
   podSecurityContext: {}
   # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-  podServiceAccount: {}
+  podServiceAccount: ""
 
 # You can specify raw Kubernetes manifests that will be applied before or after the base Helm install.
 # Please see the chart README in GitHub for more information and examples.
