@@ -378,7 +378,7 @@ mariadb:
   primary:
     persistence:
       enabled: false
-      storageClass: ""
+      storageClass: "mailu-storage"
       accessMode: ReadWriteOnce
       size: 8Gi
 
@@ -1177,7 +1177,7 @@ redis:
     persistence:
       enabled: true
       size: 8Gi
-      storageClass: ""
+      storageClass: "redis-data"
       accessModes: [ReadWriteOnce]
       existingClaim: ""
       subPath: ""
@@ -2000,7 +2000,7 @@ clamav:
     size: 2Gi
 
     ## @param clamav.persistence.storageClass Pod pvc storage class
-    storageClass: ""
+    storageClass: "clamav-data"
 
     ## @param clamav.persistence.accessModes Pod pvc access modes
     accessModes: [ReadWriteOnce]
