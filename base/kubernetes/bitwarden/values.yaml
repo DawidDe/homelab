@@ -319,11 +319,11 @@ component:
     # Specifies the strategy used to replace old Pods by new ones. The value can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
     deploymentStrategy: RollingUpdate
     # This will set the Kubernetes container security context
-    securityContext:
+    securityContext: {}
     # This will set the Kubernetes pod security context
-    podSecurityContext:
+    podSecurityContext: {}
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount:
+    podServiceAccount: ""
   sso:
     # Additional deployment labels
     labels: {}
@@ -345,11 +345,11 @@ component:
     # Specifies the strategy used to replace old Pods by new ones. The value can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
     deploymentStrategy: RollingUpdate
     # This will set the Kubernetes container security context
-    securityContext:
+    securityContext: {}
     # This will set the Kubernetes pod security context
-    podSecurityContext:
+    podSecurityContext: {}
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount:
+    podServiceAccount: ""
   web:
     # Additional deployment labels
     labels: {}
@@ -371,11 +371,11 @@ component:
     # Specifies the strategy used to replace old Pods by new ones. The value can be "Recreate" or "RollingUpdate". "RollingUpdate" is the default value.
     deploymentStrategy: RollingUpdate
     # This will set the Kubernetes container security context
-    securityContext:
+    securityContext: {}
     # This will set the Kubernetes pod security context
-    podSecurityContext:
+    podSecurityContext: {}
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount:
+    podServiceAccount: ""
 # Images used for jobs and init containers
 supportComponents:
   dbMigrator:
