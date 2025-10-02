@@ -1,3 +1,5 @@
+replicaCount: 1
+
 # Optional - Override the chart name if desired
 fullnameOverride: ""
 nameOverride: ""
