@@ -139,7 +139,7 @@ component:
     # This will set the Kubernetes pod security context
     podSecurityContext: {}
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: {}
+    podServiceAccount: ""
   api:
     # Additional deployment labels
     labels: {}
@@ -165,7 +165,7 @@ component:
     # This will set the Kubernetes pod security context
     podSecurityContext: {}
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: {}
+    podServiceAccount: ""
   attachments:
     # Additional deployment labels
     labels: {}
@@ -217,7 +217,7 @@ component:
     # This will set the Kubernetes pod security context
     podSecurityContext: {}
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: {}
+    podServiceAccount: ""
   icons:
     # Additional deployment labels
     labels: {}
@@ -243,7 +243,7 @@ component:
     # This will set the Kubernetes pod security context
     podSecurityContext: {}
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: {}
+    podServiceAccount: ""
   identity:
     # Additional deployment labels
     labels: {}
@@ -269,7 +269,7 @@ component:
     # This will set the Kubernetes pod security context
     podSecurityContext: {}
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: {}
+    podServiceAccount: ""
   notifications:
     # Additional deployment labels
     labels: {}
@@ -295,7 +295,7 @@ component:
     # This will set the Kubernetes pod security context
     podSecurityContext: {}
     # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-    podServiceAccount: {}
+    podServiceAccount: ""
   scim:
     # SCIM is disabled by default.  To use this service, enable it below and set an appropriate Ingress path
     enabled: false
