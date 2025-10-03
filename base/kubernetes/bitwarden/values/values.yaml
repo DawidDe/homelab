@@ -69,7 +69,7 @@ general:
   admins: "false"
   email:
     # Email address used for invitations, typically no-reply@smtp-host
-    replyToEmail: "no-reply@bitwarden.localhost"
+    replyToEmail: "bitwarden.dawid@gmail.com"
     # Your SMTP server hostname (recommended) or IP address
     smtpHost: "smtp.gmail.com"
     # The SMTP port used by the SMTP server
@@ -381,11 +381,11 @@ supportComponents:
   certGenerator:
     image:
       name: alpine/openssl
-      tag: latest
+      tag: 3.5.2
   kubectl:
     image:
       name: ghcr.io/bitwarden/helm-charts/kubectl
-      tag: latest
+      tag: 1.34
 
 # Data volume sizes for shared PVCs
 volume:
@@ -463,9 +463,9 @@ database:
   tolerations: []
   # Image name, tag, and pull policy
   image:
-    name: ghcr.io/bitwarden/mssql
+    name: mcr.microsoft.com/mssql/server
     # Tag of the image to use. (Defaults to general.coreVersion)
-    tag: latest
+    tag: 2022-CU12-ubuntu-22.04
   # The container is limited to the resources below.  Adjust for your environment.
   resources:
     requests:
@@ -490,9 +490,9 @@ database:
       # Use an existing PVC by specifying the name.
       # existingClaim: claimName
       # Override the accessMode specified in general.volumeAccessMode
-      accessMode: ReadWriteOnce
+      # accessMode: ReadWriteOnce
       # Override the storageClass specified in sharedStorageClassName
-      storageClass: "database-data"
+      # storageClass: "shared-storage"
       size: 10Gi
       labels: {}
     log:
