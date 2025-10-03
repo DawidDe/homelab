@@ -490,9 +490,9 @@ database:
       # Use an existing PVC by specifying the name.
       # existingClaim: claimName
       # Override the accessMode specified in general.volumeAccessMode
-      # accessMode: ReadWriteOnce
+      accessMode: ReadWriteOnce
       # Override the storageClass specified in sharedStorageClassName
-      # storageClass: "shared-storage"
+      storageClass: "database-data"
       size: 10Gi
       labels: {}
     log:
