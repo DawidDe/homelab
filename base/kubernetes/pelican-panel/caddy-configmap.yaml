@@ -4,7 +4,7 @@ metadata:
   name: pelican-panel-caddy-config
   namespace: pelican-panel
   annotations:
-    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook: PreSync
 data:
   Caddyfile: |
     {
