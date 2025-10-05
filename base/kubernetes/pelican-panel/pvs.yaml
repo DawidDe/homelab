@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pelican-panel-data
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: "pelican-panel-data"
+  hostPath:
+    path: /var/mnt/zfs/pelican-panel/data
+    type: DirectoryOrCreate
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: node-role.kubernetes.io/control-plane
+          operator: DoesNotExist
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pelican-panel-logs
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: "pelican-panel-logs"
+  hostPath:
+    path: /var/mnt/zfs/pelican-panel/logs
+    type: DirectoryOrCreate
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: node-role.kubernetes.io/control-plane
+          operator: DoesNotExist
