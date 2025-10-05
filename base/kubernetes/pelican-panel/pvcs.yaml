@@ -9,6 +9,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: pelican-panel-data
   resources:
     requests:
       storage: 1Gi
@@ -24,6 +25,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: pelican-panel-logs
   resources:
     requests:
       storage: 500Mi
