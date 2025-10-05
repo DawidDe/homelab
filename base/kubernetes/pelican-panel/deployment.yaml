@@ -22,14 +22,23 @@ spec:
             - name: XDG_DATA_HOME
               value: "/pelican-data"
             - name: APP_URL
-              value: "http://localhost"
+              valueFrom:
+                secretKeyRef:
+                  name: pelican-panel-secrets
+                  key: app_url
             - name: ADMIN_EMAIL
-              value: "USEYOUROWNEMAILHERE@example.com"
+              valueFrom:
+                secretKeyRef:
+                  name: pelican-panel-secrets
+                  key: admin_email
           volumeMounts:
             - name: pelican-panel-data
               mountPath: /pelican-panel/data
             - name: pelican-panel-logs
               mountPath: /var/www/html/storage/logs
+            - name: pelican-panel-caddy-config
+              mountPath: /etc/caddy/Caddyfile
+              subPath: Caddyfile
       volumes:
         - name: pelican-panel-data
           persistentVolumeClaim:

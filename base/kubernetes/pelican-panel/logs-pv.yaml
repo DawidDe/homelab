@@ -3,6 +3,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: pelican-panel-logs
   namespace: pelican-panel
+  annotations:
+    argocd.argoproj.io/hook: PostSync
 spec:
   accessModes:
     - ReadWriteOnce

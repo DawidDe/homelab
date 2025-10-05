@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pelican-panel
+  namespace: argocd
+spec:
+  destination:
+    namespace: pelican-panel
+    server: 'https://kubernetes.default.svc'
+  sources:
+  - repoURL: 'https://github.com/DawidDe/homelab.git'
+    targetRevision: HEAD
+    path: base/kubernetes/pelican-panel
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+      enabled: true
+    syncOptions:
+    - CreateNamespace=true
