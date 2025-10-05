@@ -46,3 +46,6 @@ spec:
         - name: pelican-panel-logs
           persistentVolumeClaim:
             claimName: pelican-panel-logs
+        - name: pelican-panel-caddy-config
+          configMap:
+            name: pelican-panel-caddy-config
