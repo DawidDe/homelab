@@ -4,6 +4,7 @@ metadata:
   name: pelican-panel-data
   annotations:
     argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   capacity:
     storage: 1Gi
@@ -27,9 +28,10 @@ metadata:
   name: pelican-panel-logs
   annotations:
     argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   capacity:
-    storage: 5Gi
+    storage: 500Mi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain

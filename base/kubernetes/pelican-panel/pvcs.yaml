@@ -5,6 +5,7 @@ metadata:
   namespace: pelican-panel
   annotations:
     argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   accessModes:
     - ReadWriteOnce
@@ -19,6 +20,7 @@ metadata:
   namespace: pelican-panel
   annotations:
     argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   accessModes:
     - ReadWriteOnce
