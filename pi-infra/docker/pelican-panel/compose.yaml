@@ -1,28 +1,37 @@
+---
 services:
   panel:
+    # Identity
     image: ghcr.io/pelican-dev/panel:latest
+    pull_policy: always
+    container_name: pelican-panel
+    hostname: pelican-panel
+
+    # Runtime
+    command: []
     restart: always
-    networks:
-      - default
-    ports:
-      - "80:80"
-      - "443:443"
+
+    # System-level
+    capp_add: []
+    devices: []
+    sysctls: []
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
+    # Networking
+    ports:
+      - "80:80"
+    network_mode: "host"
+
+    # Storage
     volumes:
-      - pelican-data:/pelican-data
-      - pelican-logs:/var/www/html/storage/logs
+      - ./data:/pelican-data
+      - ./logs:/var/www/html/storage/logs
+      - ./Caddyfile:/etc/caddy/Caddyfile
+
+    # Environment
+    env_file: []
     environment:
       XDG_DATA_HOME: /pelican-data
-      APP_URL: "https://pelican.dawidde.de"
-      ADMIN_EMAIL: "USEYOUROWNEMAILHERE@example.com"
-
-volumes:
-  pelican-data:
-  pelican-logs:
-
-networks:
-  default:
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16
+      APP_URL: "https://panel.dawidde.de"
+      ADMIN_EMAIL: ""

@@ -2,17 +2,11 @@
 services:
   omni:
     image: ghcr.io/siderolabs/omni:latest
+    pull_policy: always
     container_name: omni
-    devices:
-      - /dev/net/tun
-    volumes:
-      - ${ETCD_VOLUME_PATH}:/_out/etcd
-      - ${ETCD_ENCRYPTION_KEY}:/omni.asc
-      - ${TLS_CERT}:/tls.crt
-      - ${TLS_KEY}:/tls.key
-    network_mode: "host"
-    cap_add:
-      - NET_ADMIN
+    hostname: omni
+
+    # Runtime
     command: >
       --account-id=${OMNI_ACCOUNT_UUID}
       --name=${NAME}
@@ -32,3 +26,30 @@ services:
       --siderolink-wireguard-advertised-addr=${SIDEROLINK_WIREGUARD_ADVERTISED_ADDR}
       --initial-users=${INITIAL_USER_EMAILS}
       ${AUTH}
+    restart: always
+
+    # System-level
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    sysctls: []
+    extra_hosts: []
+
+    # Networking
+    ports: []
+    network_mode: "host"
+
+    # Storage
+    volumes:
+      - ${ETCD_VOLUME_PATH}:/_out/etcd
+      - ${ETCD_ENCRYPTION_KEY}:/omni.asc
+      - ${TLS_CERT}:/tls.crt
+      - ${TLS_KEY}:/tls.key
+
+    # Environment
+    env_file: []
+    environment:
+      XDG_DATA_HOME: /pelican-data
+      APP_URL: "https://panel.dawidde.de"
+      ADMIN_EMAIL: ""

@@ -1,11 +1,35 @@
+---
 services:
   twingate:
     image: twingate/connector:latest
-    container_name: twingate
-    restart: unless-stopped
     pull_policy: always
+    container_name: twingate
+    hostname: twingate
+
+    # Runtime
+    command: []
+    restart: always
+
+    # System-level
+    capp_add: []
+    devices: []
     sysctls:
       net.ipv4.ping_group_range: "0 2147483647"
+    extra_hosts: []
+
+    # Networking
+    ports: []
+    network_mode: "host"
+
+    # Storage
+    volumes:
+      - ${ETCD_VOLUME_PATH}:/_out/etcd
+      - ${ETCD_ENCRYPTION_KEY}:/omni.asc
+      - ${TLS_CERT}:/tls.crt
+      - ${TLS_KEY}:/tls.key
+
+    # Environment
+    env_file: []
     environment:
       TWINGATE_NETWORK: ""
       TWINGATE_ACCESS_TOKEN: ""

@@ -2,15 +2,31 @@
 services:
   vault:
     image: hashicorp/vault:latest
+    pull_policy: always
     container_name: vault
     hostname: vault
+
+    # Runtime
+    command: server
+    restart: always
+
+    # System-level
+    cap_add:
+      - IPC_LOCK
+    devices: []
+    sysctls: []
+    extra_hosts: []
+
+    # Networking
+    ports: []
+    network_mode: "host"
+
+    # Storage
     volumes:
       - ./config.hcl:/vault/config/config.hcl
       - ./data:/vault/file/
+
+    # Environment
+    env_file: []
     environment:
       - VAULT_ADDR=https://vault.dawidde.de
-    cap_add:
-      - IPC_LOCK
-    network_mode: "host"
-    command: server
-    restart: always
