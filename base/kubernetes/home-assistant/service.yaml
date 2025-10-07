@@ -8,8 +8,8 @@ metadata:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "0"
 spec:
+  type: ExternalName
+  externalName: 192.168.178.6
   ports:
-    - name: http
-      port: 8123
+    - port: 8123
       targetPort: 8123
-  clusterIP: None
