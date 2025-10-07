@@ -6,7 +6,7 @@ metadata:
   namespace: home-assistant
   annotations:
     argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   secretName: home-assistant-certificate-secret
   issuerRef:
