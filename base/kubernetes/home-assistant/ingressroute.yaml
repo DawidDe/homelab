@@ -1,6 +1,6 @@
 ---
 apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+kind: IngressRouteTCP
 metadata:
   name: home-assistant-ingressroute
   namespace: home-assistant
