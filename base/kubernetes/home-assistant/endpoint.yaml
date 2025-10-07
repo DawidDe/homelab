@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: home-assistant-endpoint
+  namespace: home-assistant
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "1"
+subsets:
+  - addresses:
+      - ip: 192.168.178.6
+    ports:
+      - port: 8123

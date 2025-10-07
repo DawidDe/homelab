@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: home-assistant-service
+  namespace: home-assistant
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  ports:
+    - name: http
+      port: 8123
+      targetPort: 8123
+  clusterIP: None

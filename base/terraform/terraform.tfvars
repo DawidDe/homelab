@@ -49,3 +49,29 @@ talos_worker = {
     ipconfig0         = "ip=dhcp"
     skip_ipv6         = true
 }
+
+home_assistant = {
+    vmid              = 102
+    name              = "home-assistant"
+    onboot            = true
+    agent             = 1
+    vm_state          = "running"
+    bios              = "ovmf"
+    pre_enrolled_keys = false
+    efidisk_efitype   = "4m"
+    efidisk_storage   = "local-lvm"
+    iso               = "local:iso/talos.iso"
+    disk_storage      = "local-lvm"
+    disk_size         = "10G"
+    cpu_sockets       = 1
+    cpu_cores         = 4
+    cpu_type          = "host"
+    memory            = 8196
+    balloon           = 0
+    network_id        = 0
+    network_bridge    = "vmbr0"
+    network_model     = "virtio"
+    network_macaddr   = "BC:24:11:05:5C:9E"
+    ipconfig0         = "ip=dhcp"
+    skip_ipv6         = true
+}
