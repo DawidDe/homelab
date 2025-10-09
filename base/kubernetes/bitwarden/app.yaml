@@ -9,9 +9,9 @@ spec:
     namespace: bitwarden
     server: 'https://kubernetes.default.svc'
   sources:
-  - repoURL: 'https://charts.bitwarden.com/'
-    chart: self-host
-    targetRevision: 2025.9.2
+  - repoURL: 'https://github.com/DawidDe/helm-charts.git'
+    targetRevision: main
+    path: charts/self-host
     helm:
       valueFiles:
       - $values/base/kubernetes/bitwarden/values/values.yaml

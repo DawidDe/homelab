@@ -1,4 +1,3 @@
----
 # Optional - Override the chart name if desired
 fullnameOverride: ""
 nameOverride: ""
@@ -70,7 +69,7 @@ general:
   admins: "false"
   email:
     # Email address used for invitations, typically no-reply@smtp-host
-    replyToEmail: "bitwarden.dawid@gmail.com"
+    replyToEmail: "bitwarden.dawid@gmail.de"
     # Your SMTP server hostname (recommended) or IP address
     smtpHost: "smtp.gmail.com"
     # The SMTP port used by the SMTP server
@@ -87,6 +86,12 @@ general:
     enforceSsoPolicyForAllUsers: false
   # Custom labels to add throughout the installation
   labels: {}
+  # Custom annotations to add throughout the installation
+  annotations: {}
+  # Additional default pod labels
+  podLabels: {}
+  # Additional default pod annotations
+  podAnnotations: {}
   # nodeSelector and tolerations defined here will apply to all templates in the Helm chart. They can be individually overridden
   nodeSelector: {}
   tolerations: []
@@ -97,7 +102,7 @@ general:
   # Set to true to allow communication between your server and our cloud system. Doing so enables billing and license sync.  Please see: https://bitwarden.com/help/self-host-an-organization/#step-4-setup-billing-and-license-sync
   enableCloudCommunication: false
   # Cloud region for sync.  Please see: https://bitwarden.com/help/families-for-enterprise-self-hosted/#step-1-enable-cloud-communication
-  cloudRegion: EU
+  cloudRegion: US
 
 # Specify the name of the shared storage class
 # This storage class requires ReadWriteMany.  You will need to provide your own storage class.  Storage classes with automatic volume previsioners are recommended.
@@ -115,6 +120,12 @@ component:
   admin:
     # Additional deployment labels
     labels: {}
+    # Additional deployment annotations
+    annotations: {}
+    # Additional pod labels
+    podLabels: {}
+    # Additional pod annotations
+    podAnnotations: {}
     # Optionally place deployment on specifc nodes
     nodeSelector: {}
     # Optionally add taint tolerations
@@ -141,6 +152,12 @@ component:
   api:
     # Additional deployment labels
     labels: {}
+    # Additional deployment annotations
+    annotations: {}
+    # Additional pod labels
+    podLabels: {}
+    # Additional pod annotations
+    podAnnotations: {}
     # Optionally place deployment on specifc nodes
     nodeSelector: {}
     # Optionally add taint tolerations
@@ -167,6 +184,12 @@ component:
   attachments:
     # Additional deployment labels
     labels: {}
+    # Additional deployment annotations
+    annotations: {}
+    # Additional pod labels
+    podLabels: {}
+    # Additional pod annotations
+    podAnnotations: {}
     # Optionally place deployment on specifc nodes
     nodeSelector: {}
     # Optionally add taint tolerations
@@ -193,6 +216,12 @@ component:
   events:
     # Additional deployment labels
     labels: {}
+    # Additional deployment annotations
+    annotations: {}
+    # Additional pod labels
+    podLabels: {}
+    # Additional pod annotations
+    podAnnotations: {}
     # Optionally place deployment on specifc nodes
     nodeSelector: {}
     # Optionally add taint tolerations
@@ -219,6 +248,12 @@ component:
   icons:
     # Additional deployment labels
     labels: {}
+    # Additional deployment annotations
+    annotations: {}
+    # Additional pod labels
+    podLabels: {}
+    # Additional pod annotations
+    podAnnotations: {}
     # Optionally place deployment on specifc nodes
     nodeSelector: {}
     # Optionally add taint tolerations
@@ -245,6 +280,12 @@ component:
   identity:
     # Additional deployment labels
     labels: {}
+    # Additional deployment annotations
+    annotations: {}
+    # Additional pod labels
+    podLabels: {}
+    # Additional pod annotations
+    podAnnotations: {}
     # Optionally place deployment on specifc nodes
     nodeSelector: {}
     # Optionally add taint tolerations
@@ -271,6 +312,12 @@ component:
   notifications:
     # Additional deployment labels
     labels: {}
+    # Additional deployment annotations
+    annotations: {}
+    # Additional pod labels
+    podLabels: {}
+    # Additional pod annotations
+    podAnnotations: {}
     # Optionally place deployment on specifc nodes
     nodeSelector: {}
     # Optionally add taint tolerations
@@ -299,6 +346,12 @@ component:
     enabled: false
     # Additional deployment labels
     labels: {}
+    # Additional deployment annotations
+    annotations: {}
+    # Additional pod labels
+    podLabels: {}
+    # Additional pod annotations
+    podAnnotations: {}
     # Optionally place deployment on specifc nodes
     nodeSelector: {}
     # Optionally add taint tolerations
@@ -325,6 +378,12 @@ component:
   sso:
     # Additional deployment labels
     labels: {}
+    # Additional deployment annotations
+    annotations: {}
+    # Additional pod labels
+    podLabels: {}
+    # Additional pod annotations
+    podAnnotations: {}
     # Optionally place deployment on specifc nodes
     nodeSelector: {}
     # Optionally add taint tolerations
@@ -351,6 +410,12 @@ component:
   web:
     # Additional deployment labels
     labels: {}
+    # Additional deployment annotations
+    annotations: {}
+    # Additional pod labels
+    podLabels: {}
+    # Additional pod annotations
+    podAnnotations: {}
     # Optionally place deployment on specifc nodes
     nodeSelector: {}
     # Optionally add taint tolerations
@@ -419,7 +484,7 @@ volume:
     labels: {}
   logs:
     # Logs are disabled by default
-    enabled: true
+    enabled: false
     # Use an existing PVC by specifying the name.
     # existingClaim: claimName
     # Override the accessMode specified in general.volumeAccessMode
@@ -434,99 +499,82 @@ volume:
     # Load custom Certificates from the following ConfigMap
     configMapName: cacert
 
-#
-# Set security contexts for pre- and post-install hooks
-#
 jobs:
+  #
+  # Set security contexts for pre- and post-install hooks
+  #
   securityContext: {}
   podSecurityContext: {}
+
+  db:
+    preInstallMigrator:
+      # Additional job labels
+      labels: {}
+      # Additional job annotations
+      annotations:
+        argocd.argoproj.io/hook: Sync
+      # Additional pod labels
+      podLabels: {}
+      # Additional pod annotations
+      podAnnotations: {}
+    postInstallMigrator:
+      # Additional job labels
+      labels: {}
+      # Additional job annotations
+      annotations: {}
+      # Additional pod labels
+      podLabels: {}
+      # Additional pod annotations
+      podAnnotations: {}
+
+  setup:
+    # Additional job labels
+    labels: {}
+    # Additional job annotations
+    annotations:
+      argocd.argoproj.io/hook: PreSync
+    # Additional pod labels
+    podLabels: {}
+    # Additional pod annotations
+    podAnnotations: {}
+  cleanup:
+    # Enabled by default, disable to retain resources after uninstall
+    enabled: false
+    # Additional job labels
+    labels: {}
+    # Additional job annotations
+    annotations: {}
+    # Additional pod labels
+    podLabels: {}
+    # Additional pod annotations
+    podAnnotations: {}
+  secret:
+    # Additional job labels
+    labels: {}
+    # Additional job annotations
+    annotations:
+      argocd.argoproj.io/hook: PreSync
+    # Additional pod labels
+    podLabels: {}
+    # Additional pod annotations
+    podAnnotations: {}
+database:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+  volume:
+    backups:
+      annotations:
+        argocd.argoproj.io/sync-wave: "-1"
+    data:
+      annotations:
+        argocd.argoproj.io/sync-wave: "-1"
+    log:
+      annotations:
+        argocd.argoproj.io/sync-wave: "-1"
 
 #
 # Configure service account for pre- and post-install hooks
 #
 serviceAccount:
   name: service-account
-  # Certain instances will prequire the creation of a pre-deployed service account.  For instance, AWS IAM enabled service accounts need to be created outside
-  # of the chart to allow for setting of permissions on other AWS services like Secrets Manager
-  deployRolesOnly: false
-
-#
-# Configure database
-#
-database:
-  # deploy the database pod?  if false, a connection string to a SQL Server will need to be provided through one of the configuration providers.
-  enabled: true
-  # Labels to add to the MSSQL deployment
-  labels: {}
-  # Optionally place deployment on specifc nodes
-  nodeSelector: {}
-  # Optionally add taint tolerations
-  tolerations: []
-  # Image name, tag, and pull policy
-  image:
-    name: mcr.microsoft.com/mssql/server
-    # Tag of the image to use. (Defaults to general.coreVersion)
-    tag: 2022-CU12-ubuntu-22.04
-  # The container is limited to the resources below.  Adjust for your environment.
-  resources:
-    requests:
-      memory: "2G"
-      cpu: "100m"
-    limits:
-      memory: "2G"
-      cpu: "500m"
-
-  # The MSSQL volumes for the PVCs
-  volume:
-    backups:
-      # Use an existing PVC by specifying the name.
-      # existingClaim: claimName
-      # Override the accessMode specified in general.volumeAccessMode
-      # accessMode: ReadWriteOnce
-      # Override the storageClass specified in sharedStorageClassName
-      # storageClass: "shared-storage"
-      size: 1Gi
-      labels: {}
-    data:
-      # Use an existing PVC by specifying the name.
-      # existingClaim: claimName
-      # Override the accessMode specified in general.volumeAccessMode
-      # accessMode: ReadWriteOnce
-      # Override the storageClass specified in sharedStorageClassName
-      # storageClass: "shared-storage"
-      size: 10Gi
-      labels: {}
-    log:
-      # Use an existing PVC by specifying the name.
-      # existingClaim: claimName
-      # Override the accessMode specified in general.volumeAccessMode
-      # accessMode: ReadWriteOnce
-      # Override the storageClass specified in sharedStorageClassName
-      # storageClass: "shared-storage"
-      size: 10Gi
-      labels: {}
-  # Specifies the strategy used to replace old Pods by new ones. The value can be "OnDelete" or "RollingUpdate". "OnDelete" is the default value.
-  # When set to OnDelete, the SQL pod will not be recreated automatically on update.  It must be manually deleted to update.
-  updateStrategy: OnDelete
-  # This will set the Kubernetes container security context
-  securityContext:
-  # This will set the Kubernetes pod security context (including fsGroup)
-  podSecurityContext:
-  # Run the pod under a service account you create.  This is especially useful for OpenShift deployments
-  podServiceAccount:
-
-# You can specify raw Kubernetes manifests that will be applied before or after the base Helm install.
-# Please see the chart README in GitHub for more information and examples.
-rawManifests:
-  preInstall: []
-  # E.g. add a custom certificate to your bitwarden installation.
-  # - apiVersion: v1
-  #   kind: ConfigMap
-  #   metadata:
-  #     name: cacert
-  #   data:
-  #     rootca.crt: |
-  #       -----BEGIN CERTIFICATE-----
-  #       xxxx
-  #       -----END CERTIFICATE-----
-  postInstall: []
+  # Certain instances will require the creation of a pre-deployed service account. For instance, AWS IAM enabled service accounts need to
