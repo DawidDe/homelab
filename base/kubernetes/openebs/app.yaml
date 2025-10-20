@@ -11,7 +11,7 @@ spec:
   sources:
   - repoURL: 'https://openebs.github.io/openebs'
     chart: openebs
-    targetRevision: HEAD
+    targetRevision: 4.4.0-develop
     helm:
       valueFiles:
       - $values/base/kubernetes/openebs/values.yaml
