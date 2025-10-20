@@ -83,9 +83,9 @@ preUpgradeHook:
 engines:
   local:
     lvm:
-      enabled: true
+      enabled: false
     zfs:
-      enabled: true
+      enabled: false
     rawfile:
       # Disabled by default since rawfile is not marked as stable yet.
       enabled: false
