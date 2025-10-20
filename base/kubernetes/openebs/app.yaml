@@ -1,0 +1,29 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openebs
+  namespace: argocd
+spec:
+  destination:
+    namespace: openebs
+    server: 'https://kubernetes.default.svc'
+  sources:
+  - repoURL: 'https://openebs.github.io/openebs'
+    chart: openebs
+    targetRevision: latest
+    helm:
+      valueFiles:
+      - $values/base/kubernetes/openebs/values.yaml
+  - repoURL: 'https://github.com/DawidDe/homelab.git'
+    targetRevision: HEAD
+    path: base/kubernetes/openebs
+    ref: values
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+      enabled: true
+    syncOptions:
+    - CreateNamespace=true
