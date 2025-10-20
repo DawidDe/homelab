@@ -94,7 +94,7 @@ engines:
       enabled: false
 
 loki:
-  enabled: true
+  enabled: false
   # NOTE: For all possible storage options for loki, check https://github.com/openebs/openebs/blob/HEAD/charts/loki-storage.md
   # Configuration for loki's localpv hostpath storage class.
   localpvScConfig:
