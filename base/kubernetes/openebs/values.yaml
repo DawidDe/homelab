@@ -91,7 +91,7 @@ engines:
       enabled: false
   replicated:
     mayastor:
-      enabled: true
+      enabled: false
 
 loki:
   enabled: true
