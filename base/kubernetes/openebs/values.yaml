@@ -234,7 +234,7 @@ alloy:
 
   alloy:
     mounts:
-      varlog: true
+      varlog: false
     configMap:
       create: true
       content: |
