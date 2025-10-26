@@ -11,7 +11,7 @@ spec:
   sources:
   - repoURL: 'https://charts.external-secrets.io/'
     chart: external-secrets
-    targetRevision: 0.20.3
+    targetRevision: 0.20.4
     helm:
       valueFiles:
       - $values/base/kubernetes/external-secrets-operator/values.yaml
