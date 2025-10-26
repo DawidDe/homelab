@@ -24,8 +24,8 @@ resource "proxmox_vm_qemu" "talos-controlplane" {
         virtio {
             virtio0 {
                 disk {
-                    storage = var.talos_controlplane.disk_storage
-                    size = var.talos_controlplane.disk_size
+                    storage = var.talos_controlplane.disk0_storage
+                    size = var.talos_controlplane.disk0_size
                 }
             }
         }

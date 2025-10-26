@@ -22,8 +22,8 @@ variable "talos_controlplane" {
         efidisk_efitype   = string
         efidisk_storage   = string
         iso               = string
-        disk_storage      = string
-        disk_size         = string
+        disk0_storage     = string
+        disk0_size        = string
         cpu_sockets       = number
         cpu_cores         = number
         cpu_type          = string
@@ -50,8 +50,10 @@ variable "talos_worker" {
         efidisk_efitype   = string
         efidisk_storage   = string
         iso               = string
-        disk_storage      = string
-        disk_size         = string
+        disk0_storage     = string
+        disk0_size        = string
+        disk1_storage     = string
+        disk1_size        = string
         cpu_sockets       = number
         cpu_cores         = number
         cpu_type          = string
@@ -78,8 +80,8 @@ variable "home_assistant" {
         efidisk_efitype   = string
         efidisk_storage   = string
         iso               = string
-        disk_storage      = string
-        disk_size         = string
+        disk0_storage     = string
+        disk0_size        = string
         cpu_sockets       = number
         cpu_cores         = number
         cpu_type          = string
