@@ -24,8 +24,8 @@ resource "proxmox_vm_qemu" "home-assistant" {
         virtio {
             virtio0 {
                 disk {
-                    storage = var.home_assistant.disk_storage
-                    size = var.home_assistant.disk_size
+                    storage = var.home_assistant.disk0_storage
+                    size = var.home_assistant.disk0_size
                 }
             }
         }
