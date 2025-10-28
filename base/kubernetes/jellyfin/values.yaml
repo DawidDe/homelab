@@ -179,7 +179,7 @@ persistence:
     # -- Custom annotations to be added to the PVC
     annotations: {}
     # -- If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
-    storageClass: 'jellyfin-config'
+    storageClass: 'zfs'
     ## -- Use an existing PVC for this mount
     # existingClaim: ''
   media:
@@ -195,7 +195,7 @@ persistence:
     # -- Custom annotations to be added to the PVC
     annotations: {}
     # -- If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
-    storageClass: 'jellyfin-media'
+    storageClass: 'zfs'
     ## -- Use an existing PVC for this mount
     # existingClaim: ''
 
