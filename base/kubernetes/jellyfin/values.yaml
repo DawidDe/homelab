@@ -36,7 +36,8 @@ serviceAccount:
 # -- Annotations to add to the pod.
 podAnnotations: {}
 # -- Additional labels to add to the pod.
-podLabels: {}
+podLabels:
+  pod-security.kubernetes.io/enforce: privileged
 
 # -- Security context for the pod.
 podSecurityContext: {}
