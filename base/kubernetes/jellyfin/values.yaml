@@ -179,12 +179,12 @@ persistence:
     # -- Custom annotations to be added to the PVC
     annotations: {}
     # -- If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner.
-    storageClass: 'zfs'
+    storageClass: 'jellyfin-config'
     ## -- Use an existing PVC for this mount
     # existingClaim: ''
   media:
     # -- set to false to use emptyDir
-    enabled: true
+    enabled: false
     # -- Type of volume for media storage (pvc, hostPath, emptyDir). If 'enabled' is false, 'emptyDir' is used regardless of this setting.
     type: pvc
     # -- Path on the host node for media storage, only used if type is 'hostPath'.
