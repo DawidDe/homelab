@@ -461,7 +461,7 @@ volume:
     # Override the accessMode specified in general.volumeAccessMode
     # accessMode: ReadWriteOnce
     # Override the storageClass specified in sharedStorageClassName
-    # storageClass: "shared-storage"
+    storageClass: "bitwarden-dataprotection"
     size: "1Gi"
     labels: {}
   attachments:
@@ -470,7 +470,7 @@ volume:
     # Override the accessMode specified in general.volumeAccessMode
     # accessMode: ReadWriteOnce
     # Override the storageClass specified in sharedStorageClassName
-    # storageClass: "shared-storage"
+    storageClass: "bitwarden-attachments"
     size: 1Gi
     labels: {}
   licenses:
@@ -479,7 +479,7 @@ volume:
     # Override the accessMode specified in general.volumeAccessMode
     # accessMode: ReadWriteOnce
     # Override the storageClass specified in sharedStorageClassName
-    # storageClass: "shared-storage"
+    storageClass: "bitwarden-licenses"
     size: 1Gi
     labels: {}
   logs:
@@ -490,7 +490,7 @@ volume:
     # Override the accessMode specified in general.volumeAccessMode
     # accessMode: ReadWriteOnce
     # Override the storageClass specified in sharedStorageClassName
-    # storageClass: "shared-storage"
+    storageClass: "bitwarden-logs"
     size: 1Gi
     labels: {}
   caCertificates:
@@ -609,7 +609,7 @@ database:
       # Override the accessMode specified in general.volumeAccessMode
       # accessMode: ReadWriteOnce
       # Override the storageClass specified in sharedStorageClassName
-      # storageClass: "shared-storage"
+      storageClass: "bitwarden-myssql-backups"
       size: 1Gi
       labels: {}
       annotations:
@@ -620,7 +620,7 @@ database:
       # Override the accessMode specified in general.volumeAccessMode
       # accessMode: ReadWriteOnce
       # Override the storageClass specified in sharedStorageClassName
-      # storageClass: "shared-storage"
+      storageClass: "bitwarden-myssql-data"
       size: 10Gi
       labels: {}
       annotations:
@@ -631,7 +631,7 @@ database:
       # Override the accessMode specified in general.volumeAccessMode
       # accessMode: ReadWriteOnce
       # Override the storageClass specified in sharedStorageClassName
-      # storageClass: "shared-storage"
+      storageClass: "bitwarden-myssql-log"
       size: 10Gi
       labels: {}
       annotations:

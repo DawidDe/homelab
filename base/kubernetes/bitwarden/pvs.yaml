@@ -1,0 +1,105 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bitwarden-dataprotection-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: bitwarden-dataprotection
+  hostPath:
+    path: /var/mnt/zfs/bitwarden/dataprotection
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bitwarden-attachments-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: bitwarden-attachments
+  hostPath:
+    path: /var/mnt/zfs/bitwarden/attachments
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bitwarden-licenses-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: bitwarden-licenses
+  hostPath:
+    path: /var/mnt/zfs/bitwarden/licenses
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bitwarden-logs-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: bitwarden-logs
+  hostPath:
+    path: /var/mnt/zfs/bitwarden/logs
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bitwarden-myssql-backups-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: bitwarden-myssql-backups
+  hostPath:
+    path: /var/mnt/zfs/bitwarden/myssql/backups
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bitwarden-myssql-data-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: bitwarden-myssql-data
+  hostPath:
+    path: /var/mnt/zfs/bitwarden/myssql/data
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bitwarden-myssql-log-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: bitwarden-myssql-log
+  hostPath:
+    path: /var/mnt/zfs/bitwarden/myssql/log
+    type: DirectoryOrCreate
