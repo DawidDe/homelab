@@ -4,8 +4,5 @@ kind: Secret
 metadata:
   name: vault-token
   namespace: external-secrets-operator
-  annotations:
-    argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/sync-wave: "0"
 data:
   token:
