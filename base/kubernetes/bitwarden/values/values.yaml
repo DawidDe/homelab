@@ -607,7 +607,7 @@ database:
       # Use an existing PVC by specifying the name.
       # existingClaim: claimName
       # Override the accessMode specified in general.volumeAccessMode
-      # accessMode: ReadWriteOnce
+      accessMode: ReadWriteOnce
       # Override the storageClass specified in sharedStorageClassName
       storageClass: "bitwarden-myssql-backups"
       size: 1Gi
@@ -618,7 +618,7 @@ database:
       # Use an existing PVC by specifying the name.
       # existingClaim: claimName
       # Override the accessMode specified in general.volumeAccessMode
-      # accessMode: ReadWriteOnce
+      accessMode: ReadWriteOnce
       # Override the storageClass specified in sharedStorageClassName
       storageClass: "bitwarden-myssql-data"
       size: 10Gi
@@ -629,7 +629,7 @@ database:
       # Use an existing PVC by specifying the name.
       # existingClaim: claimName
       # Override the accessMode specified in general.volumeAccessMode
-      # accessMode: ReadWriteOnce
+      accessMode: ReadWriteOnce
       # Override the storageClass specified in sharedStorageClassName
       storageClass: "bitwarden-myssql-log"
       size: 10Gi
