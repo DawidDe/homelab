@@ -5,7 +5,7 @@ metadata:
   name: bitwarden-dataprotection-pv
   annotations:
     argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   capacity:
     storage: 1Gi
@@ -23,7 +23,7 @@ metadata:
   name: bitwarden-attachments-pv
   annotations:
     argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   capacity:
     storage: 1Gi
@@ -41,7 +41,7 @@ metadata:
   name: bitwarden-licenses-pv
   annotations:
     argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   capacity:
     storage: 1Gi
@@ -59,7 +59,7 @@ metadata:
   name: bitwarden-logs-pv
   annotations:
     argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   capacity:
     storage: 1Gi
@@ -77,12 +77,12 @@ metadata:
   name: bitwarden-myssql-backups-pv
   annotations:
     argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   capacity:
     storage: 1Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: bitwarden-myssql-backups
   hostPath:
@@ -95,12 +95,12 @@ metadata:
   name: bitwarden-myssql-data-pv
   annotations:
     argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   capacity:
     storage: 10Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: bitwarden-myssql-data
   hostPath:
@@ -113,12 +113,12 @@ metadata:
   name: bitwarden-myssql-log-pv
   annotations:
     argocd.argoproj.io/hook: PreSync
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   capacity:
     storage: 10Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: bitwarden-myssql-log
   hostPath:
