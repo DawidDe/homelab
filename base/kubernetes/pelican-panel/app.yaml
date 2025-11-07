@@ -14,10 +14,10 @@ spec:
     targetRevision: 0.1.5
     helm:
       valueFiles:
-      - $values/base/kubernetes/bitwarden/values/values.yaml
+      - $values/base/kubernetes/pelican-panel/values.yaml
   - repoURL: 'https://github.com/DawidDe/homelab.git'
     targetRevision: HEAD
-    path: base/kubernetes/bitwarden
+    path: base/kubernetes/pelican-panel
     ref: values
   project: default
   syncPolicy:
