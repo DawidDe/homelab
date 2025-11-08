@@ -11,7 +11,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`pelican.test.dawidde.de`)
+  - match: Host(`pelicantest.dawidde.de`)
     kind: Rule
     services:
     - name: pelican-panel-service
