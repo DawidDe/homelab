@@ -32,15 +32,15 @@ persistence:
     enabled: true
     accessMode: ReadWriteOnce
     size: 1Gi
-    storageClassName: 'pelican-panel-data'
+    storageClassName: ''
   logs:
     enabled: true
     accessMode: ReadWriteOnce
     size: 1Gi
-    storageClassName: 'pelican-panel-logs'
+    storageClassName: ''
 
 caddy:
-  admin: off
+  admin: "off"
   # The IP of your reverse proxy
   trusted_proxies: 10.98.31.69
   # When leaving these settings empty its using the standard settings
