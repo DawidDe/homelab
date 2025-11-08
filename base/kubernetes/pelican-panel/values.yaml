@@ -4,11 +4,11 @@
 general:
   fullnameOverride: ""
   nameOverride: ""
-  domain: "yourdomain"
+  domain: "pelican.test.dawidde.de"
   caddy:
     admin: "off"
     # The IP of your reverse proxy
-    trusted_proxies: proxy_ip
+    trusted_proxies: 10.110.192.233
     # When leaving these settings empty its using the standard settings
     upload_max_filesize: ''
     post_max_size: ''
