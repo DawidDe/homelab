@@ -32,12 +32,12 @@ persistence:
     enabled: true
     accessMode: ReadWriteOnce
     size: 1Gi
-    storageClassName: ''
+    storageClassName: 'pelican-panel-data'
   logs:
     enabled: true
     accessMode: ReadWriteOnce
     size: 1Gi
-    storageClassName: ''
+    storageClassName: 'pelican-panel-logs'
 
 caddy:
   admin: "off"
