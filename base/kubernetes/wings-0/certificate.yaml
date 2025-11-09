@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wings-0-certificate
+  namespace: wings
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  secretName: wings-0-certificate-secret
+  issuerRef:
+    name: cloudflare
+    kind: ClusterIssuer
+  dnsNames:
+    - wings-0.dawidde.de

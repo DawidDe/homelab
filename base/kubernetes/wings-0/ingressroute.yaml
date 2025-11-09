@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: wings-0-ingressroute
+  namespace: wings
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`wings-0.dawidde.de`)
+    kind: Rule
+    services:
+    - name: wings-0-service
+      port: 8080
+  tls:
+    secretName: wings-0-certificate-secret
