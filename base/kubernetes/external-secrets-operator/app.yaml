@@ -12,6 +12,9 @@ spec:
   - repoURL: 'https://charts.external-secrets.io/'
     chart: external-secrets
     targetRevision: 1.0.0
+  - repoURL: 'https://github.com/DawidDe/homelab.git'
+    targetRevision: HEAD
+    path: base/kubernetes/external-secrets-operator
   project: default
   syncPolicy:
     automated:
