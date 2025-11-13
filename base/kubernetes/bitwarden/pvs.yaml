@@ -11,7 +11,7 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Delete
   storageClassName: bitwarden-dataprotection
   hostPath:
     path: /var/mnt/zfs/bitwarden/dataprotection
@@ -29,7 +29,7 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Delete
   storageClassName: bitwarden-attachments
   hostPath:
     path: /var/mnt/zfs/bitwarden/attachments
@@ -47,7 +47,7 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Delete
   storageClassName: bitwarden-licenses
   hostPath:
     path: /var/mnt/zfs/bitwarden/licenses
@@ -65,7 +65,7 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Delete
   storageClassName: bitwarden-logs
   hostPath:
     path: /var/mnt/zfs/bitwarden/logs
@@ -83,7 +83,7 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Delete
   storageClassName: bitwarden-myssql-backups
   hostPath:
     path: /var/mnt/zfs/bitwarden/myssql/backups
@@ -101,7 +101,7 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Delete
   storageClassName: bitwarden-myssql-data
   hostPath:
     path: /var/mnt/zfs/bitwarden/myssql/data
@@ -119,7 +119,7 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Delete
   storageClassName: bitwarden-myssql-log
   hostPath:
     path: /var/mnt/zfs/bitwarden/myssql/log
