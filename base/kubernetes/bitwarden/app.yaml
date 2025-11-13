@@ -10,7 +10,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   sources:
   - repoURL: 'https://github.com/DawidDe/helm-charts.git'
-    targetRevision: main
+    targetRevision: 2025.10.1
     path: charts/self-host
     helm:
       valueFiles:
