@@ -22,3 +22,26 @@ terraform apply --auto-approve \
     -var="vault_address=${vault_address}" \
     -var="vault_token=${vault_token}" \
     -var="name=${name}"
+
+# 4. Bootstrap Kubernetes
+
+# Install ArgoCD
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# Install External Secrets Operator
+kubectl apply -f base/kubernetes/external-secrets-operator/app.yaml
+encoded_vault_token=$(echo -n "$vault_token" | base64)
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-token
+  namespace: external-secrets-operator
+data:
+  token: ${encoded_vault_token}
+EOF
+
+# Install other Apps
+kubectl apply -f base/kubernetes/traefik/app.yaml
+kubectl apply -f base/kubernetes/cert-manager/app.yaml
