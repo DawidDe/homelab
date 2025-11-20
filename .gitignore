@@ -5,4 +5,4 @@ terraform.tfstate
 terraform.tfstate.backup
 vars.yaml
 .env
-vault-token.yaml
+base/kubernetes/external-secrets-operator/vault-token.yaml
