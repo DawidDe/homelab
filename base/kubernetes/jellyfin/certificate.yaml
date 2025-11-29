@@ -13,4 +13,4 @@ spec:
     name: cloudflare
     kind: ClusterIssuer
   dnsNames:
-    - jellyfin.dawidde.de
+    - {{ .DOMAIN }}

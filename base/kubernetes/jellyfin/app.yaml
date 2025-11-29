@@ -27,3 +27,6 @@ spec:
       enabled: true
     syncOptions:
     - CreateNamespace=true
+  env:
+    - name: DOMAIN
+      value: "jellyfin.dawidde.de"
