@@ -31,5 +31,5 @@ data:
           - "-c"
           - |
             helm template $ARGOCD_APP_NAME -n $ARGOCD_APP_NAMESPACE -f <(echo "$ARGOCD_ENV_HELM_VALUES") . |
-            argocd-vault-plugin generate -s toolbox:argocd-vault-plugin-credentials -
+            argocd-vault-plugin generate -s argocd:argocd-vault-plugin-credentials -
       lockRepo: false
