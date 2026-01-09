@@ -27,23 +27,7 @@ terraform apply --auto-approve \
 
 # Install ArgoCD
 kubectl create namespace argocd
-kubectl apply -f base/kubernetes/argocd/configmap.yaml
-kubectl apply -f - <<EOF
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: argocd-vault-plugin-secrets
-  namespace: argocd
-stringData:
-  VAULT_ADDR: ""
-  AVP_TYPE: "vault"
-  AVP_AUTH_TYPE: "approle"
-data:
-  AVP_ROLE_ID:
-  AVP_SECRET_ID:
-EOF
-helm install argocd argo/argo-cd -n argocd -f argocd-helm-values.yaml
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 # Install External Secrets Operator
 kubectl apply -f base/kubernetes/external-secrets-operator/app.yaml
@@ -53,7 +37,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: vault-token
-  namespace: external-secrets-operator
+  namespace: external-secrets
 data:
   token: ${encoded_vault_token}
 EOF
