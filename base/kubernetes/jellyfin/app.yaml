@@ -9,16 +9,9 @@ spec:
     namespace: jellyfin
     server: 'https://kubernetes.default.svc'
   sources:
-  - repoURL: 'https://jellyfin.github.io/jellyfin-helm'
-    chart: jellyfin
-    targetRevision: 2.3.0
-    helm:
-      valueFiles:
-      - $values/base/kubernetes/jellyfin/values.yaml
-  - repoURL: 'https://github.com/DawidDe/homelab.git'
-    targetRevision: HEAD
-    path: base/kubernetes/jellyfin
-    ref: values
+  - repoURL: 'git@github.com:dawidde/kustomize-overlays.git'
+    path: apps/jellyfin/overlays/prod
+    targetRevision: main
   project: default
   syncPolicy:
     automated:
@@ -27,6 +20,3 @@ spec:
       enabled: true
     syncOptions:
     - CreateNamespace=true
-  env:
-    - name: DOMAIN
-      value: "jellyfin.dawidde.de"

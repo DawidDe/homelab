@@ -2,15 +2,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: bitwarden
+  name: local-path-provisioner
   namespace: argocd
 spec:
   destination:
-    namespace: bitwarden
+    namespace: local-path-provisioner
     server: 'https://kubernetes.default.svc'
   sources:
   - repoURL: 'git@github.com:dawidde/kustomize-overlays.git'
-    path: apps/bitwarden/overlays/prod
+    path: apps/local-path-provisioner/overlays/prod
     targetRevision: main
   project: default
   syncPolicy:
