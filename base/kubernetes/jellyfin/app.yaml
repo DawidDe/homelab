@@ -9,9 +9,16 @@ spec:
     namespace: jellyfin
     server: 'https://kubernetes.default.svc'
   sources:
-  - repoURL: 'git@github.com:dawidde/kustomize-overlays.git'
-    path: apps/jellyfin/overlays/prod
-    targetRevision: main
+  - repoURL: 'https://jellyfin.github.io/jellyfin-helm/'
+    chart: jellyfin
+    targetRevision: 2.3.0
+    helm:
+      valueFiles:
+      - $values/jellyfin.yaml
+  - repoURL: 'https://github.com/DawidDe/argocd-values.git'
+    targetRevision: HEAD
+    path: values
+    ref: values
   project: default
   syncPolicy:
     automated:

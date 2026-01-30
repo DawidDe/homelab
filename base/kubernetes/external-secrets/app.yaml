@@ -9,9 +9,16 @@ spec:
     namespace: external-secrets
     server: 'https://kubernetes.default.svc'
   sources:
-  - repoURL: 'git@github.com:dawidde/kustomize-overlays.git'
-    path: apps/external-secrets/overlays/prod
-    targetRevision: main
+  - repoURL: 'https://charts.external-secrets.io/'
+    chart: external-secrets
+    targetRevision: 1.0.0
+    helm:
+      valueFiles:
+      - $values/bitwarden.yaml
+  - repoURL: 'https://github.com/DawidDe/argocd-values.git'
+    targetRevision: HEAD
+    path: values
+    ref: values
   project: default
   syncPolicy:
     automated:

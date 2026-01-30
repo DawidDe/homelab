@@ -9,9 +9,16 @@ spec:
     namespace: bitwarden
     server: 'https://kubernetes.default.svc'
   sources:
-  - repoURL: 'git@github.com:dawidde/kustomize-overlays.git'
-    path: apps/bitwarden/overlays/prod
-    targetRevision: main
+  - repoURL: 'https://charts.bitwarden.com/'
+    chart: bitwarden
+    targetRevision: 2025.10.1
+    helm:
+      valueFiles:
+      - $values/bitwarden.yaml
+  - repoURL: 'https://github.com/DawidDe/argocd-values.git'
+    targetRevision: HEAD
+    path: values
+    ref: values
   project: default
   syncPolicy:
     automated:
