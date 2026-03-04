@@ -11,13 +11,12 @@ spec:
   sources:
   - repoURL: 'https://dawidde.github.io/helm-charts/'
     chart: pelican-panel
-    targetRevision: 0.1.18
+    targetRevision: 4.0.3
     helm:
       valueFiles:
-      - $values/base/kubernetes/pelican-panel/values.yaml
-  - repoURL: 'https://github.com/DawidDe/homelab.git'
-    targetRevision: HEAD
-    path: base/kubernetes/pelican-panel
+      - $values/pelican-panel/values.yaml
+  - repoURL: 'git@github.com:DawidDe/argocd-values.git'
+    targetRevision: main
     ref: values
   project: default
   syncPolicy:

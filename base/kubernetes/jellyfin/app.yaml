@@ -14,10 +14,9 @@ spec:
     targetRevision: 2.3.0
     helm:
       valueFiles:
-      - $values/jellyfin.yaml
-  - repoURL: 'https://github.com/DawidDe/argocd-values.git'
-    targetRevision: HEAD
-    path: values
+      - $values/jellyfin/values.yaml
+  - repoURL: 'git@github.com:DawidDe/argocd-values.git'
+    targetRevision: main
     ref: values
   project: default
   syncPolicy:

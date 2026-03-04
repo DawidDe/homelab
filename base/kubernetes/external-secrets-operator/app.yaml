@@ -2,23 +2,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: external-secrets
+  name: external-secrets-operator
   namespace: argocd
 spec:
   destination:
-    namespace: external-secrets
+    namespace: external-secrets-operator
     server: 'https://kubernetes.default.svc'
   sources:
   - repoURL: 'https://charts.external-secrets.io/'
     chart: external-secrets
     targetRevision: 1.0.0
-    helm:
-      valueFiles:
-      - $values/bitwarden.yaml
-  - repoURL: 'https://github.com/DawidDe/argocd-values.git'
-    targetRevision: HEAD
-    path: values
-    ref: values
   project: default
   syncPolicy:
     automated:

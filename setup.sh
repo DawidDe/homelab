@@ -1,8 +1,9 @@
 #!/bin/bash
 
+# vault section
 read -p "Enter vault token: " vault_token
+read -p "Enter vault url": vault_address
 
-vault_address=https://vault.dawidde.de
 name=heimdall
 
 # 1. Bootstrap servers
@@ -27,7 +28,7 @@ terraform apply --auto-approve \
 
 # Install ArgoCD
 kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml --server-side --force-conflicts
 
 # Install External Secrets Operator
 kubectl apply -f base/kubernetes/external-secrets-operator/app.yaml
@@ -37,7 +38,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: vault-token
-  namespace: external-secrets
+  namespace: external-secrets-operator
 data:
   token: ${encoded_vault_token}
 EOF

@@ -1,6 +1,21 @@
 ---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: longhorn
+provisioning:
+  diskSelector:
+    match: "!system_disk"
+  minSize: 2GB
+  maxSize: 100GB
+
+---
 machine:
-  disks:
-    - device: /dev/vdb
-      partitions:
-        - mountpoint: /var/mnt/zfs
+  kubelet:
+    extraMounts:
+      - destination: /var/mnt/longhorn
+        type: bind
+        source: /var/mnt/longhorn
+        options:
+          - bind
+          - rshared
+          - rw
