@@ -1,8 +1,8 @@
 ---
 apiVersion: v1
-kind: longhorn-system
+kind: namespace
 metadata:
-  name: privileged-ns
+  name: longhorn-system
   annotations:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "5"
