@@ -1,0 +1,28 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pelican-panel
+  namespace: argocd
+spec:
+  destination:
+    namespace: pelican-panel
+    server: 'https://kubernetes.default.svc'
+  sources:
+  - repoURL: 'https://dawidde.github.io/helm-charts/'
+    chart: pelican-panel
+    targetRevision: 4.0.3
+    helm:
+      valueFiles:
+      - $values/production/pelican-panel/values.yaml
+  - repoURL: 'git@github.com:DawidDe/argocd-values.git'
+    targetRevision: main
+    ref: values
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+      enabled: true
+    syncOptions:
+    - CreateNamespace=true
