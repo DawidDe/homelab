@@ -20,7 +20,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 
 kubectl apply -f base/kubernetes/bootstrap/external-secrets-operator/app.yaml
 
-kubectl apply -f base/kubernetes/external-secrets-operator/app.yaml
+kubectl apply -f base/kubernetes/bootstrap/external-secrets-operator/app.yaml
 encoded_vault_token=$(echo -n "$vault_token" | base64)
 kubectl apply -f - <<EOF
 apiVersion: v1
