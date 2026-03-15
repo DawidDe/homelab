@@ -9,7 +9,7 @@ spec:
     namespace: kube-system
     server: 'https://kubernetes.default.svc'
   sources:
-  - repoURL: 'https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts/index.yaml'
+  - repoURL: 'https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts/'
     chart: csi-driver-nfs
     targetRevision: 4.13.1
   project: default
