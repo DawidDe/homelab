@@ -18,7 +18,7 @@ spec:
   - repoURL: 'git@github.com:DawidDe/argocd-values.git'
     targetRevision: main
     ref: values
-  - repoURL: 'git@github.com:DawidDe/argocd-values.git'
+  - repoURL: 'https://github.com/dawidde/homelab.git'
     targetRevision: main
     path: base/kubernetes/bootstrap/longhorn
   project: default

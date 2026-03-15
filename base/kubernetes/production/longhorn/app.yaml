@@ -15,7 +15,7 @@ spec:
     helm:
       valueFiles:
       - $values/production/longhorn/values.yaml
-  - repoURL: 'git@github.com:DawidDe/argocd-values.git'
+  - repoURL: 'https://github.com/dawidde/homelab.git'
     targetRevision: main
     path: base/kubernetes/production/longhorn
   project: default
