@@ -14,7 +14,7 @@ spec:
     targetRevision: 1.1.6
     helm:
       valueFiles:
-      - $values/bitwarden/values.yaml
+      - $values/production/bitwarden/values.yaml
   - repoURL: 'git@github.com:DawidDe/argocd-values.git'
     targetRevision: HEAD
     ref: values
