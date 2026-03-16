@@ -18,6 +18,9 @@ spec:
   - repoURL: 'git@github.com:DawidDe/argocd-values.git'
     targetRevision: main
     ref: values
+  - repoURL: 'https://github.com/dawidde/homelab.git'
+    targetRevision: main
+    path: base/kubernetes/bootstrap/authentik
   project: default
   syncPolicy:
     automated:
