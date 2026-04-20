@@ -2,7 +2,7 @@
 
 # vault section
 read -p "Enter vault token: " vault_token
-read -p "Enter vault url": vault_address
+read -p "Enter domain": domain
 
 name=heimdall
 
@@ -20,9 +20,8 @@ ansible-playbook ./base/ansible/playbooks/bootstrap-proxmox.yaml \
 
 # 3. Terraform
 terraform apply --auto-approve \
-    -var="vault_address=${vault_address}" \
-    -var="vault_token=${vault_token}" \
-    -var="name=${name}"
+    -var="domain=${domain}" \
+    -var="vault_token=${vault_token}"
 
 # 4. Bootstrap Kubernetes
 

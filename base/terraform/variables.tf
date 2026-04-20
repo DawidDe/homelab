@@ -2,7 +2,7 @@ variable "name" {
     type = string
 }
 
-variable "vault_address" {
+variable "domain" {
     type = string
 }
 
