@@ -2,31 +2,27 @@
 services:
   vault:
     image: hashicorp/vault:latest
-    pull_policy: always
     container_name: vault
-    hostname: vault
-
-    # Runtime
-    command: server
-    restart: always
-
-    # System-level
+    read_only: true
+    user: "1002:1005"
+    cap_drop:
+      - ALL
     cap_add:
       - IPC_LOCK
-    devices: []
-    sysctls: []
-    extra_hosts: []
-
-    # Networking
-    ports: []
-    network_mode: "host"
-
-    # Storage
+    security_opt:
+      - no-new-privileges:true
     volumes:
-      - ./config.hcl:/vault/config/config.hcl
-      - ./data:/vault/file/
-
-    # Environment
-    env_file: []
+      - ./config.hcl:/vault/config/config.hcl:ro
+      - /opt/vault/data:/vault/data
+      - /opt/vault/logs:/vault/logs
     environment:
-      - VAULT_ADDR=https://vault.dawidde.de
+      SKIP_CHOWN: true
+      SKIP_SETCAP: true
+    networks:
+      - vault
+    command: server
+    restart: unless-stopped
+
+networks:
+  vault:
+    name: vault

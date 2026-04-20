@@ -2,54 +2,45 @@
 services:
   omni:
     image: ghcr.io/siderolabs/omni:latest
-    pull_policy: always
     container_name: omni
-    hostname: omni
-
-    # Runtime
-    command: >
-      --account-id=${OMNI_ACCOUNT_UUID}
-      --name=${NAME}
-      --cert=/tls.crt
-      --key=/tls.key
-      --machine-api-cert=/tls.crt
-      --machine-api-key=/tls.key
-      --private-key-source='file:///omni.asc'
-      --event-sink-port=${EVENT_SINK_PORT}
-      --bind-addr=${BIND_ADDR}:8080
-      --machine-api-bind-addr=${BIND_ADDR}:8090
-      --k8s-proxy-bind-addr=${BIND_ADDR}:8100
-      --advertised-api-url=https://${OMNI_DOMAIN}/
-      --advertised-kubernetes-proxy-url=https://kube.${OMNI_DOMAIN}/
-      --siderolink-api-bind-addr=${BIND_ADDR}:8090
-      --siderolink-api-advertised-url=https://api.${OMNI_DOMAIN}:443
-      --siderolink-wireguard-advertised-addr=${SIDEROLINK_WIREGUARD_ADVERTISED_ADDR}
-      --initial-users=${INITIAL_USER_EMAILS}
-      ${AUTH}
-    restart: always
-
-    # System-level
+    read_only: true
+    # user
+    cap_drop:
+      - ALL
     cap_add:
       - NET_ADMIN
-    devices:
-      - /dev/net/tun
-    sysctls: []
-    extra_hosts: []
-
-    # Networking
-    ports: []
-    network_mode: "host"
-
-    # Storage
+    security_opt:
+      - no-new-privileges:true
     volumes:
-      - ${ETCD_VOLUME_PATH}:/_out/etcd
-      - ${ETCD_ENCRYPTION_KEY}:/omni.asc
-      - ${TLS_CERT}:/tls.crt
-      - ${TLS_KEY}:/tls.key
+      - ./omni.asc:/omni.asc:ro
+      - /opt/omni/sqlite:/_out/sqlite:rw
+      - /opt/omni/etcd:/_out/etcd:rw
+    command:
+      - --private-key-source=file:///omni.asc
+      - --sqlite-storage-path=/_out/sqlite/omni.db
+      - --event-sink-port=8091
+      - --bind-addr=0.0.0.0:443
+      - --machine-api-bind-addr=0.0.0.0:8090
+      - --k8s-proxy-bind-addr=0.0.0.0:8100
+      - --advertised-api-url=https://omni.dawidde.de/
+      - --machine-api-advertised-url=https://api.omni.dawidde.de
+      - --advertised-kubernetes-proxy-url=https://kube.omni.dawidde.de
+      - --siderolink-wireguard-advertised-addr=https://omni.dawidde.de:50180
+      - --auth-auth0-enabled=false
+      - --auth-oidc-enabled=true
+      - --auth-oidc-provider-url=${POCKET_ID_ISSUER_URL}
+      - --auth-oidc-client-id=${POCKET_ID_CLIENT_ID}
+      - --auth-oidc-client-secret=${POCKET_ID_CLIENT_SECRET}
+      - --auth-oidc-scopes=openid
+      - --auth-oidc-scopes=profile
+      - --auth-oidc-scopes=email
+      - --initial-users=dawidimb@proton.me
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    networks:
+      - omni
+    restart: unless-stopped
 
-    # Environment
-    env_file: []
-    environment:
-      XDG_DATA_HOME: /pelican-data
-      APP_URL: "https://panel.dawidde.de"
-      ADMIN_EMAIL: ""
+networks:
+  omni:
+    name: omni
