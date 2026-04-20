@@ -19,13 +19,13 @@ services:
       - --private-key-source=file:///omni.asc
       - --sqlite-storage-path=/_out/sqlite/omni.db
       - --event-sink-port=8091
-      - --bind-addr=0.0.0.0:443
+      - --bind-addr=0.0.0.0:8080
       - --machine-api-bind-addr=0.0.0.0:8090
       - --k8s-proxy-bind-addr=0.0.0.0:8100
       - --advertised-api-url=https://omni.dawidde.de/
       - --machine-api-advertised-url=https://api.omni.dawidde.de
       - --advertised-kubernetes-proxy-url=https://kube.omni.dawidde.de
-      - --siderolink-wireguard-advertised-addr=https://omni.dawidde.de:50180
+      - --siderolink-wireguard-advertised-addr=192.168.178.45:50180
       - --auth-auth0-enabled=false
       - --auth-oidc-enabled=true
       - --auth-oidc-provider-url=${POCKET_ID_ISSUER_URL}

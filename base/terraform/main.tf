@@ -5,7 +5,7 @@ provider "proxmox" {
 }
 
 provider "vault" {
-    address = "vault.${var.domain}"
+    address = "https://vault.${var.domain}"
     token = "${var.vault_token}"
 }
 
