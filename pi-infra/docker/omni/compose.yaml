@@ -4,7 +4,6 @@ services:
     image: ghcr.io/siderolabs/omni:latest
     container_name: omni
     read_only: true
-    # user
     cap_drop:
       - ALL
     cap_add:

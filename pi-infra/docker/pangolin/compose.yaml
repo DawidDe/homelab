@@ -15,8 +15,8 @@ services:
       - pangolin
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3001/api/v1/"]
-      interval: "10s"
-      timeout: "10s"
+      interval: 10s
+      timeout: 10s
       retries: 15
     deploy:
       resources:
@@ -79,7 +79,6 @@ services:
   newt:
     image: fosrl/newt
     container_name: newt
-    restart: unless-stopped
     environment:
       - PANGOLIN_ENDPOINT=https://pangolin.dawidde.de
       - NEWT_ID=f2sbqcnjp0gp405
@@ -89,6 +88,7 @@ services:
       - pocket-id
       - vault
       - omni
+    restart: unless-stopped
 
 networks:
   pangolin:

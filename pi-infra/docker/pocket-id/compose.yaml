@@ -10,13 +10,13 @@ services:
     security_opt:
       - no-new-privileges:true
     volumes:
-      - "/opt/pocket-id/data:/app/data"
+      - /opt/pocket-id/data:/app/data
     env_file:
       - .env
     networks:
       - pocket-id
     healthcheck:
-      test: [ "CMD", "/app/pocket-id", "healthcheck" ]
+      test: ["CMD", "/app/pocket-id", "healthcheck"]
       interval: 1m30s
       timeout: 5s
       retries: 2
