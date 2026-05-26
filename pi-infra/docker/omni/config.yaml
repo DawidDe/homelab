@@ -1,16 +1,16 @@
 services:
   api:
     endpoint: "0.0.0.0:8080"
-    advertisedUrl: "https://omni.domain.de/"
+    advertisedURL: "https://omni.domain.de/"
   machineAPI:
     endpoint: "0.0.0.0:8090"
-    advertisedUrl: "https://api.omni.domain.de"
+    advertisedURL: "https://api.omni.domain.de"
   kubernetesProxy:
     endpoint: "0.0.0.0:8100"
-    advertisedUrl: "https://kube.omni.domain.de"
+    advertisedURL: "https://kube.omni.domain.de"
   siderolink:
     eventSinkPort: 8091
-    wireguard:
+    wireGuard:
       advertisedEndpoint: "ip:50180"
 
 auth:
@@ -20,8 +20,8 @@ auth:
     enabled: false
   oidc:
     enabled: true
-    providerUrl: ""
-    clientId: ""
+    providerURL: ""
+    clientID: ""
     clientSecret: ""
     scopes:
       - openid
