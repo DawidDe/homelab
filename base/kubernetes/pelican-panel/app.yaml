@@ -14,7 +14,7 @@ spec:
     targetRevision: 4.0.3
     helm:
       valueFiles:
-      - $values/production/pelican-panel/values.yaml
+      - $values/pelican-panel/values.yaml
   - repoURL: 'git@github.com:DawidDe/argocd-values.git'
     targetRevision: main
     ref: values
