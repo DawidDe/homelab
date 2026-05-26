@@ -78,10 +78,8 @@ services:
   newt:
     image: fosrl/newt
     container_name: newt
-    environment:
-      - PANGOLIN_ENDPOINT=https://pangolin.dawidde.de
-      - NEWT_ID=
-      - NEWT_SECRET=
+    env_file:
+      - .env
     networks:
       - pangolin
       - pocket-id

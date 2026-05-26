@@ -1,0 +1,55 @@
+public-resources:
+  omni:
+    name: Omni
+    protocol: http
+    full-domain: omni.domain.de
+    rules:
+      - action: allow
+        match: country
+        value: DE
+      - action: deny
+        match: country
+        value: ALL
+    auth:
+      sso-enabled: false
+    targets:
+      - site: Pi
+        method: http
+        hostname: omni
+        port: 8080
+  omni-api:
+    name: Omni API
+    protocol: http
+    full-domain: api.omni.domain.de
+    rules:
+      - action: allow
+        match: country
+        value: DE
+      - action: deny
+        match: country
+        value: ALL
+    auth:
+      sso-enabled: false
+    targets:
+      - site: Pi
+        method: http
+        hostname: omni
+        port: 8090
+  omni-kube-api:
+    name: Omni Kubernetes API
+    protocol: http
+    full-domain: kube.omni.domain.de
+    rules:
+      - action: allow
+        match: country
+        value: DE
+      - action: deny
+        match: country
+        value: ALL
+    auth:
+      sso-enabled: false
+    targets:
+      - site: Pi
+        method: http
+        hostname: omni
+        port: 8100

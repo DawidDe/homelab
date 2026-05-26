@@ -1,0 +1,19 @@
+public-resources:
+  pocket-id:
+    name: Pocket ID
+    protocol: http
+    full-domain: pocket-id.domain.de
+    rules:
+      - action: allow
+        match: country
+        value: DE
+      - action: deny
+        match: country
+        value: ALL
+    auth:
+      sso-enabled: true
+    targets:
+      - site: Pi
+        method: http
+        hostname: pocket-id
+        port: 1411
