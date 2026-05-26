@@ -1,25 +1,17 @@
 ---
-public-resources:
+private-resources:
   proxmox:
     name: Proxmox
-    protocol: http
+    mode: http
+    sites:
+      - Pi
+    scheme: https
+    destination: 192.168.178.3
+    destination-port: 8006
     full-domain: proxmox.domain.de
-    rules:
-      - action: allow
-        match: country
-        value: DE
-      - action: deny
-        match: country
-        value: ALL
-    auth:
-      sso-enabled: false
-    targets:
-      - site: Pi
-        method: https
-        hostname: 192.168.178.3
-        port: 8006
-
-private-resources:
+    ssl: true
+    users:
+      - user@example.com
   heimdall:
     name: Heimdall
     mode: cidr
