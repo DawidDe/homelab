@@ -28,5 +28,5 @@ private-resources:
     tcp-ports: "22"
     disable-icmp: false
     alias: heimdall.domain.de
-    roles:
-      - Admin
+    users:
+      - user@example.com
