@@ -33,7 +33,7 @@ public-resources:
       sso-enabled: false
     targets:
       - site: Pi
-        method: http
+        method: h2c
         hostname: omni
         port: 8090
   omni-kube-api:
@@ -51,6 +51,6 @@ public-resources:
       sso-enabled: false
     targets:
       - site: Pi
-        method: http
+        method: h2c
         hostname: omni
         port: 8100
