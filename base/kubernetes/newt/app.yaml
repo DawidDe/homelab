@@ -18,6 +18,8 @@ spec:
   - repoURL: 'git@github.com:DawidDe/argocd-values.git'
     targetRevision: main
     ref: values
+  - repoURL: 'https://github.com/dawidde/homelab.git'
+    path: base/kubernetes/newt
   project: default
   syncPolicy:
     automated:
