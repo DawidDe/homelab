@@ -1,0 +1,14 @@
+---
+private-resources:
+  longhorn:
+    name: Longhorn
+    mode: http
+    sites:
+      - kubernetes
+    scheme: https
+    destination: longhorn-frontend.longhorn.svc.cluster.local
+    destination-port: 80
+    full-domain: longhorn.domain.de
+    ssl: true
+    users:
+      - user@example.com
