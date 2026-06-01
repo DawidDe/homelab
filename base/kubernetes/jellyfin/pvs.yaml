@@ -4,13 +4,14 @@ kind: PersistentVolume
 metadata:
   name: jellyfin-media
   namespace: jellyfin
+  argocd.argoproj.io/hook: PreSync
 spec:
   capacity:
     storage: 1Ti
   accessModes:
     - ReadOnlyMany
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: ""
+  storageClassName: "jellyfin-media"
   nfs:
     server: 192.168.178.3
     path: /mnt/hdd/media
@@ -24,10 +25,11 @@ kind: PersistentVolumeClaim
 metadata:
   name: jellyfin-media
   namespace: jellyfin
+  argocd.argoproj.io/hook: PreSync
 spec:
   accessModes:
     - ReadOnlyMany
-  storageClassName: ""
+  storageClassName: "jellyfin-media"
   volumeName: jellyfin-media
   resources:
     requests:
