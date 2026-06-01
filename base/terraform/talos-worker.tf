@@ -28,12 +28,6 @@ resource "proxmox_vm_qemu" "talos-worker" {
                     size = var.talos_worker.disk0_size
                 }
             }
-            virtio1 {
-                disk {
-                    storage = var.talos_worker.disk1_storage
-                    size = var.talos_worker.disk1_size
-                }
-            }
         }
     }
 
