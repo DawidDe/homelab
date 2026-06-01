@@ -6,7 +6,7 @@ private-resources:
     sites:
       - kubernetes
     scheme: https
-    destination: longhorn-frontend.longhorn.svc.cluster.local
+    destination: longhorn-frontend.longhorn-system.svc.cluster.local
     destination-port: 80
     full-domain: longhorn.domain.de
     ssl: true
