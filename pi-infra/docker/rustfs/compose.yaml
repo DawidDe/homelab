@@ -1,7 +1,7 @@
 ---
 services:
   rustfs:
-    image: rustfs/rustfs:latest
+    image: docker.io/rustfs/rustfs:latest
     container_name: rustfs
     read_only: true
     user: ""
@@ -17,5 +17,4 @@ services:
     env_file:
       - .env
     command:
-      - --address :9000
       - /data
