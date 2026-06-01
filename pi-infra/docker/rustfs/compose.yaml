@@ -1,0 +1,21 @@
+---
+services:
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: rustfs
+    read_only: true
+    user: ""
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /mnt/hdd/rustfs:/data
+    ports:
+      - 9000:9000
+      - 9001:9001
+    env_file:
+      - .env
+    command:
+      - --address :9000
+      - /data

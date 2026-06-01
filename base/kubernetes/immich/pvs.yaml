@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: immich-media
+  namespace: immich
+  argocd.argoproj.io/hook: PreSync
+spec:
+  capacity:
+    storage: 1Ti
+  accessModes:
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: "immich-media"
+  nfs:
+    server: 192.168.178.3
+    path: /mnt/hdd/immich
+  mountOptions:
+    - nfsvers=4.1
+    - rw
+  
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-media
+  namespace: immich
+  argocd.argoproj.io/hook: PreSync
+spec:
+  accessModes:
+    - ReadOnlyMany
+  storageClassName: "immich-media"
+  volumeName: immich-media
+  resources:
+    requests:
+      storage: 1Ti
