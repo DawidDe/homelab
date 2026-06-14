@@ -2,24 +2,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: jellyfin
+  name: cloudnative-pg
   namespace: argocd
 spec:
   destination:
-    namespace: jellyfin
+    namespace: cloudnative-pg
     server: 'https://kubernetes.default.svc'
   sources:
-  - repoURL: 'https://jellyfin.github.io/jellyfin-helm/'
-    chart: jellyfin
-    targetRevision: 3.2.0
-    helm:
-      valueFiles:
-      - $values/jellyfin/values.yaml
-  - repoURL: 'git@github.com:DawidDe/argocd-values.git'
-    targetRevision: main
-    ref: values
+  - repoURL: 'https://cloudnative-pg.github.io/charts'
+    chart: cloudnative-pg
+    targetRevision: 0.28.3
   - repoURL: 'https://github.com/dawidde/homelab.git'
-    path: base/kubernetes/jellyfin
+    path: base/kubernetes/cloudnative-pg
   project: default
   syncPolicy:
     automated:
