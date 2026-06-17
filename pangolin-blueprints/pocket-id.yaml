@@ -12,9 +12,15 @@ public-resources:
         match: country
         value: ALL
     auth:
-      sso-enabled: true
+      sso-enabled: false
     targets:
       - site: Pi
         method: http
         hostname: pocket-id
         port: 1411
+        healthcheck:
+          enabled: true
+          hostname: pocket-id
+          port: 1411
+          path: /
+          status: 200
