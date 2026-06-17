@@ -1,7 +1,7 @@
 ---
 services:
   ddns:
-    image: favonica/cloudflare-ddns:latest
+    image: favonia/cloudflare-ddns:latest
     container_name: ddns
     read_only: true
     user: "1001:1004"
