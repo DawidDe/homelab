@@ -12,9 +12,15 @@ public-resources:
         match: country
         value: ALL
     auth:
-      sso-enabled: true
+      sso-enabled: false
     targets:
       - site: Pi
         method: http
         hostname: vault
         port: 8200
+        healthcheck:
+          enabled: true
+          hostname: vault
+          port: 8200
+          path: /v1/sys/health
+          status: 200
