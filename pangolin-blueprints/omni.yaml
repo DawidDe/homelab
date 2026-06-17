@@ -18,6 +18,12 @@ public-resources:
         method: http
         hostname: omni
         port: 8080
+        healthcheck:
+          enabled: true
+          hostname: omni
+          port: 8080
+          path: /
+          status: 200
   omni-api:
     name: Omni API
     protocol: http
