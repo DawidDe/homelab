@@ -1,0 +1,26 @@
+---
+public-resources:
+  vault:
+    name: Immich
+    protocol: http
+    full-domain: immich.domain.de
+    rules:
+      - action: allow
+        match: country
+        value: DE
+      - action: deny
+        match: country
+        value: ALL
+    auth:
+      sso-enabled: false
+    targets:
+      - site: Pi
+        method: http
+        hostname: immich
+        port: 8200
+        healthcheck:
+          enabled: true
+          hostname: immich
+          port: 8200
+          path: /v1/sys/health
+          status: 200
