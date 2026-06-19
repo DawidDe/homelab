@@ -14,13 +14,7 @@ public-resources:
     auth:
       sso-enabled: false
     targets:
-      - site: Pi
+      - site: kubernetes
         method: http
-        hostname: immich
-        port: 8200
-        healthcheck:
-          enabled: true
-          hostname: immich
-          port: 8200
-          path: /v1/sys/health
-          status: 200
+        hostname: immich-server.immich.svc.cluster.local
+        port: 2283
