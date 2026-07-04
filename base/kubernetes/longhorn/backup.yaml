@@ -1,0 +1,15 @@
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: full-backup
+  namespace: longhorn-system
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+spec:
+  cron: "0 * * * *"
+  task: "backup"
+  groups:
+  - default
+  retain: 168
+  concurrency: 2
