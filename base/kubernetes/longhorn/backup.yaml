@@ -5,7 +5,7 @@ metadata:
   name: full-backup
   namespace: longhorn-system
   annotations:
-    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook: PostSync
 spec:
   cron: "0 * * * *"
   task: "backup"
