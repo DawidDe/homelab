@@ -11,5 +11,5 @@ spec:
   task: "backup"
   groups:
   - default
-  retain: 168
+  retain: 100
   concurrency: 2
