@@ -13,3 +13,4 @@ spec:
   - default
   retain: 100
   concurrency: 2
+  fullBackupInterval: 24
