@@ -19,7 +19,7 @@ spec:
     targetRevision: main
     ref: values
   - repoURL: 'https://github.com/dawidde/homelab.git'
-    path: base/kubernetes/mealie/manifest
+    path: base/kubernetes/mealie/manifests
   project: default
   syncPolicy:
     automated:
