@@ -1,0 +1,30 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mealie
+  namespace: argocd
+spec:
+  destination:
+    namespace: mealie
+    server: 'https://kubernetes.default.svc'
+  sources:
+  - repoURL: 'oci://ghcr.io/jvalskis/mealie-helm/mealie'
+    chart: mealie
+    targetRevision: 3.0.2
+    helm:
+      valueFiles:
+      - $values/mealie/values.yaml
+  - repoURL: 'git@github.com:DawidDe/argocd-values.git'
+    targetRevision: main
+    ref: values
+  - repoURL: 'https://github.com/dawidde/homelab.git'
+    path: base/kubernetes/mealie
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+      enabled: true
+    syncOptions:
+    - CreateNamespace=true
