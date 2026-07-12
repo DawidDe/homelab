@@ -1,0 +1,20 @@
+---
+public-resources:
+  nextcloud:
+    name: Nextcloud
+    protocol: http
+    full-domain: nextcloud.domain.de
+    rules:
+      - action: allow
+        match: country
+        value: DE
+      - action: deny
+        match: country
+        value: ALL
+    auth:
+      sso-enabled: false
+    targets:
+      - site: kubernetes
+        method: http
+        hostname: nextcloud.nextcloud.svc.cluster.local
+        port: 80
