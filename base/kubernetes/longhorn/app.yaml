@@ -20,7 +20,7 @@ spec:
     ref: values
   - repoURL: 'https://github.com/dawidde/homelab.git'
     targetRevision: main
-    path: base/kubernetes/longhorn
+    path: base/kubernetes/longhorn/manifests
   project: default
   syncPolicy:
     automated:
