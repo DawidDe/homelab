@@ -16,9 +16,5 @@
 
       MaxAuthTries = 3;
     };
-
-    extraConfig = ''
-      PrintLastLog no
-    '';
   };
 }
