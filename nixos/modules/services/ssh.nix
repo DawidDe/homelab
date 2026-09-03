@@ -18,7 +18,7 @@
     };
 
     extraConfig = ''
-        PrintLastLog no
-      '';
+      PrintLastLog no
+    '';
   };
 }
