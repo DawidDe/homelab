@@ -4,6 +4,7 @@
   networking.nftables.enable = true;
   networking.firewall = {
     enable = true;
+    backend = "nftables";
 
     extraInputRules = ''
       # Allow SSH only from 192.168.178.67
