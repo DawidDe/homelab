@@ -13,6 +13,7 @@
     ../../modules/services/firewall.nix
     ../../modules/services/ssh.nix
     ../../modules/services/libvirtd.nix
+    ../../modules/services/cockpit.nix
   ];
 
   # Host-specific configurations
