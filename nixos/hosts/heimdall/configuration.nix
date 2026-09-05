@@ -8,7 +8,6 @@
     # Shared system modules
     ../../modules/system/locale.nix
     ../../modules/system/users.nix
-    ../../modules/system/security.nix
 
     # Shared services modules
     ../../modules/services/firewall.nix
