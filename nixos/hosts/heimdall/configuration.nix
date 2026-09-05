@@ -36,7 +36,7 @@
 
   environment.systemPackages = with pkgs; [
     nano
-    tpm2-tools
+    htop
   ];
 
   system.stateVersion = "26.05";
