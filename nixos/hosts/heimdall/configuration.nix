@@ -37,6 +37,7 @@
   environment.systemPackages = with pkgs; [
     nano
     htop
+    zfs
   ];
 
   system.stateVersion = "26.05";
