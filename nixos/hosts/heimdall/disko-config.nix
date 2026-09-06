@@ -5,7 +5,7 @@
     disk = {
       main = {
         type = "disk";
-        device = "/dev/sdb";
+        device = "/dev/disk/by-id/ata-Samsung_SSD_840_EVO_120GB_S1D5NSBDB58099J";
         content = {
           type = "gpt";
           partitions = {
