@@ -6,7 +6,7 @@
       createHome = true;
       extraGroups = [
         "wheel"
-        "libvirtd"
+        "incus-admin"
       ];
       group = "users";
       home = "/home/dawid";

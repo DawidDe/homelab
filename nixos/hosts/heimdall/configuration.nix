@@ -12,7 +12,7 @@
     # Shared services modules
     ../../modules/services/firewall.nix
     ../../modules/services/ssh.nix
-    ../../modules/services/libvirtd.nix
+    ../../modules/services/incus.nix
     ../../modules/services/lvm.nix
   ];
 
