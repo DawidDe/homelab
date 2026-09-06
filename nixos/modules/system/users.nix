@@ -6,7 +6,7 @@
       createHome = true;
       extraGroups = [
         "wheel"
-        "libvirt"
+        "libvirtd"
       ];
       group = "users";
       home = "/home/dawid";
