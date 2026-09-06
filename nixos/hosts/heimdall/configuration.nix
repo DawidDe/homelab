@@ -13,6 +13,7 @@
     ../../modules/services/firewall.nix
     ../../modules/services/ssh.nix
     ../../modules/services/libvirtd.nix
+    ../../modules/services/lvm.nix
   ];
 
   # Host-specific configurations
@@ -31,7 +32,7 @@
 
   boot.initrd = {
     systemd.enable = true;
-    kernelModules = [ "tpm_tis" ];
+    kernelModules = [ "dm_thin_pool" ];
   };
 
   environment.systemPackages = with pkgs; [
