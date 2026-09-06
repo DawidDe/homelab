@@ -1,10 +1,5 @@
 { config, lib, pkgs, ...}:
 
 {
-  virtualisation.libvirtd = {
-    enable = true;
-
-    unixSockGroup = "libvirt";
-    unixSockPerms = "0770";
-  };
+  virtualisation.libvirtd.enable = true;
 }
