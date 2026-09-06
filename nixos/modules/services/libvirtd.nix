@@ -6,5 +6,5 @@
 
     unixSockGroup = "libvirt";
     unixSockPerms = "0770";
-  }
+  };
 }
