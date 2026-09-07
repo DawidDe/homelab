@@ -1,0 +1,49 @@
+name: Build Raspberry Pi SD Image
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "flake.nix"
+      - "flake.lock"
+      - "hosts/pi/**"
+      - "modules/**"
+      - ".github/workflows/pi-image.yml"
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v16
+        with:
+          name: YOUR-CACHIX-CACHE
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: Build Raspberry Pi SD image
+        run: |
+          nix build .#nixosConfigurations.pi-image.config.system.build.sdImage
+
+      - name: Show image
+        run: |
+          ls -lh result/sd-image/
+
+      - name: Upload SD image
+        uses: actions/upload-artifact@v4
+        with:
+          name: raspberry-pi-4-sd-image
+          path: result/sd-image/*
+          retention-days: 7
