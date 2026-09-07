@@ -8,9 +8,14 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-hardware = {
+      url = "github:nixos/nixos-hardware/master";
+      inputs.nixpkgs.follows = "nixpkgs"
+    }
   };
 
-  outputs = { self, nixpkgs, disko, ...}@inputs: {
+  outputs = { self, nixpkgs, disko, nixos-hardware, ...}@inputs: {
     nixosConfigurations = {
       heimdall = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -18,6 +23,22 @@
         modules = [
           disko.nixosModules.disko
           ./hosts/heimdall/configuration.nix
+        ];
+      };
+      pi-image = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = { inherit inputs; };
+
+        modules = [
+          ./hosts/pi/image.nix
+        ]
+      };
+      pi = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = { inherit inputs; };
+
+        modules = [
+          ./hosts/pi/configuration.nix
         ];
       };
     };
