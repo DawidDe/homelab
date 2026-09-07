@@ -14,6 +14,13 @@
 
   boot.initrd.includeDefaultModules = false;
 
+  boot.initrd.availableKernelModules = lib.mkForce [
+    "mmc_block"
+    "sdhci"
+    "sdhci_iproc"
+    "bcm2835_dma"
+  ];
+
   environment.systemPackages = with pkgs; [
     nano
     htop
