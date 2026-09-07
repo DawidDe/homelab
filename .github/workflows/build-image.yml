@@ -5,10 +5,10 @@ on:
     branches:
       - main
     paths:
-      - "flake.nix"
-      - "flake.lock"
-      - "hosts/pi/**"
-      - "modules/**"
+      - "nixos/flake.nix"
+      - "nixos/flake.lock"
+      - "nixos/hosts/pi/**"
+      - "nixos/modules/**"
       - ".github/workflows/pi-image.yml"
 
   workflow_dispatch:
@@ -39,6 +39,7 @@ jobs:
           nix build .#nixosConfigurations.pi-image.config.system.build.sdImage
 
       - name: Show image
+        working-directory: nixos
         run: |
           ls -lh result/sd-image/
 
@@ -46,5 +47,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: raspberry-pi-4-sd-image
-          path: result/sd-image/*
+          path: nixos/result/sd-image/*
           retention-days: 7

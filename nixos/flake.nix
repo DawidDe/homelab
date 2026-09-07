@@ -20,24 +20,30 @@
       heimdall = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
+
         modules = [
           disko.nixosModules.disko
           ./hosts/heimdall/configuration.nix
         ];
       };
+
       pi-image = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = { inherit inputs; };
 
         modules = [
+          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+          nixos-hardware.nixosModules.raspberry-pi-4
           ./hosts/pi/image.nix
         ];
       };
+
       pi = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = { inherit inputs; };
 
         modules = [
+          nixos-hardware.nixosModules.raspberry-pi-4
           ./hosts/pi/configuration.nix
         ];
       };
