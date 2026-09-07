@@ -11,8 +11,8 @@
 
     nixos-hardware = {
       url = "github:nixos/nixos-hardware/master";
-      inputs.nixpkgs.follows = "nixpkgs"
-    }
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, disko, nixos-hardware, ...}@inputs: {
@@ -31,7 +31,7 @@
 
         modules = [
           ./hosts/pi/image.nix
-        ]
+        ];
       };
       pi = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
