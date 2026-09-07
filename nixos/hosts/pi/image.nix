@@ -12,6 +12,8 @@
 
   networking.hostName = "pi";
 
+  boot.initrd.includeDefaultModules = false;
+
   environment.systemPackages = with pkgs; [
     nano
     htop
