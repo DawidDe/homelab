@@ -1,6 +1,10 @@
 { config, lib, pkgs, ...}:
 
 {
+  systemd.tmpfiles.rules = [
+    "d /opt/vault 0700 vault vault -"
+  ];
+
   virtualisation.oci-containers.containers.vault = {
     image = "docker.io/hashicorp/vault:latest";
     extraOptions = [

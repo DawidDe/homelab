@@ -1,6 +1,10 @@
 { config, lib, pkgs, ...}:
 
 {
+  systemd.tmpfiles.rules = [
+    "d /opt/omni 0700 omni omni -"
+  ];
+
   virtualisation.oci-containers.containers.omni = {
     image = "ghcr.io/siderolabs/omni:latest";
     extraOptions = [

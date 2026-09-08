@@ -38,14 +38,6 @@
         vault.gid = 1004;
         ddns.gid = 1005;
       };
-
-      systemd.tmpfiles.rules = [
-        "d /opt/omni 0750 omni omni -"
-        "d /opt/pangolin 0750 pangolin pangolin -"
-        "d /opt/pocket-id 0750 pocket-id pocket-id -"
-        "d /opt/vault 0750 vault vault -"
-        "d /opt/ddns 0750 ddns ddns -"
-      ];
     })
   ];
 }

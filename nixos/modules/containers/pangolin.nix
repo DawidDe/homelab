@@ -1,6 +1,10 @@
 { config, lib, pkgs, ...}:
 
 {
+  systemd.tmpfiles.rules = [
+    "d /opt/pangolin 0700 pangolin pangolin -"
+  ];
+
   virtualisation.oci-containers.containers.pangolin = {
     image = "docker.io/fosrl/pangolin:ee-1.18.4";
     extraOptions = [

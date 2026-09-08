@@ -1,6 +1,10 @@
 { config, lib, pkgs, ...}:
 
 {
+  systemd.tmpfiles.rules = [
+    "d /opt/pocket-id 0700 pocket-id pocket-id -"
+  ];
+
   virtualisation.oci-containers.containers.pocket-id = {
     image = "ghcr.io/pocket-id/pocket-id:v2";
     extraOptions = [
