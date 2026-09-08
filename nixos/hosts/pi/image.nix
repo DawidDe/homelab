@@ -1,8 +1,6 @@
 { config, lib, pkgs, ...}:
 {
   imports = [
-    inputs.sops-nix.nixosModules.sops
-
     # Shared system modules
     ../../modules/system/locale.nix
     ../../modules/system/users.nix

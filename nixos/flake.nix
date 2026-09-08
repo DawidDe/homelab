@@ -39,6 +39,7 @@
         modules = [
           "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
           nixos-hardware.nixosModules.raspberry-pi-4
+          sops-nix.nixosModules.sops
           ./hosts/pi/image.nix
         ];
       };
@@ -49,6 +50,7 @@
 
         modules = [
           nixos-hardware.nixosModules.raspberry-pi-4
+          sops-nix.nixosModules.sops
           ./hosts/pi/configuration.nix
         ];
       };
