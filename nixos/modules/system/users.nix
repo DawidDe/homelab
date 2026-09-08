@@ -22,7 +22,7 @@
       };
     }
 
-    (config = lib.mkIf (config.networking.hostName == "pi") {
+    (lib.mkIf (config.networking.hostName == "pi") {
       users.users = {
         omni = { isSystemUser = true; group = "omni"; uid = 1001; };
         pangolin = { isSystemUser = true; group = "pangolin"; uid = 1002; };
