@@ -16,8 +16,8 @@
       NET_ADMIN = true;
     };
     volumes = [
-      "./omni.asc:/omni.asc:ro"
-      "./config.yaml:/.config.yaml:ro"
+      "${config.sops.secrets."omni-key".path}:/omni.asc:ro"
+      "${config.sops.secrets."omni-config".path}:/.config.yaml:ro"
       "/opt/omni/sqlite:/_out/sqlite:rw"
       "/opt/omni/etcd:/_out/etcd:rw"
     ];

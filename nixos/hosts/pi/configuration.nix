@@ -39,6 +39,16 @@
         sopsFile = ../../secrets/pocket-id.env;
         format = "dotenv";
       };
+      "omni-config" = {
+        sopsFile = ../../secrets/omni.yaml;
+        format = "yaml";
+      };
+      "omni-key" = {
+        sopsFile = ../../secrets/omni.asc;
+        format = "binary";
+        owner = "omni";
+        group = "omni";
+      };
     };
   };
 
