@@ -12,8 +12,9 @@
 
   networking.hostName = "pi";
 
-  boot.initrd.includeDefaultModules = false;
+  hardware.raspberry-pi.firmware.uboot.enable = true;
 
+  boot.initrd.includeDefaultModules = false;
   boot.initrd.availableKernelModules = lib.mkForce [
     "mmc_block"
     "sdhci"
