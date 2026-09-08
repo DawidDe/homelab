@@ -1,0 +1,10 @@
+keys:
+  - &primary age1y4wh8na3lzyg7wx4lgu77rhsc3zgc92u4gvds4ygn5034c6dvvpsqww3hg
+  - &pi age1y4wh8na3lzyg7wx4lgu77rhsc3zgc92u4gvds4ygn5034c6dvvpsqww3hg
+
+creation_rules:
+  - path_regex: secrets/.*$
+    key_groups:
+    - age:
+      - *primary
+      - *pi
