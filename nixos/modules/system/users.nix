@@ -28,6 +28,7 @@
         pangolin = { isSystemUser = true; group = "pangolin"; uid = 1002; };
         pocket-id = { isSystemUser = true; group = "pocket-id"; uid = 1003; };
         vault = { isSystemUser = true; group = "vault"; uid = 1004; };
+        ddns = { isSystemUser = true; group = "ddns"; uid = 1005; };
       };
       
       users.groups = {
@@ -35,6 +36,7 @@
         pangolin.gid = 1002;
         pocket-id.gid = 1003;
         vault.gid = 1004;
+        ddns.gid = 1005;
       };
 
       systemd.tmpfiles.rules = [
@@ -42,6 +44,7 @@
         "d /opt/pangolin 0750 pangolin pangolin -"
         "d /opt/pocket-id 0750 pocket-id pocket-id -"
         "d /opt/vault 0750 vault vault -"
+        "d /opt/ddns 0750 ddns ddns -"
       ];
     })
   ];
