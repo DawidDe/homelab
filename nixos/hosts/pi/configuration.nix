@@ -25,6 +25,21 @@
   sops = {
     age.keyFile = "/var/lib/sops-nix/key.txt";
     age.generateKey = false;
+
+    secrets = {
+      "ddns-env" = {
+        sopsFile = ../../secrets/ddns.env;
+        format = "dotenv";
+      };
+      "pangolin-env" = {
+        sopsFile = ../../secrets/pangolin.env;
+        format = "dotenv";
+      };
+      "pocket-id-env" = {
+        sopsFile = ../../secrets/pocket-id.env;
+        format = "dotenv";
+      };
+    };
   };
 
   system.stateVersion = "26.05";

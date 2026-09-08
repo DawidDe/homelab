@@ -14,7 +14,7 @@
     ];
     user = "1003:1003";
     environmentFiles = [
-      "/opt/ddns/.env"
+      config.sops.secrets."ddns-env".path
     ];
     autoStart = true;
   };

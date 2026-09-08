@@ -17,7 +17,7 @@
       "/opt/pocket-id/data:/app/data"
     ];
     environmentFiles = [
-      "/opt/pocket-id/.env"
+      config.sops.secrets."pocket-id-env".path
     ];
     networks = [
       "pocket-id"

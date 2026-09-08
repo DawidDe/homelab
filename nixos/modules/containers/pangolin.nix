@@ -83,7 +83,7 @@
   virtualisation.oci-containers.containers.newt = {
     image = "docker.io/fosrl/newt";
     environmentFiles = [
-      "./env"
+      config.sops.secrets."pangolin-env".path
     ];
     networks = [
       "pangolin"
