@@ -10,6 +10,13 @@
     ../../modules/services/firewall.nix
     ../../modules/services/ssh.nix
     ../../modules/services/podman.nix
+
+    # Container modules
+    ../../modules/containers/ddns.nix
+    ../../modules/containers/omni.nix
+    ../../modules/containers/pangolin.nix
+    ../../modules/containers/pocket-id.nix
+    ../../modules/containers/vault.nix
   ];
 
   # Host-specific configurations
