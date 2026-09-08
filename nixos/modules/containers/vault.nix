@@ -3,6 +3,7 @@
 {
   systemd.tmpfiles.rules = [
     "d /opt/vault 0700 vault vault -"
+    ''f+ /opt/vault/config.hcl 0644 root root - ui                 = true\ndisable_clustering = true\ndisable_mlock      = false\n\nstorage "file" {\n  path = "/vault/data"\n}\n\nlistener "tcp" {\n  address     = "0.0.0.0:8200"\n  tls_disable = true\n}''
   ];
 
   virtualisation.oci-containers.containers.vault = {
@@ -17,7 +18,7 @@
       IPC_LOCK = true;
     };
     volumes = [
-      "./config.hcl:/vault/config/config.hcl:ro"
+      "/opt/vault/config.hcl:/vault/config/config.hcl:ro"
       "/opt/vault/data:/vault/data"
       "/opt/vault/logs:/vault/logs"
     ];
