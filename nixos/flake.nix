@@ -20,7 +20,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, disko, nixos-hardware, ...}@inputs: {
+  outputs = { self, nixpkgs, disko, nixos-hardware, sops-nix, ...}@inputs: {
     nixosConfigurations = {
       heimdall = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
