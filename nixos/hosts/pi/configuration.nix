@@ -2,6 +2,8 @@
 
 {
   imports = [
+    ./hardware-configuration.nix
+
     # Shared system modules
     ../../modules/system/locale.nix
     ../../modules/system/users.nix
