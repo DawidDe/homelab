@@ -1,5 +1,5 @@
 { config, lib, pkgs, ...}:
 
 {
-  virtualisation.podman.enable;
+  virtualisation.podman.enable = true;
 }
