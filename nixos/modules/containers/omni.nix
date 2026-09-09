@@ -9,7 +9,7 @@
     image = "ghcr.io/siderolabs/omni:latest";
     extraOptions = [
       "--read-only"
-      "--drop-cap=ALL"
+      "--cap-drop=ALL"
       "--security-opt=no-new-privileges:true"
     ];
     capabilities = {

@@ -10,7 +10,7 @@
     image = "docker.io/hashicorp/vault:latest";
     extraOptions = [
       "--read-only"
-      "--drop-cap=ALL"
+      "--cap-drop=ALL"
       "--security-opt=no-new-privileges:true"
     ];
     user = "1004:1004";

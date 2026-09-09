@@ -9,7 +9,7 @@
     image = "docker.io/favonia/cloudflare-ddns:latest";
     extraOptions = [
       "--read-only"
-      "--drop-cap=ALL"
+      "--cap-drop=ALL"
       "--security-opt=no-new-privileges:true"
     ];
     user = "1003:1003";
