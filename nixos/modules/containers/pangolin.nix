@@ -44,7 +44,7 @@
       "443:443"
       "80:80"
     ];
-    command = [
+    cmd = [
       "--reachableAt=http://gerbil:3004"
       "--generateAndSaveKeyTo=/var/config/key"
       "--remoteConfig=http://pangolin:3001/api/v1/"
