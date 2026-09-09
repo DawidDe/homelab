@@ -49,6 +49,7 @@
       "omni-config" = {
         sopsFile = ../../secrets/omni.yaml;
         format = "yaml";
+        key = "";
       };
       "omni-key" = {
         sopsFile = ../../secrets/omni.asc;
