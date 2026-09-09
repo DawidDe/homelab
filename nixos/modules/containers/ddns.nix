@@ -12,7 +12,7 @@
       "--cap-drop=ALL"
       "--security-opt=no-new-privileges:true"
     ];
-    user = "1003:1003";
+    user = "1005:1005";
     environmentFiles = [
       config.sops.secrets."ddns-env".path
     ];
