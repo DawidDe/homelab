@@ -71,7 +71,7 @@
     networks = [
       "service:gerbil"
     ];
-    command = [
+    cmd = [
       "--configFile=/etc/traefik/traefik_config.yml"
     ];
     dependsOn = [

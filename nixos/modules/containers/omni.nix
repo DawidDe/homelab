@@ -21,7 +21,7 @@
       "/opt/omni/sqlite:/_out/sqlite:rw"
       "/opt/omni/etcd:/_out/etcd:rw"
     ];
-    command = [
+    cmd = [
       "--config-path=/config.yaml"
     ];
     devices = [

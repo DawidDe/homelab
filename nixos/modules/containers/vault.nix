@@ -29,7 +29,7 @@
     networks = [
       "vault"
     ];
-    command = [
+    cmd = [
       "vault"
     ];
     autoStart = true;
