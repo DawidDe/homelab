@@ -1,10 +1,6 @@
 { config, lib, pkgs, ...}:
 
 {
-  systemd.tmpfiles.rules = [
-    "d /opt/ddns 0700 ddns ddns -"
-  ];
-
   virtualisation.oci-containers.containers.ddns = {
     image = "docker.io/favonia/cloudflare-ddns:latest";
     extraOptions = [
