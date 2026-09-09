@@ -23,8 +23,8 @@
       "/opt/vault/logs:/vault/logs"
     ];
     environment = {
-      SKIP_CHOWN = true;
-      SKIP_SETCAP = true;
+      SKIP_CHOWN = "true";
+      SKIP_SETCAP = "true";
     };
     networks = [
       "vault"
