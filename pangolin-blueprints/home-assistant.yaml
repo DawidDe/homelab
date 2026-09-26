@@ -1,0 +1,20 @@
+---
+public-resources:
+  home-assistant:
+    name: Home Assistant
+    protocol: http
+    full-domain: home-assistant.dawidde.de
+    rules:
+      - action: allow
+        match: country
+        value: DE
+      - action: deny
+        match: country
+        value: ALL
+    auth:
+      sso-enabled: false
+    targets:
+      - site: heimdall
+        method: http
+        hostname: 192.168.178.77
+        port: 80
