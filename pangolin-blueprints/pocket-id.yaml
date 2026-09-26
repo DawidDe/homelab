@@ -3,7 +3,7 @@ public-resources:
   pocket-id:
     name: Pocket ID
     protocol: http
-    full-domain: pocket-id.domain.de
+    full-domain: pocket-id.dawidde.de
     rules:
       - action: allow
         match: country
@@ -14,13 +14,13 @@ public-resources:
     auth:
       sso-enabled: false
     targets:
-      - site: Pi
+      - site: heimdall
         method: http
-        hostname: pocket-id
+        hostname: 127.0.0.1
         port: 1411
         healthcheck:
           enabled: true
-          hostname: pocket-id
+          hostname: 127.0.0.1
           port: 1411
           path: /
           status: 200
