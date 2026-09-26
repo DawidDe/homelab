@@ -1,0 +1,26 @@
+---
+public-resources:
+  openbao:
+    name: Openbao
+    protocol: http
+    full-domain: openbao.domain.de
+    rules:
+      - action: allow
+        match: country
+        value: DE
+      - action: deny
+        match: country
+        value: ALL
+    auth:
+      sso-enabled: false
+    targets:
+      - site: Pi
+        method: http
+        hostname: 127.0.0.1
+        port: 8200
+        healthcheck:
+          enabled: true
+          hostname: 127.0.0.1
+          port: 8200
+          path: /v1/sys/health
+          status: 200
