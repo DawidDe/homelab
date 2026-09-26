@@ -3,7 +3,7 @@ public-resources:
   openbao:
     name: Openbao
     protocol: http
-    full-domain: openbao.domain.de
+    full-domain: openbao.dawidde.de
     rules:
       - action: allow
         match: country
@@ -14,8 +14,8 @@ public-resources:
     auth:
       sso-enabled: false
     targets:
-      - site: Pi
-        method: http
+      - site: heimdall
+        method: https
         hostname: 127.0.0.1
         port: 8200
         healthcheck:
