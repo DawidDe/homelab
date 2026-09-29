@@ -16,11 +16,11 @@ public-resources:
     targets:
       - site: heimdall
         method: http
-        hostname: omni
+        hostname: 127.0.0.1
         port: 8080
         healthcheck:
           enabled: true
-          hostname: omni
+          hostname: 127.0.0.1
           port: 8080
           path: /
           status: 200
@@ -40,7 +40,7 @@ public-resources:
     targets:
       - site: heimdall
         method: h2c
-        hostname: omni
+        hostname: 127.0.0.1
         port: 8090
   omni-kube-api:
     name: Omni Kubernetes API
@@ -58,5 +58,5 @@ public-resources:
     targets:
       - site: heimdall
         method: h2c
-        hostname: omni
+        hostname: 127.0.0.1
         port: 8100
