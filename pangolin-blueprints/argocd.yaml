@@ -4,11 +4,11 @@ private-resources:
     name: ArgoCD
     mode: http
     sites:
-      - kubernetes
+      - thor
     scheme: https
     destination: argocd-server.argocd.svc.cluster.local
     destination-port: 80
-    full-domain: argocd.domain.de
+    full-domain: argocd.dawidde.de
     ssl: true
     users:
       - user@example.com
