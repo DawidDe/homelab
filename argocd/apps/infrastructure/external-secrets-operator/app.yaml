@@ -2,24 +2,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cloudnative-pg
+  name: external-secrets-operator
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   destination:
-    namespace: cloudnative-pg
+    namespace: external-secrets-operator
     server: 'https://kubernetes.default.svc'
   sources:
-  - repoURL: 'https://cloudnative-pg.github.io/charts'
-    chart: cloudnative-pg
-    targetRevision: 0.28.3
+  - repoURL: 'https://charts.external-secrets.io/'
+    chart: external-secrets
+    targetRevision: 1.0.0
   - repoURL: 'https://github.com/dawidde/homelab.git'
-    path: base/kubernetes/cloudnative-pg
+    path: base/kubernetes/external-secrets-operator/manifests
   project: default
   syncPolicy:
     automated:
-      prune: false
-      selfHeal: false
-      enabled: true
+      prune: true
+      selfHeal: true
     syncOptions:
     - CreateNamespace=true
     - ServerSideApply=true

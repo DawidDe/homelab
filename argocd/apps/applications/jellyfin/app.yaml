@@ -2,28 +2,30 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nextcloud 
+  name: jellyfin
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
 spec:
   destination:
-    namespace: nextcloud
+    namespace: jellyfin
     server: 'https://kubernetes.default.svc'
   sources:
-  - repoURL: 'https://nextcloud.github.io/helm/'
-    chart: nextcloud
-    targetRevision: 9.2.0
+  - repoURL: 'https://jellyfin.github.io/jellyfin-helm/'
+    chart: jellyfin
+    targetRevision: 3.2.0
     helm:
       valueFiles:
-      - $values/nextcloud/values.yaml
+      - $values/jellyfin/values.yaml
   - repoURL: 'git@github.com:DawidDe/argocd-values.git'
     targetRevision: main
     ref: values
   - repoURL: 'https://github.com/dawidde/homelab.git'
-    path: base/kubernetes/nextcloud/manifests
+    path: base/kubernetes/jellyfin/manifests
   project: default
   syncPolicy:
     automated:
-      prune: true
+      prune: false
       selfHeal: false
       enabled: true
     syncOptions:

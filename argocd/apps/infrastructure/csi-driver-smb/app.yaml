@@ -2,16 +2,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: csi-driver-nfs
+  name: csi-driver-smb
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   destination:
     namespace: kube-system
     server: 'https://kubernetes.default.svc'
   sources:
-  - repoURL: 'https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts/'
-    chart: csi-driver-nfs
-    targetRevision: 4.13.1
+  - repoURL: 'https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts'
+    chart: csi-driver-smb
+    targetRevision: 1.20.1
   project: default
   syncPolicy:
     automated:
