@@ -19,11 +19,11 @@ talos_worker = {
 }
 
 home_assistant = {
-    name        = "talos-worker"
+    name        = "homeassistant"
     cpu_sockets = 1
     cpu_cores   = 4
     cpu_threads = 8
     memory      = 8192
-    disk_space  = 30
-    mac_address = ""
+    disk_space  = 40
+    mac_address = "b2:79:6d:b8:35:f4"
 }

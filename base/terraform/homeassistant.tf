@@ -1,6 +1,7 @@
 resource "incus_image" "haos" {
   source_file = {
-    data_path = "/home/dawid/haos.qcow2"
+    data_path = "/tmp/haos.qcow2"
+    metadata_path = "/tmp/haos-metadata.tar.gz"
   }
 }
 
