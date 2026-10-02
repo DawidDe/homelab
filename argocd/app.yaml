@@ -14,6 +14,8 @@ spec:
     path: argocd/apps
     directory:
       recurse: true
+      include: '{applications/*/app.yaml,infrastructure/*/app.yaml,platform/*/app.yaml}'
+      exclude: '**/manifests/**'
   project: default
   syncPolicy:
     automated:
