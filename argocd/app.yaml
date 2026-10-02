@@ -12,6 +12,8 @@ spec:
   - repoURL: 'https://github.com/dawidde/homelab.git'
     targetRevision: main
     path: argocd/apps
+    directory:
+      recurse: true
   project: default
   syncPolicy:
     automated:
