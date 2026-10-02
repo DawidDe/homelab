@@ -21,7 +21,7 @@ spec:
     targetRevision: main
     ref: values
   - repoURL: 'https://github.com/dawidde/homelab.git'
-    path: base/kubernetes/immich/manifests
+    path: argocd/apps/applications/immichj/manifests
   project: default
   syncPolicy:
     automated:

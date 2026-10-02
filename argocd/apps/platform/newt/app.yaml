@@ -21,12 +21,12 @@ spec:
     targetRevision: main
     ref: values
   - repoURL: 'https://github.com/dawidde/homelab.git'
-    path: base/kubernetes/newt/manifests
+    path: argocd/apps/platform/newt/manifests
   project: default
   syncPolicy:
     automated:
-      prune: false
-      selfHeal: false
+      prune: true
+      selfHeal: true
       enabled: true
     syncOptions:
     - CreateNamespace=true

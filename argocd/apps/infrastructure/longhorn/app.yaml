@@ -22,10 +22,10 @@ spec:
     ref: values
   - repoURL: 'https://github.com/dawidde/homelab.git'
     targetRevision: main
-    path: base/kubernetes/longhorn/manifests
+    path: argocd/apps/infrastructure/longhorn/manifests
   project: default
   syncPolicy:
     automated:
-      prune: false
-      selfHeal: false
+      prune: true
+      selfHeal: true
       enabled: true

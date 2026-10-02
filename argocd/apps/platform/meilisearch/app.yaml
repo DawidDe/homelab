@@ -2,31 +2,31 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: meili
+  name: meilisearch
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "4"
 spec:
   destination:
-    namespace: meili
+    namespace: meilisearch
     server: 'https://kubernetes.default.svc'
   sources:
   - repoURL: 'https://meilisearch.github.io/meilisearch-kubernetes'
-    chart: meilisearch
+    chart: meilisear
     targetRevision: 0.40.0
     helm:
       valueFiles:
-      - $values/meili/values.yaml
+      - $values/meilisearch/values.yaml
   - repoURL: 'git@github.com:DawidDe/argocd-values.git'
     targetRevision: main
     ref: values
   - repoURL: 'https://github.com/dawidde/homelab.git'
-    path: base/kubernetes/meili/manifests
+    path: argocd/apps/platform/meilisearch/manifests
   project: default
   syncPolicy:
     automated:
-      prune: false
-      selfHeal: false
+      prune: true
+      selfHeal: true
       enabled: true
     syncOptions:
     - CreateNamespace=true

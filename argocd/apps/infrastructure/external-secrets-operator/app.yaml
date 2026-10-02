@@ -15,7 +15,7 @@ spec:
     chart: external-secrets
     targetRevision: 1.0.0
   - repoURL: 'https://github.com/dawidde/homelab.git'
-    path: base/kubernetes/external-secrets-operator/manifests
+    path: argocd/apps/infrastructure/external-secrets-operator/manifests
   project: default
   syncPolicy:
     automated:

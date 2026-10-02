@@ -21,12 +21,12 @@ spec:
     targetRevision: main
     ref: values
   - repoURL: 'https://github.com/dawidde/homelab.git'
-    path: base/kubernetes/mealie/manifests
+    path: argocd/apps/applications/mealie/manifests
   project: default
   syncPolicy:
     automated:
-      prune: false
-      selfHeal: false
+      prune: true
+      selfHeal: true
       enabled: true
     syncOptions:
     - CreateNamespace=true

@@ -20,11 +20,13 @@ spec:
   - repoURL: 'git@github.com:DawidDe/argocd-values.git'
     targetRevision: HEAD
     ref: values
+  - repoURL: 'https://github.com/dawidde/homelab.git'
+    path: argocd/apps/applications/bitwarden/manifests
   project: default
   syncPolicy:
     automated:
-      prune: false
-      selfHeal: false
+      prune: true
+      selfHeal: true
       enabled: true
     syncOptions:
     - CreateNamespace=true

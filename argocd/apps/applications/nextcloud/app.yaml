@@ -21,7 +21,7 @@ spec:
     targetRevision: main
     ref: values
   - repoURL: 'https://github.com/dawidde/homelab.git'
-    path: base/kubernetes/nextcloud/manifests
+    path: argocd/apps/applications/nextcloud/manifests
   project: default
   syncPolicy:
     automated:
