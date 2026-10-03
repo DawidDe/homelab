@@ -2,17 +2,9 @@
 public-resources:
   jellyfin:
     name: Jellyfin
+    policy: base
     protocol: http
     full-domain: jellyfin.domain.de
-    rules:
-      - action: allow
-        match: country
-        value: DE
-      - action: deny
-        match: country
-        value: ALL
-    auth:
-      sso-enabled: true
     targets:
       - site: kubernetes
         method: http

@@ -2,17 +2,9 @@
 public-resources:
   mealie:
     name: Mealie
+    policy: base
     protocol: http
     full-domain: mealie.domain.de
-    rules:
-      - action: allow
-        match: country
-        value: DE
-      - action: deny
-        match: country
-        value: ALL
-    auth:
-      sso-enabled: false
     targets:
       - site: Kubernetes
         method: http

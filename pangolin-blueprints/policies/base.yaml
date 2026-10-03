@@ -1,0 +1,13 @@
+public-policies:
+  base:
+    name: Base Policy
+    sso: false
+    rules:
+      - action: allow
+        match: country
+        value: DE
+        enabled: true
+      - action: deny
+        match: country
+        value: ALL
+        enabled: true

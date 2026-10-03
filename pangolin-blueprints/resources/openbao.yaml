@@ -2,25 +2,17 @@
 public-resources:
   openbao:
     name: Openbao
+    policy: base
     protocol: http
     full-domain: openbao.dawidde.de
-    rules:
-      - action: allow
-        match: country
-        value: DE
-      - action: deny
-        match: country
-        value: ALL
-    auth:
-      sso-enabled: false
     targets:
       - site: heimdall
         method: http
-        hostname: 127.0.0.1
+        hostname: openbao
         port: 8200
         healthcheck:
           enabled: true
-          hostname: 127.0.0.1
+          hostname: openbao
           port: 8200
           path: /v1/sys/health
           status: 200

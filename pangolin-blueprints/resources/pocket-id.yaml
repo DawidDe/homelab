@@ -2,17 +2,9 @@
 public-resources:
   pocket-id:
     name: Pocket ID
+    policy: base
     protocol: http
     full-domain: pocket-id.dawidde.de
-    rules:
-      - action: allow
-        match: country
-        value: DE
-      - action: deny
-        match: country
-        value: ALL
-    auth:
-      sso-enabled: false
     targets:
       - site: heimdall
         method: http
