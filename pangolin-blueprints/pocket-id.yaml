@@ -16,11 +16,11 @@ public-resources:
     targets:
       - site: heimdall
         method: http
-        hostname: 127.0.0.1
+        hostname: pocket-id
         port: 1411
         healthcheck:
           enabled: true
-          hostname: 127.0.0.1
+          hostname: pocket-id
           port: 1411
           path: /
           status: 200
