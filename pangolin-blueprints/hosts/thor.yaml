@@ -1,0 +1,24 @@
+private-resources:
+  thor:
+    name: Thor
+    mode: cidr
+    destination: 192.168.178.3/32
+    sites:
+      - heimdal
+    tcp-ports: "22"
+    disable-icmp: false
+    alias: "thor.example.com"
+    users:
+      - user@example.com
+
+  thor-idrac:
+    name: iDRAC - Thor
+    mode: cidr
+    destination: 192.168.178.2/32
+    sites:
+      - heimdal
+    tcp-ports: "22,5901"
+    disable-icmp: false
+    alias: "idrac.thor.example.com"
+    users:
+      - user@example.com
