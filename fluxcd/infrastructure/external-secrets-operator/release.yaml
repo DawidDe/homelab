@@ -2,15 +2,25 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: podinfo
-  namespace: default
+  name: external-secrets-operator
+  namespace: external-secrets-operator
 spec:
   chart:
     spec:
       chart: external-secrets
-      version: 2.13.x
-      interval: 4h
+      version: "2.13.x"
+      interval: 12h
       sourceRef:
         kind: HelmRepository
         name: external-secrets-operator
   releaseName: external-secrets-operator 
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3 
+  test:
+    enable: true
+  driftDetection:
+    mode: enabled  
