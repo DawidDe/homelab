@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - secret-store.yaml
   - newt-secrets.yaml
+  - mealiesearch-secrets.yaml

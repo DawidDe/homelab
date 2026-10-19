@@ -21,6 +21,9 @@ metadata:
   name: newt
   namespace: newt
 spec:
+  dependsOn:
+    - name: external-secrets-operator
+      namespace: external-secrets-operator
   interval: 30m
   timeout: 10m
   chart:
