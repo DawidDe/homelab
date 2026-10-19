@@ -1,0 +1,9 @@
+keys:
+  - &primary age1yubikey1qfeuzecefcjwjnyup4699fs6nwnz2tl3ymlaad5pxj9kflhc852r7j9e3sa
+
+creation_rules:
+  - path_regex: secrets/.*$
+    encrypted_regex: ^(data|stringData)$ 
+    key_groups:
+    - age:
+      - *primary
