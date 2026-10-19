@@ -6,5 +6,4 @@ resources:
   - csi-driver-smb.yaml
   - longhorn.yaml
   - cloudnative-pg.yaml
-  - newt.yaml
   - meilisearch.yaml
