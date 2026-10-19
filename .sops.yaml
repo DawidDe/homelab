@@ -1,5 +1,5 @@
 keys:
-  - &primary age1yubikey1qfeuzecefcjwjnyup4699fs6nwnz2tl3ymlaad5pxj9kflhc852r7j9e3sa
+  - &primary age1usqtete8fcgksk6y6asq4tcva538age7rnfcc485uvnsg8f2vs3srhg7nv
 
 creation_rules:
   - path_regex: secrets/.*$
