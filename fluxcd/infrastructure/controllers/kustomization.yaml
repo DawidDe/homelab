@@ -1,53 +1,8 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1
+apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-metadata:
-  name: infrastructure-external-secrets-operator
-  namespace: flux-system
-spec:
-  interval: 30m
-  retryInterval: 2m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./fluxcd/infrastructure/controllers/external-secrets-operator.yaml
-  prune: true
-  wait: true
-
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: infrastructure-csi-driver-smb
-  namespace: flux-system
-spec:
-  interval: 30m
-  retryInterval: 2m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./fluxcd/infrastructure/controllers/csi-driver-smb.yaml
-  prune: true
-  wait: true
-  
-  ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: infrastructure-longhorn
-  namespace: flux-system
-spec:
-  interval: 30m
-  retryInterval: 2m
-  timeout: 5m
-  dependsOn:
-    - infrastructure-csi-driver-smb
-    - infrastructure-external-secrets-operator
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./fluxcd/infrastructure/controllers/longhorn.yaml
-  prune: true
-  wait: true
+resources:
+  - external-secrets-operator.yaml
+  - csi-driver-smb.yaml
+  - longhorn.yaml
+  - cloudnative-pg.yaml
