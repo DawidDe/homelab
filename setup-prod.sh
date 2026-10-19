@@ -15,3 +15,13 @@ flux bootstrap github \
   --branch=main \
   --path=fluxcd/clusters/production \
   --personal
+  
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-token
+  namespace: external-secrets-operator
+data:
+  token:
+EOF
