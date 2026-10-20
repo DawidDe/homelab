@@ -4,9 +4,9 @@ public-resources:
     name: Jellyfin
     policy: base
     protocol: http
-    full-domain: jellyfin.domain.de
+    full-domain: jellyfin.dawidde.de
     targets:
-      - site: kubernetes
+      - site: thor
         method: http
         hostname: jellyfin.jellyfin.svc.cluster.local
         port: 8096
