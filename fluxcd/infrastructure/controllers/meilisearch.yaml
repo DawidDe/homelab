@@ -36,6 +36,13 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: meilisearch
+  values:
+    auth:
+      existingMasterKeySecret: "meilisearch-secrets"
+
+    persistence:
+      enabled: true
+      storageClass: "longhorn" 
   releaseName: meilisearch
   install:
     remediation:
