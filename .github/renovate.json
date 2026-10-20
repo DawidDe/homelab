@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "flux": {
+    "managerFilePatterns": [
+      "/fluxcd/apps/.+\\.ya?ml$/",
+      "/fluxcd/infrastructure/.+\\.ya?ml$/"
+    ]
+  },
+  "packageRules": [
+    {
+      "matchManagers": ["flux"],
+      "matchUpdateTypes": ["patch"],
+      "enabled": false
+    }
+  ]
+}
