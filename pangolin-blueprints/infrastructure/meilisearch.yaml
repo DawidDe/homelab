@@ -1,0 +1,14 @@
+---
+private-resources:
+  longhorn:
+    name: Meilisearch
+    mode: http
+    sites:
+      - thor
+    scheme: http
+    destination: meilisearch.meilisearch.svc.cluster.local
+    destination-port: 7700
+    full-domain: meilisearch.dawidde.de
+    ssl: true
+    users:
+      - user@example.com
