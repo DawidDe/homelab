@@ -7,3 +7,4 @@ resources:
   - longhorn.yaml
   - cloudnative-pg.yaml
   - meilisearch.yaml
+  - cilium.yaml
