@@ -8,6 +8,7 @@
 
 # Layer 3: kubernetes
 read -p "Enter github token: " GITHUB_TOKEN
+read -p "Enter vault token: " vault_token
 
 helm install cilium cilium/cilium --version 1.20.3 \
    --namespace $CILIUM_NAMESPACE \
@@ -27,6 +28,7 @@ flux bootstrap github \
   --path=fluxcd/clusters/production \
   --personal
   
+encoded_vault_token=$(echo -n "$vault_token" | base64)
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
@@ -34,5 +36,5 @@ metadata:
   name: vault-token
   namespace: external-secrets-operator
 data:
-  token:
+  token: ${encoded_vault_token}
 EOF
