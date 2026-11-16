@@ -34,7 +34,8 @@ resource "incus_instance" "home-assistant" {
     type = "nic"
 
     properties = {
-      network = "vmbr0"
+      nictype = "bridged"
+      parent = "vmbr0"
       hwaddr = var.home_assistant.mac_address
     }
   }
