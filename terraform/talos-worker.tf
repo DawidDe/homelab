@@ -37,7 +37,8 @@ resource "incus_instance" "talos-worker" {
     type = "nic"
 
     properties = {
-      network = "vmbr0"
+      nictype = "bridged"
+      network = "br0"
       hwaddr = var.talos_worker.mac_address
     }
   }
