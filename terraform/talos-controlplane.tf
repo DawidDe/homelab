@@ -38,7 +38,7 @@ resource "incus_instance" "talos-controlplane" {
 
     properties = {
       nictype = "bridged"
-      network = "br0"
+      parent = "br0"
       hwaddr = var.talos_controlplane.mac_address
     }
   }
