@@ -41,6 +41,8 @@ spec:
         kind: HelmRepository
         name: longhorn
   values:
+    persistence:
+      defaultClassReplicaCount: 1
     defaultBackupStore:
       backupTarget: "cifs://192.168.178.3/backups"
       backupTargetCredentialSecret: "longhorn-secrets"
