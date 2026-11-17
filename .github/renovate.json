@@ -12,7 +12,7 @@
   "packageRules": [
     {
       "matchManagers": ["flux"],
-      "matchUpdateTypes": ["patch"],
+      "matchUpdateTypes": ["minor","patch", "pin", "digest"],
       "enabled": false
     }
   ]
