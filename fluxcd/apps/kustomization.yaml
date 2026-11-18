@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - newt
   - jellyfin
+  - immich

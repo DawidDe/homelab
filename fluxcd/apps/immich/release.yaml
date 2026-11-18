@@ -1,0 +1,46 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: immich
+  namespace: immich
+spec:
+  interval: 30m
+  timeout: 10m
+  chart:
+    spec:
+      chart: immich
+      version: "0.13.4"
+      interval: 12h
+      sourceRef:
+        kind: OCIRepository
+        name: immich
+  values:
+    controllers:
+      main:
+        containers:
+          main:
+            env:
+              DB_HOSTNAME: immich-postgresql-rw
+              DB_DATABASE_NAME: immich
+              DB_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-secrets
+                    key: dbUsername
+              DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-secrets
+                    key: dbPassword
+  releaseName: immich
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3 
+  test:
+    enable: true
+  driftDetection:
+    mode: enabled
