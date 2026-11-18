@@ -16,7 +16,7 @@ spec:
         containers:
           main:
             env:
-              DB_HOSTNAME: immich-postgresql-rw
+              DB_HOSTNAME: immich-database-rw
               DB_DATABASE_NAME: immich
               DB_USERNAME:
                 valueFrom:
