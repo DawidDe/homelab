@@ -21,13 +21,17 @@ spec:
               DB_USERNAME:
                 valueFrom:
                   secretKeyRef:
-                    name: immich-secrets
-                    key: dbUsername
+                    name: immich-db-secrets
+                    key: username
               DB_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: immich-secrets
-                    key: dbPassword
+                    name: immich-db-secrets
+                    key: password
+    immich:
+      persistence:
+        library:
+          existingClaim: immich-library
   releaseName: immich
   install:
     remediation:
