@@ -7,14 +7,9 @@ metadata:
 spec:
   interval: 30m
   timeout: 10m
-  chart:
-    spec:
-      chart: immich
-      version: "0.13.4"
-      interval: 12h
-      chartRef:
-        kind: OCIRepository
-        name: immich
+  chartRef:
+    kind: OCIRepository
+    name: immich
   values:
     controllers:
       main:
