@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - secret-store.yaml
   - longhorn-secrets.yaml
+  - backup-job.yaml
