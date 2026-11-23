@@ -21,6 +21,14 @@ spec:
                   secretKeyRef:
                     name: immich-database-app
                     key: fqdn-uri
+    valkey:
+      enabled: true
+      persistence:
+        data:
+          type: persistentVolumeClaim
+          size: 1Gi
+          accessMode: ReadWriteOnce
+          storageClass: longhorn
     immich:
       persistence:
         library:
