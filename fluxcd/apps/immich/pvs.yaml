@@ -12,6 +12,13 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: "immich-library"
   mountOptions:
+    - dir_mode=0775
+    - file_mode=0664
+    - uid=1000
+    - gid=1000
+    - mfsymlinks
+    - cache=strict
+    - noserverino
   csi:
     driver: smb.csi.k8s.io
     volumeHandle: media
