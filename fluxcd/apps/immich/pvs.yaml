@@ -22,7 +22,7 @@ spec:
     driver: smb.csi.k8s.io
     volumeHandle: immich-media
     volumeAttributes:
-      source: "//192.168.178.3/media"
+      source: "//192.168.178.3/immich"
     nodeStageSecretRef:
       name: immich-smb-secrets
       namespace: immich
