@@ -19,7 +19,7 @@ spec:
               DB_URL:
                 valueFrom:
                   secretKeyRef:
-                    name: immich-database-superuser
+                    name: immich-database-app
                     key: fqdn-uri
     immich:
       persistence:
