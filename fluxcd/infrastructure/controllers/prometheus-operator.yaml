@@ -42,7 +42,7 @@ spec:
       agentMode: true
       prometheusSpec:
         remoteWrite:
-          - url: https://prometheus.dawidde.de/push
+          - url: https://prometheus.dawidde.de/api/v1/write
     alertmanager:
       enabled: false
     grafana:
