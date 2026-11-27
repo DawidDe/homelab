@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - secret-store.yaml
   - longhorn-secrets.yaml
+  - prometheus-operator-secrets.yaml
   - backup-job.yaml

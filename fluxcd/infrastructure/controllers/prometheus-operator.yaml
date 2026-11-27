@@ -43,6 +43,13 @@ spec:
       prometheusSpec:
         remoteWrite:
           - url: https://prometheus.dawidde.de/api/v1/write
+            basicAuth:
+              username:
+                name: prometheus-operator-secrets
+                key: username
+              password:
+                name: prometheus-operator-secrets
+                key: password
     alertmanager:
       enabled: false
     grafana:
