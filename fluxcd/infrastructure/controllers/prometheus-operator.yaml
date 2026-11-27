@@ -6,18 +6,13 @@ metadata:
   
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
+kind: HelmRepository
 metadata:
-  name: prometheus-operator
+  name: prometheus-community
   namespace: prometheus-operator
 spec:
-  interval: 12h
-  url: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
-  ref:
-    tag: "94.2.0"
-  layerSelector:
-      mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
-      operation: extract
+  interval: 1h
+  url: https://prometheus-community.github.io/helm-charts
   
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -28,9 +23,14 @@ metadata:
 spec:
   interval: 30m
   timeout: 10m
-  chartRef:
-    kind: OCIRepository
-    name: prometheus-operator
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: "94.2.x"
+      interval: 12h
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-operator
   values:
     defaultRules:
       create: false
